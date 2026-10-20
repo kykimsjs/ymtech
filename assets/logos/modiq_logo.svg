@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 140" width="100%" height="100%">
+  <defs>
+    <linearGradient id="modiqBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E88E5"/>
+      <stop offset="100%" stop-color="#00569E"/>
+    </linearGradient>
+    <filter id="electricGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#0072CE" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#electricGlow)">
+    <!-- MODIQ Wordmark -->
+    <g fill="url(#modiqBlue)" stroke="none">
+      <!-- 'M' - Smooth curves -->
+      <path d="M 25,85 L 25,36 C 25,28 32,22 41,22 C 48,22 55,27 58,33 C 62,27 69,22 76,22 C 85,22 92,28 92,36 L 92,85 L 77,85 L 77,42 C 77,36 74,33 69,33 C 64,33 60,37 60,43 L 60,85 L 45,85 L 45,42 C 45,36 42,33 37,33 C 32,33 29,37 29,43 L 29,85 Z"/>
+      
+      <!-- 'O' - Rounded stadium shape -->
+      <path d="M 128,21 C 146,21 160,35 160,53.5 C 160,72 146,86 128,86 C 110,86 96,72 96,53.5 C 96,35 110,21 128,21 Z M 128,34 C 117,34 110,42 110,53.5 C 110,65 117,73 128,73 C 139,73 146,65 146,53.5 C 146,42 139,34 128,34 Z"/>
+
+      <!-- 'D' -->
+      <path d="M 172,22 L 202,22 C 220,22 232,34 232,53.5 C 232,73 220,85 202,85 L 172,85 Z M 187,35 L 187,72 L 200,72 C 210,72 217,64 217,53.5 C 217,43 210,35 200,35 Z"/>
+
+      <!-- 'I' -->
+      <rect x="244" y="22" width="15" height="63" rx="4"/>
+
+      <!-- 'Q' with Electric Lightning Spark -->
+      <g>
+        <!-- Body of Q -->
+        <path d="M 295,21 C 314,21 328,35 328,53.5 C 328,62 324,70 318,75 L 329,78 L 305,94 L 314,84 C 308,85.5 302,86 295,86 C 276,86 262,72 262,53.5 C 262,35 276,21 295,21 Z M 295,34 C 284,34 276,42 276,53.5 C 276,65 284,73 295,73 C 306,73 313,65 313,53.5 C 313,42 306,34 295,34 Z"/>
+        <!-- Electric Lightning Bolt Slash -->
+        <polygon points="310,70 338,73 322,86 345,89 316,114 322,96 304,94" fill="#00569E"/>
+        <polygon points="312,71 336,74 323,85 342,88 318,111 323,95 306,94" fill="#0072CE"/>
+      </g>
+    </g>
+
+    <!-- Slogan: Advanced Smart Module -->
+    <text x="25" y="118" font-family="'Outfit', 'Montserrat', 'Pretendard', sans-serif" font-weight="500" font-size="20" fill="#6B7280" letter-spacing="4.5">Advanced Smart Module</text>
+  </g>
+</svg>

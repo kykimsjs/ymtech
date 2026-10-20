@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>와이엠이노테크 | YM INNOTECH - Advanced Smart Module Solution</title>
+  <meta name="description" content="우수하고 똑똑한 기술력과 친환경 기술의 결합, 스마트 모듈 전문 브랜드 MODIQ 및 첨단 엔지니어링 기업 와이엠이노테크 공식 홈페이지입니다.">
+  <meta name="keywords" content="와이엠이노테크, YM INNOTECH, MODIQ, 모디큐, 스마트 모듈, BMS 모듈, IoT 제어, 친환경 전력 솔루션">
+  <meta property="og:title" content="와이엠이노테크 | YM INNOTECH - Advanced Smart Module Solution">
+  <meta property="og:description" content="모듈러 혁신으로 미래 기술을 연결하는 와이엠이노테크 및 대표 브랜드 MODIQ 공식 홈페이지">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts: Outfit & Noto Sans KR / Noto Serif KR -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800;900&family=Noto+Serif+KR:wght@600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/animations.css">
+
+  <!-- Lucide Icons Library -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+
+  <!-- ==========================================================================
+       HEADER & NAVIGATION
+       ========================================================================== -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-inner">
+      <div class="nav-brand">
+        <a href="#home" class="nav-logo-link" id="nav-logo" title="와이엠이노테크 홈으로 이동">
+          <img src="assets/logos/ym_innotech_signature_original.png" alt="와이엠이노테크 공식 CI 로고" class="nav-logo-img">
+        </a>
+      </div>
+
+      <nav>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="#company" class="nav-link" data-i18n="navCompany">기업소개</a></li>
+          <li><a href="#philosophy" class="nav-link" data-i18n="navCiBi">CI/BI 스토리</a></li>
+          <li>
+            <a href="#modiq" class="nav-link">
+              <span data-i18n="navModiq">MODIQ 솔루션</span>
+              <span class="nav-badge-bi">BI</span>
+            </a>
+          </li>
+          <li><a href="#tech" class="nav-link" data-i18n="navTech">핵심기술 & R&D</a></li>
+          <li><a href="#news" class="nav-link">미디어룸</a></li>
+          <li><a href="#contact" class="nav-link" data-i18n="navContact">제휴 및 문의</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Language Switcher -->
+        <div class="lang-toggle" aria-label="언어 선택">
+          <button type="button" class="lang-btn active" id="lang-kr">KR</button>
+          <button type="button" class="lang-btn" id="lang-en">EN</button>
+        </div>
+
+        <!-- B2B Inquiry CTA -->
+        <a href="#contact" class="btn-nav-cta" id="btn-header-inquiry">
+          <span>견적·제휴 문의</span>
+          <i data-lucide="send" class="icon-xs"></i>
+        </a>
+
+        <!-- Mobile Menu Hamburger -->
+        <button class="hamburger" id="hamburger" aria-label="모바일 메뉴 열기">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       HERO SECTION
+       ========================================================================== -->
+  <section class="hero-section" id="home">
+    <div class="hero-bg-blobs">
+      <div class="blob-1"></div>
+      <div class="blob-2"></div>
+    </div>
+
+    <div class="container hero-grid">
+      <!-- Left Content -->
+      <div class="hero-content">
+        <div class="hero-tag-badge">
+          <span class="hero-tag-dot"></span>
+          <span>첨단 스마트 모듈 & 신뢰의 엔지니어링</span>
+        </div>
+
+        <h1 class="hero-title">
+          모듈러 혁신으로<br>
+          <span class="gradient-text">미래 기술을 연결합니다</span>
+        </h1>
+
+        <p class="hero-desc">
+          와이엠이노테크는 우수하고 똑똑한 기술력과 친환경 기술을 결합하여, 차세대 고효율 스마트 모듈 브랜드 <strong>MODIQ</strong>을 통해 글로벌 모듈러 테크놀로지를 선도합니다.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#modiq" class="btn-modiq" id="hero-btn-modiq">
+            <span>MODIQ 모듈 라인업</span>
+            <i data-lucide="zap" class="icon-sm"></i>
+          </a>
+          <a href="#company" class="btn-outline" id="hero-btn-about">
+            <span>기업소개 및 비전</span>
+            <i data-lucide="arrow-right" class="icon-sm"></i>
+          </a>
+        </div>
+
+        <!-- Metric Badges -->
+        <div class="hero-metrics">
+          <div class="metric-item">
+            <span class="metric-val">99.4%</span>
+            <span class="metric-lbl">모듈 에너지 효율</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-val">ISO 9001</span>
+            <span class="metric-lbl">국제 품질 경영인증</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-val">ZERO</span>
+            <span class="metric-lbl">친환경 유해물질 설계</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right 3D Interactive Stage -->
+      <div class="hero-stage">
+        <div class="hero-cube-container">
+          <!-- Photographic Circuit Backdrop -->
+          <div class="hero-photo-backdrop">
+            <img
+              src="https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=800"
+              alt="와이엠이노테크 첨단 스마트 모듈 회로" class="hero-bg-photo">
+            <div class="hero-photo-overlay"></div>
+          </div>
+
+          <div class="cube-card-interactive" id="hero-cube-card">
+            <!-- 3D YM Hexagonal Cube Symbol (Official BS 14) -->
+            <img src="assets/logos/ym_symbol_original.png" alt="와이엠이노테크 공식 3D 심볼마크" class="cube-svg-hero">
+
+            <!-- Float Badges with Lucide Icons -->
+            <div class="hero-badge-float hero-badge-1">
+              <div class="badge-icon tech"><i data-lucide="cpu" class="icon-sm"></i></div>
+              <div>
+                <div style="font-size: 0.75rem; color: #6B7280;">High-Tech Engineering</div>
+                <div>지능형 모듈 아키텍처</div>
+              </div>
+            </div>
+
+            <div class="hero-badge-float hero-badge-2">
+              <div class="badge-icon modiq"><i data-lucide="zap" class="icon-sm"></i></div>
+              <div>
+                <div style="font-size: 0.75rem; color: #0072CE;">MODIQ Brand</div>
+                <div>Advanced Smart Module</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       CI STANDARDS BORDERLINE DIVIDER (BS 22 Standard)
+       ========================================================================== -->
+  <div class="ci-borderline-wrap" aria-hidden="true">
+    <div class="ci-borderline-a">
+      <div class="borderline-bar"></div>
+      <div class="borderline-center">
+        <img src="assets/logos/ym_symbol_original.png" alt="와이엠이노테크 CI 심볼마크" class="borderline-symbol">
+      </div>
+      <div class="borderline-bar"></div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       CI PHILOSOPHY & CORE VALUES
+       ========================================================================== -->
+  <section class="section-common" id="company">
+    <div class="container">
+      <div class="section-head" id="philosophy">
+        <span class="section-tag">Corporate Identity & Value</span>
+        <h2 class="section-title">
+          기술과 환경, 신뢰의 조화로<br>
+          <span class="highlight">내일의 스마트 산업을 개척합니다</span>
+        </h2>
+        <p class="section-desc">
+          와이엠이노테크의 브랜드마크는 이니셜 'Y'와 'M'이 3차원 육각 큐브로 맞물리는 구조로 설계되어,
+          첨단 기술력의 견고함과 지속 가능한 친환경 가치를 상징합니다.
+        </p>
+      </div>
+
+      <!-- R&D Spotlight Banner with Real Engineering Photo -->
+      <div class="rnd-spotlight-banner">
+        <div class="rnd-spotlight-img-wrap">
+          <img src="https://images.pexels.com/photos/3862130/pexels-photo-3862130.jpeg?auto=compress&cs=tinysrgb&w=800"
+            alt="와이엠이노텍 R&D 연구소 및 엔지니어링 개발 환경" class="rnd-spotlight-img">
+          <div class="rnd-spotlight-overlay"></div>
+          <div class="rnd-spotlight-badge">
+            <i data-lucide="microchip" class="icon-sm"></i>
+            <span>YM INNOTECH Advanced R&D Lab</span>
+          </div>
+        </div>
+        <div class="rnd-spotlight-content">
+          <div class="rnd-spotlight-tag">Precision Engineering Heritage</div>
+          <h3 class="rnd-spotlight-title">기술력으로 증명하는 정밀 모듈 R&D 인프라</h3>
+          <p class="rnd-spotlight-desc">
+            와이엠이노테크는 자체 다채널 회로 시뮬레이션 및 초고정밀 SMT 패키징 기술을 개발하며,
+            산업용 고효율 파워 솔루션부터 첨단 IoT 지능형 제어기까지 신뢰성 높은 스마트 모듈을 완성합니다.
+          </p>
+          <div class="rnd-spotlight-stats">
+            <div class="rnd-stat">
+              <span class="rnd-stat-num">100%</span>
+              <span class="rnd-stat-lbl">자체 회로 설계율</span>
+            </div>
+            <div class="rnd-stat">
+              <span class="rnd-stat-num">AEC-Q</span>
+              <span class="rnd-stat-lbl">전장 신뢰성 기준</span>
+            </div>
+            <div class="rnd-stat">
+              <span class="rnd-stat-num">Tier-1</span>
+              <span class="rnd-stat-lbl">글로벌 규격 공급</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="values-grid">
+        <!-- Value 1: Smart Technology -->
+        <div class="value-card"
+          style="--card-accent: #355BA6; --icon-bg: rgba(53, 91, 166, 0.1); --icon-color: #355BA6;">
+          <div class="value-icon-box">
+            <i data-lucide="cpu" class="icon-lg"></i>
+          </div>
+          <span class="value-card-pantone">PANTONE 2117 C</span>
+          <h3 class="value-card-title">우수하고 똑똑한 기술력</h3>
+          <p class="value-card-desc">
+            복잡한 전자 기구와 파워 시스템을 최소 단위로 집약하는 정밀 모듈화 기술로 고객사의 엔지니어링 효율을 극대화합니다.
+          </p>
+        </div>
+
+        <!-- Value 2: Eco-friendly -->
+        <div class="value-card"
+          style="--card-accent: #006E82; --icon-bg: rgba(0, 110, 130, 0.1); --icon-color: #006E82;">
+          <div class="value-icon-box">
+            <i data-lucide="shield-check" class="icon-lg"></i>
+          </div>
+          <span class="value-card-pantone">PANTONE 315 C</span>
+          <h3 class="value-card-title">친환경 기술의 경제성</h3>
+          <p class="value-card-desc">
+            저탄소·고효율 아키텍처를 적용하여 불필요한 에너지 손실을 원천 차단하고, 친환경 지속가능성을 확보합니다.
+          </p>
+        </div>
+
+        <!-- Value 3: Foundation & Trust -->
+        <div class="value-card"
+          style="--card-accent: #4B5563; --icon-bg: rgba(107, 114, 128, 0.1); --icon-color: #4B5563;">
+          <div class="value-icon-box">
+            <i data-lucide="building-2" class="icon-lg"></i>
+          </div>
+          <span class="value-card-pantone">PANTONE Cool Gray 7 C</span>
+          <h3 class="value-card-title">기업 기반과 신뢰 서비스</h3>
+          <p class="value-card-desc">
+            기획 단계부터 양산, 사후 기술 지원까지 빈틈없는 파트너십을 바탕으로 고객사의 비즈니스 성공을 뒷받침합니다.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       FLAGSHIP BI: MODIQ SHOWCASE (Dark Immersion Mode)
+       ========================================================================== -->
+  <section class="modiq-showcase-section" id="modiq">
+    <div class="modiq-pattern-overlay"></div>
+
+    <div class="container">
+      <div class="modiq-header">
+        <!-- MODIQ Slogan Badge -->
+        <div class="modiq-slogan-pill">
+          <i data-lucide="zap" class="icon-sm lightning"></i>
+          <span>Advanced Smart Module</span>
+        </div>
+
+        <!-- MODIQ Hero Logo (Official BS 09 Signature) -->
+        <div class="modiq-logo-hero">
+          <img src="assets/logos/modiq_signature_original_white.png" alt="MODIQ 공식 브랜드 로고 - Advanced Smart Module"
+            class="modiq-hero-logo-img">
+        </div>
+
+        <h2 class="modiq-title">
+          차세대 스마트 모듈 솔루션<br>
+          <span class="gradient-modiq">MODIQ 플래그십 라인업</span>
+        </h2>
+        <p class="modiq-desc">
+          초고효율 전력 제어와 지능형 센싱 기술이 집약된 MODIQ 차세대 스마트 모듈 아키텍처.
+          소형 전자기기부터 산업용 대용량 파워 솔루션까지 최적화된 고신뢰성 제품군을 만나보세요.
+        </p>
+      </div>
+
+      <!-- Filter Tabs with Lucide Icons -->
+      <div class="modiq-tabs" role="tablist">
+        <button type="button" class="modiq-tab-btn active" data-filter="all" role="tab">
+          <i data-lucide="layout-grid" class="icon-xs"></i>
+          <span>전체 모듈 보기</span>
+        </button>
+        <button type="button" class="modiq-tab-btn" data-filter="power" role="tab">
+          <i data-lucide="battery-charging" class="icon-xs"></i>
+          <span>스마트 전원 / BMS</span>
+        </button>
+        <button type="button" class="modiq-tab-btn" data-filter="iot" role="tab">
+          <i data-lucide="cpu" class="icon-xs"></i>
+          <span>지능형 제어 / 통신</span>
+        </button>
+        <button type="button" class="modiq-tab-btn" data-filter="eco" role="tab">
+          <i data-lucide="leaf" class="icon-xs"></i>
+          <span>친환경 통합 솔루션</span>
+        </button>
+      </div>
+
+      <!-- Module Cards Grid with Realistic Hardware Photos -->
+      <div class="modiq-modules-grid">
+        <!-- Card 1: Power BMS -->
+        <div class="module-card" data-category="power">
+          <div class="module-card-img-wrap">
+            <img
+              src="https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=800"
+              alt="MODIQ 스마트 BMS 전원 모듈 실물 회로" class="module-card-photo">
+            <div class="module-photo-overlay"></div>
+            <span class="module-tech-badge">
+              <i data-lucide="zap" class="icon-xs"></i>
+              <span>HIGH VOLTAGE BMS</span>
+            </span>
+          </div>
+          <span class="module-card-category">Power & Battery Solution</span>
+          <h3 class="module-card-name">MODIQ-P100 Smart BMS</h3>
+          <p class="module-card-desc">
+            다중 셀 밸런싱 알고리즘과 6중 하드웨어 보호 회로가 결합된 초고효율 지능형 배터리 관리 모듈입니다.
+          </p>
+          <ul class="module-specs-list">
+            <li class="module-spec-item"><span>변환 효율</span><span>99.4% Ultra High</span></li>
+            <li class="module-spec-item"><span>지원 전압</span><span>DC 24V ~ 48V</span></li>
+            <li class="module-spec-item"><span>인터페이스</span><span>CAN 2.0B / RS-485</span></li>
+          </ul>
+          <button class="btn-module-detail" data-id="modiq-power-100">
+            <span>제품 상세 규격 보기</span>
+            <i data-lucide="chevron-right" class="icon-xs"></i>
+          </button>
+        </div>
+
+        <!-- Card 2: IoT Control -->
+        <div class="module-card" data-category="iot">
+          <div class="module-card-img-wrap">
+            <img
+              src="https://images.pexels.com/photos/3913025/pexels-photo-3913025.jpeg?auto=compress&cs=tinysrgb&w=800"
+              alt="MODIQ 지능형 IoT 제어 모듈 마이크로프로세서" class="module-card-photo">
+            <div class="module-photo-overlay"></div>
+            <span class="module-tech-badge">
+              <i data-lucide="cpu" class="icon-xs"></i>
+              <span>DUAL-CORE MESH</span>
+            </span>
+          </div>
+          <span class="module-card-category">Smart Control & Mesh</span>
+          <h3 class="module-card-name">MODIQ-C300 IoT Mesh Core</h3>
+          <p class="module-card-desc">
+            초저지연 무선 메쉬 네트워크와 듀얼 코어 마이크로프로세서를 탑재하여 실시간 원격 제어 및 모니터링을 실현합니다.
+          </p>
+          <ul class="module-specs-list">
+            <li class="module-spec-item"><span>통신 대역</span><span>BLE 5.2 / Mesh</span></li>
+            <li class="module-spec-item"><span>응답 지연</span><span>&lt; 1.8ms Real-Time</span></li>
+            <li class="module-spec-item"><span>보호 규격</span><span>IP67 방진방수</span></li>
+          </ul>
+          <button class="btn-module-detail" data-id="modiq-iot-300">
+            <span>제품 상세 규격 보기</span>
+            <i data-lucide="chevron-right" class="icon-xs"></i>
+          </button>
+        </div>
+
+        <!-- Card 3: Eco Integrated -->
+        <div class="module-card" data-category="eco">
+          <div class="module-card-img-wrap">
+            <img src="https://images.pexels.com/photos/373543/pexels-photo-373543.jpeg?auto=compress&cs=tinysrgb&w=800"
+              alt="MODIQ 친환경 통합 복합 모듈 파워 아키텍처" class="module-card-photo">
+            <div class="module-photo-overlay"></div>
+            <span class="module-tech-badge">
+              <i data-lucide="leaf" class="icon-xs"></i>
+              <span>ECO ARCHITECTURE</span>
+            </span>
+          </div>
+          <span class="module-card-category">Eco-Friendly Architecture</span>
+          <h3 class="module-card-name">MODIQ-E500 Eco Integrated</h3>
+          <p class="module-card-desc">
+            대기 전력을 극소화하고 에너지 하베스팅 기술을 접목하여 지속 가능한 미래를 위한 탄소 배출 저감 솔루션을 제공합니다.
+          </p>
+          <ul class="module-specs-list">
+            <li class="module-spec-item"><span>대기 전력</span><span>&lt; 0.05W Eco Standby</span></li>
+            <li class="module-spec-item"><span>원자재율</span><span>88.5% 친환경 재생 복합소재</span></li>
+            <li class="module-spec-item"><span>수명 주기</span><span>MTBF 100,000h</span></li>
+          </ul>
+          <button class="btn-module-detail" data-id="modiq-eco-500">
+            <span>제품 상세 규격 보기</span>
+            <i data-lucide="chevron-right" class="icon-xs"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       R&D, TECHNOLOGY & QUALITY METRICS
+       ========================================================================== -->
+  <section class="tech-section" id="tech">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">R&D & Engineering Excellence</span>
+        <h2 class="section-title">
+          숫자로 증명하는<br>
+          <span class="highlight">와이엠이노테크의 기술 신뢰도</span>
+        </h2>
+        <p class="section-desc">
+          오랜 현장 엔지니어링 노하우와 지속적인 연구 개발 투자로 글로벌 B2B 고객사의 신뢰를 구축해 왔습니다.
+        </p>
+      </div>
+
+      <!-- Animated Counters -->
+      <div class="kpi-counter-grid">
+        <div class="kpi-box">
+          <div class="kpi-number">
+            <span class="kpi-counter" data-target="28">0</span><span class="kpi-unit">+</span>
+          </div>
+          <div class="kpi-label">특허 및 지식재산권</div>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-number">
+            <span class="kpi-counter" data-target="99.98">0</span><span class="kpi-unit">%</span>
+          </div>
+          <div class="kpi-label">출하 품질 수율 (PPM 관리)</div>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-number">
+            <span class="kpi-counter" data-target="150">0</span><span class="kpi-unit">+</span>
+          </div>
+          <div class="kpi-label">글로벌 파트너십 구축</div>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-number">
+            <span class="kpi-counter" data-target="15">0</span><span class="kpi-unit">년</span>
+          </div>
+          <div class="kpi-label">첨단 엔지니어링 업력</div>
+        </div>
+      </div>
+
+      <!-- 4-Step Precision Process -->
+      <div class="section-head" style="margin-bottom: 30px;">
+        <span class="section-tag">Manufacturing & Quality Process</span>
+        <h3 style="font-size: 1.85rem; font-weight: 800; color: #1E293B;">체계적인 4단계 엔지니어링 프로세스</h3>
+      </div>
+
+      <div class="process-timeline">
+        <div class="process-step-card">
+          <div class="process-step-thumb">
+            <img
+              src="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=800"
+              alt="요구 사양 기획 및 회로 설계" class="process-step-img">
+            <div class="process-step-overlay"></div>
+            <div class="step-badge-row">
+              <div class="step-number">01</div>
+              <div class="step-icon-box"><i data-lucide="drafting-compass" class="icon-xs"></i></div>
+            </div>
+          </div>
+          <h4 class="step-title">요구 사양 기획 및 회로 설계</h4>
+          <p class="step-desc">고객사 시스템 환경에 맞춘 최적 부품 선정 및 발열/전자파(EMC) 시뮬레이션 기반의 정밀 회로 설계.</p>
+        </div>
+
+        <div class="process-step-card">
+          <div class="process-step-thumb">
+            <img
+              src="https://images.pexels.com/photos/3912981/pexels-photo-3912981.jpeg?auto=compress&cs=tinysrgb&w=800"
+              alt="스마트 모듈화 아키텍처" class="process-step-img">
+            <div class="process-step-overlay"></div>
+            <div class="step-badge-row">
+              <div class="step-number">02</div>
+              <div class="step-icon-box"><i data-lucide="layers" class="icon-xs"></i></div>
+            </div>
+          </div>
+          <h4 class="step-title">스마트 모듈화 아키텍처</h4>
+          <p class="step-desc">고밀도 SMT 공정과 독자적인 모듈 패키징 기법을 적용하여 장착 편의성과 내진동 내구성을 극대화.</p>
+        </div>
+
+        <div class="process-step-card">
+          <div class="process-step-thumb">
+            <img
+              src="https://images.pexels.com/photos/2582928/pexels-photo-2582928.jpeg?auto=compress&cs=tinysrgb&w=800"
+              alt="친환경 번인 & 신뢰성 시험" class="process-step-img">
+            <div class="process-step-overlay"></div>
+            <div class="step-badge-row">
+              <div class="step-number">03</div>
+              <div class="step-icon-box"><i data-lucide="activity" class="icon-xs"></i></div>
+            </div>
+          </div>
+          <h4 class="step-title">친환경 번인 & 신뢰성 시험</h4>
+          <p class="step-desc">극한 온도 사이클(-40℃~105℃) 시험, 서지 내성 테스트, RoHS 친환경 원자재 검증을 전수 수행.</p>
+        </div>
+
+        <div class="process-step-card">
+          <div class="process-step-thumb">
+            <img
+              src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=800"
+              alt="글로벌 규격 출하 & 기술지원" class="process-step-img">
+            <div class="process-step-overlay"></div>
+            <div class="step-badge-row">
+              <div class="step-number">04</div>
+              <div class="step-icon-box"><i data-lucide="check-circle-2" class="icon-xs"></i></div>
+            </div>
+          </div>
+          <h4 class="step-title">글로벌 규격 출하 & 기술지원</h4>
+          <p class="step-desc">KC, CE, FCC 인증 규격 출하 검사 완료 및 전담 FAE(필드 애플리케이션 엔지니어) 즉각 기술 지원.</p>
+        </div>
+      </div>
+
+      <!-- Certifications Bar with Lucide Icons -->
+      <div class="cert-bar">
+        <div class="cert-title-wrap">
+          <h4>국제 공인 품질 및 친환경 인증</h4>
+          <p>글로벌 스탠다드 인증을 획득하여 무결점 부품 품질을 보장합니다.</p>
+        </div>
+        <div class="cert-badges">
+          <div class="cert-badge-item"><i data-lucide="check-circle-2" class="icon-xs cert-check"></i> ISO 9001 품질경영
+          </div>
+          <div class="cert-badge-item"><i data-lucide="check-circle-2" class="icon-xs cert-check"></i> ISO 14001 환경경영
+          </div>
+          <div class="cert-badge-item"><i data-lucide="check-circle-2" class="icon-xs cert-check"></i> KC 국가통합인증</div>
+          <div class="cert-badge-item"><i data-lucide="check-circle-2" class="icon-xs cert-check"></i> CE 유럽 안전인증</div>
+          <div class="cert-badge-item"><i data-lucide="check-circle-2" class="icon-xs cert-check"></i> RoHS 친환경 규격</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       MEDIA & NEWS ROOM
+       ========================================================================== -->
+  <section class="section-common" id="news">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">Media & News Room</span>
+        <h2 class="section-title">
+          와이엠이노테크의 <span class="highlight">최신 소식</span>
+        </h2>
+        <p class="section-desc">
+          와이엠이노테크와 스마트 모듈 브랜드 MODIQ의 혁신적인 연구 개발 및 전시 참가 소식을 전해드립니다.
+        </p>
+      </div>
+
+      <div class="news-grid">
+        <!-- News 1 -->
+        <article class="news-card">
+          <div class="news-header-thumb">
+            <img
+              src="https://images.pexels.com/photos/2582937/pexels-photo-2582937.jpeg?auto=compress&cs=tinysrgb&w=800"
+              alt="MODIQ 차세대 고효율 스마트 BMS 모듈 시리즈 공개" class="news-thumb-img">
+            <div class="news-thumb-overlay"></div>
+            <span class="news-thumb-tag">신제품 출시</span>
+          </div>
+          <div class="news-content">
+            <div class="news-meta-row">
+              <i data-lucide="calendar" class="icon-xs"></i>
+              <span class="news-date">2026. 08. 18</span>
+            </div>
+            <h3 class="news-title">MODIQ 차세대 고효율 스마트 BMS 모듈 시리즈 공개</h3>
+            <p class="news-summary">
+              배터리 수명을 35% 이상 연장하는 지능형 셀 밸런싱 모듈 MODIQ-P100을 성공적으로 론칭했습니다.
+            </p>
+            <a href="#contact" class="news-link">
+              <span>보도자료 자세히 보기</span>
+              <i data-lucide="arrow-up-right" class="icon-xs"></i>
+            </a>
+          </div>
+        </article>
+
+        <!-- News 2 -->
+        <article class="news-card">
+          <div class="news-header-thumb">
+            <img
+              src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=800"
+              alt="국제 전자부품 및 스마트 솔루션 엑스포 성황리 참가" class="news-thumb-img">
+            <div class="news-thumb-overlay"></div>
+            <span class="news-thumb-tag">글로벌 전시</span>
+          </div>
+          <div class="news-content">
+            <div class="news-meta-row">
+              <i data-lucide="calendar" class="icon-xs"></i>
+              <span class="news-date">2026. 07. 05</span>
+            </div>
+            <h3 class="news-title">국제 전자부품 및 스마트 솔루션 엑스포 성황리 참가</h3>
+            <p class="news-summary">
+              글로벌 바이어 80여 개 사와의 1:1 기술 미팅을 통해 모듈러 솔루션 해외 수출 협약을 체결했습니다.
+            </p>
+            <a href="#contact" class="news-link">
+              <span>보도자료 자세히 보기</span>
+              <i data-lucide="arrow-up-right" class="icon-xs"></i>
+            </a>
+          </div>
+        </article>
+
+        <!-- News 3 -->
+        <article class="news-card">
+          <div class="news-header-thumb">
+            <img
+              src="https://images.pexels.com/photos/1181396/pexels-photo-1181396.jpeg?auto=compress&cs=tinysrgb&w=800"
+              alt="친환경 저탄소 스마트 제어 모듈 국책 R&D 과제 주관 선정" class="news-thumb-img">
+            <div class="news-thumb-overlay"></div>
+            <span class="news-thumb-tag">R&D 과제</span>
+          </div>
+          <div class="news-content">
+            <div class="news-meta-row">
+              <i data-lucide="calendar" class="icon-xs"></i>
+              <span class="news-date">2026. 05. 22</span>
+            </div>
+            <h3 class="news-title">친환경 저탄소 스마트 제어 모듈 국책 R&D 과제 주관 선정</h3>
+            <p class="news-summary">
+              정부 주관 차세대 친환경 스마트 팩토리 에너지 절감 모듈 개발 주관기관으로 최종 선정되었습니다.
+            </p>
+            <a href="#contact" class="news-link">
+              <span>보도자료 자세히 보기</span>
+              <i data-lucide="arrow-up-right" class="icon-xs"></i>
+            </a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       B2B CONTACT & RFQ (Request for Quote)
+       ========================================================================== -->
+  <section class="contact-section" id="contact">
+    <div class="container">
+      <div class="contact-wrapper">
+        <!-- Contact Information -->
+        <div class="contact-info-col">
+          <span class="section-tag">Contact & Partnership</span>
+          <h3>
+            와이엠이노테크와 함께<br>
+            차세대 모듈 혁신을 시작하세요
+          </h3>
+          <p>
+            MODIQ 스마트 모듈 제품 기술 사양, 맞춤형 모듈 개발(ODM/OEM),
+            샘플 요청 및 대량 납품 문의를 남겨주시면 엔지니어링 전담팀이 24시간 이내에 회신드립니다.
+          </p>
+
+          <div class="contact-detail-items">
+            <div class="contact-detail-box">
+              <div class="contact-icon"><i data-lucide="map-pin" class="icon-md"></i></div>
+              <div class="contact-text-wrap">
+                <h5>본사 및 R&D 연구소</h5>
+                <p>전남광주 나주시 그린로 370, 에너지밸리기업개발원 412호</p>
+              </div>
+            </div>
+
+            <div class="contact-detail-box">
+              <div class="contact-icon"><i data-lucide="mail" class="icon-md"></i></div>
+              <div class="contact-text-wrap">
+                <h5>기술 및 납품 문의 이메일</h5>
+                <p>dol-7@hanmail.net</p>
+              </div>
+            </div>
+
+            <div class="contact-detail-box">
+              <div class="contact-icon"><i data-lucide="phone-call" class="icon-md"></i></div>
+              <div class="contact-text-wrap">
+                <h5>대표 전화 및 기술지원 상담</h5>
+                <p>02-1588-0000 (평일 09:00 ~ 18:00)</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Corporate Office / Tech Center Photo Card -->
+          <div class="contact-office-card">
+            <img src="https://images.pexels.com/photos/269077/pexels-photo-269077.jpeg?auto=compress&cs=tinysrgb&w=800"
+              alt="와이엠이노텍 본사 및 스마트 테크 센터" class="contact-office-img">
+            <div class="contact-office-badge">
+              <i data-lucide="building-2" class="icon-xs"></i>
+              <span>YM INNOTECH Global Headquarter</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="contact-form-col">
+          <form id="contact-form" novalidate>
+            <div class="form-group-row">
+              <div class="form-group">
+                <label for="form-name" class="form-label">담당자 성함 *</label>
+                <input type="text" id="form-name" class="form-input" placeholder="홍길동 팀장" required>
+              </div>
+              <div class="form-group">
+                <label for="form-company" class="form-label">기업 / 기관명 *</label>
+                <input type="text" id="form-company" class="form-input" placeholder="(주)파트너스" required>
+              </div>
+            </div>
+
+            <div class="form-group-row">
+              <div class="form-group">
+                <label for="form-email" class="form-label">이메일 주소 *</label>
+                <input type="email" id="form-email" class="form-input" placeholder="partner@company.com" required>
+              </div>
+              <div class="form-group">
+                <label for="form-phone" class="form-label">연락처</label>
+                <input type="tel" id="form-phone" class="form-input" placeholder="010-1234-5678">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="form-interest" class="form-label">문의 유형 선택 *</label>
+              <select id="form-interest" class="form-select" required>
+                <option value="bms">MODIQ-P100 전원 및 BMS 스마트 모듈</option>
+                <option value="iot">MODIQ-C300 지능형 IoT 제어 모듈</option>
+                <option value="eco">MODIQ-E500 친환경 복합 솔루션</option>
+                <option value="custom">맞춤형 모듈(ODM/OEM) 개발 제휴</option>
+                <option value="sample">평가용 샘플 키트 신청</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="form-message" class="form-label">문의 및 프로젝트 요구사항 *</label>
+              <textarea id="form-message" class="form-textarea"
+                placeholder="적용 예정인 제품군, 예상 수량, 목표 사양 및 검토 일정을 자유롭게 기재해 주세요." required></textarea>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 24px;">
+              <label
+                style="display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: #64748B; cursor: pointer;">
+                <input type="checkbox" id="privacy-agree" checked required style="accent-color: var(--ci-blue);">
+                <span>개인정보 수집 및 문의 처리를 위한 이용에 동의합니다.</span>
+              </label>
+            </div>
+
+            <button type="submit" class="btn-submit-form" id="btn-submit-inquiry">
+              <span>문의 접수 및 기술 상담 신청</span>
+              <i data-lucide="send" class="icon-sm"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <!-- Brand Info -->
+        <div class="footer-brand-col">
+          <img src="assets/logos/ym_innotech_signature_original_white.png" alt="와이엠이노테크 공식 로고">
+          <p class="footer-brand-desc">
+            와이엠이노테크는 끊임없는 도전과 엔지니어링 혁신을 통해 대한민국을 대표하는 첨단 스마트 모듈 선도기업으로 도약합니다.
+          </p>
+          <div class="footer-dual-mark">
+            <span style="font-size: 0.8rem; font-weight: 700; color: #64748B;">Official Brand:</span>
+            <img src="assets/logos/modiq_signature_original_white.png" alt="MODIQ Advanced Smart Module">
+          </div>
+        </div>
+
+        <!-- Quick Links: Company -->
+        <div class="footer-col">
+          <h5>기업 안내</h5>
+          <ul class="footer-links">
+            <li><a href="#company" class="footer-link">회사 소개</a></li>
+            <li><a href="#philosophy" class="footer-link">CI / BI 철학</a></li>
+            <li><a href="#tech" class="footer-link">품질 인증 체계</a></li>
+            <li><a href="#contact" class="footer-link">오시는 길</a></li>
+          </ul>
+        </div>
+
+        <!-- Quick Links: Products -->
+        <div class="footer-col">
+          <h5>MODIQ 솔루션</h5>
+          <ul class="footer-links">
+            <li><a href="#modiq" class="footer-link">BMS 전원 모듈</a></li>
+            <li><a href="#modiq" class="footer-link">IoT 제어 모듈</a></li>
+            <li><a href="#modiq" class="footer-link">친환경 에너지 모듈</a></li>
+            <li><a href="#contact" class="footer-link">사양서 다운로드</a></li>
+          </ul>
+        </div>
+
+        <!-- Quick Links: Customer -->
+        <div class="footer-col">
+          <h5>고객 지원</h5>
+          <ul class="footer-links">
+            <li><a href="#contact" class="footer-link">B2B 납품 견적</a></li>
+            <li><a href="#contact" class="footer-link">샘플 신청</a></li>
+            <li><a href="#news" class="footer-link">공지 및 보도자료</a></li>
+            <li><a href="#contact" class="footer-link">기술 문의</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          © 2026 (주)와이엠이노텍 (YM INNOTECH Co., Ltd.) All Rights Reserved.
+        </div>
+        <div class="footer-legal">
+          <a href="#">개인정보처리방침</a>
+          <a href="#">이용약관</a>
+          <a href="#">이메일무단수집거부</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       MODAL: PRODUCT DETAILS POPUP
+       ========================================================================== -->
+  <div class="modal-backdrop" id="product-modal" role="dialog" aria-modal="true">
+    <div class="modal-container">
+      <button class="modal-close-btn" id="modal-close-btn" aria-label="팝업 닫기"><i data-lucide="x"
+          class="icon-sm"></i></button>
+
+      <div style="font-size: 0.85rem; font-weight: 700; color: #38BDF8; margin-bottom: 6px;"
+        id="modal-product-category">
+        Category
+      </div>
+      <h3 style="font-size: 1.8rem; font-weight: 800; margin-bottom: 16px;" id="modal-product-name">
+        Product Name
+      </h3>
+      <p style="color: #94A3B8; font-size: 1rem; line-height: 1.7; margin-bottom: 24px;" id="modal-product-desc">
+        Product Description
+      </p>
+
+      <div
+        style="font-size: 1.1rem; font-weight: 800; color: #FFFFFF; margin-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px;">
+        기술 상세 사양 (Technical Specifications)
+      </div>
+
+      <div id="modal-product-specs" class="module-specs-list"
+        style="border-top: none; padding-top: 0; margin-bottom: 30px;">
+        <!-- Specs dynamically injected by JS -->
+      </div>
+
+      <div style="display: flex; gap: 14px; justify-content: flex-end; flex-wrap: wrap;">
+        <button class="btn-outline" id="btn-download-datasheet"
+          style="color: #7DD3FC; border-color: #38BDF8; display: inline-flex; align-items: center; gap: 8px;">
+          <i data-lucide="file-text" class="icon-xs"></i>
+          <span>기술 사양서(Datasheet PDF) 다운로드</span>
+        </button>
+        <a href="#contact" class="btn-modiq" onclick="document.getElementById('modal-close-btn').click();">
+          이 모듈로 견적 문의하기
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+  <script src="js/cube3d.js"></script>
+</body>
+
+</html>

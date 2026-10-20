@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <defs>
+    <linearGradient id="cubeTop" x1="0%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#00B4D8"/>
+      <stop offset="100%" stop-color="#006E82"/>
+    </linearGradient>
+    <linearGradient id="cubeLeft" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#006E82"/>
+      <stop offset="60%" stop-color="#355BA6"/>
+      <stop offset="100%" stop-color="#1E3A8A"/>
+    </linearGradient>
+    <linearGradient id="cubeRight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2A4365"/>
+      <stop offset="100%" stop-color="#1A202C"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="12" stdDeviation="10" flood-color="#006E82" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <g transform="translate(10, 10)" filter="url(#shadow)">
+    <!-- Top Face (Teal Green) -->
+    <polygon points="90,10 165,50 90,92 15,50" fill="url(#cubeTop)"/>
+    
+    <!-- Left Face ('Y' structure) -->
+    <path d="M15,54 L85,94 L85,178 L52,160 L52,118 L15,95 Z" fill="url(#cubeLeft)"/>
+    <polygon points="15,102 48,121 48,160 15,142" fill="#203A70"/>
+
+    <!-- Right Face ('M' ribs structure) -->
+    <path d="M95,94 L165,54 L165,138 L135,155 L135,88 L95,110 Z" fill="url(#cubeRight)"/>
+    <path d="M112,114 L148,93 L148,150 L128,161 L128,126 L112,135 Z" fill="url(#cubeLeft)"/>
+    <polygon points="90,116 106,106 106,176 90,185" fill="#355BA6"/>
+  </g>
+</svg>
