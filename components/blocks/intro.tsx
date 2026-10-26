@@ -47,4 +47,3 @@ export function Statement({ eyebrow, title, paragraphs, id }: StatementProps) {
     </section>
   );
 }
-
