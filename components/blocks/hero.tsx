@@ -18,7 +18,8 @@ export function HeroMedia({ title, description, caption, media, actions = [] }: 
   return (
     <section className="relative isolate h-[min(88svh,52rem)] min-h-[34rem] overflow-hidden bg-graphite-900 text-white">
       <Media media={media} tone="dark" preload fill className="-z-20" />
-      <div aria-hidden className="absolute inset-0 -z-10 bg-black/50" />
+      {/* 글씨가 있는 왼쪽은 진하게, 오른쪽은 사진이 보이게 */}
+      <div aria-hidden className="absolute inset-0 -z-10 bg-linear-to-r from-black/75 via-black/50 to-black/25" />
       <div className="container-page flex h-full flex-col justify-center">
         <h1 className="text-display-xl font-semibold">
           {title.map((line) => (

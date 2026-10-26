@@ -26,12 +26,17 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
       },
     },
     {
-      // 단일 사진 히어로. 현장 사진이 오기 전까지 임시 이미지를 쓴다.
+      // 단일 사진 히어로. 자체 현장 사진을 받기 전까지 무료 사진을 쓴다.
+      // 사진: Igor Passchier / Pexels (pexels.com/photo/36917505), Pexels 라이선스 — 상업 이용 가능, 출처 표기 의무 없음
       type: "hero-media",
       data: {
         title: ["화재예방부터", "에너지 최적화까지"],
         description: "스마트팜의 안전과 효율을 완성하는 AIoT 에너지·화재 관리 솔루션",
-        media: photo("스마트팜 온실 전경 또는 분전반 앞 점검 장면 (가로 사진, 2400px 이상)"),
+        media: {
+          src: "/images/hero-greenhouse.webp",
+          alt: "현대식 유리 온실 외관. 흰 골조 너머로 토마토 작물이 줄지어 자라고 있다.",
+          focus: "50% 55%",
+        },
         actions: [
           { label: "도입·실증 문의", href: "#" },
           { label: "제품 소개서 다운로드", href: "#" },
