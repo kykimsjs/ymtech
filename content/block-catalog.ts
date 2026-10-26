@@ -14,7 +14,8 @@ export const photo = (hint: string): MediaData => ({ alt: hint, hint });
 // 기획안 3장 HOME — 핵심 소구점 3가지
 export const keyPoints = [
   { label: "소형 컴팩트 구조", title: "분전반 안에 바로 답니다", text: "분전반 내부에 직접 장착하는 일체형 모듈이라 현장에 쉽게 설치합니다." },
-  { label: "복합 센싱 & AI 예지", title: "전력과 환경을 함께 봅니다", text: "전압·전류와 온·습도를 함께 감지하고, AI가 이상 징후를 미리 찾습니다." },
+  // 기획안 1장 핵심 메시지 2 "통합 효율성 — 전력·환경 센싱, AI, 차단 제어를 한 모듈로"를 함께 담는다
+  { label: "복합 센싱 & AI 예지", title: "전력과 환경을 함께 봅니다", text: "전압·전류와 온·습도를 함께 감지하고, AI가 이상 징후를 미리 찾습니다. 감지부터 차단까지 모듈 하나가 맡습니다." },
   { label: "원격 관제 & 자동 대응", title: "10초 안에 전원을 끊습니다", text: "이상이 감지되면 자동으로 차단하고, 웹 플랫폼으로 실시간 알림과 이력을 남깁니다." },
 ];
 
@@ -22,7 +23,7 @@ export const keyPoints = [
 export const quickActions = [
   { icon: "download" as const, label: "제품 소개서", text: "에코-비탈 모듈 소개서(PDF)를 내려받습니다.", href: "#" },
   { icon: "message" as const, label: "도입·실증 문의", text: "농가, 시공사, 지자체 담당자 모두 문의하실 수 있습니다.", href: "#" },
-  { icon: "demo" as const, label: "웹 플랫폼 데모", text: "데모 계정으로 실제 관제 화면을 확인합니다.", href: "#" },
+  { icon: "demo" as const, label: "웹 플랫폼 데모 로그인", text: "데모 계정으로 로그인해 실제 관제 화면을 봅니다.", href: "#" },
 ];
 
 export type CatalogEntry = {
@@ -117,7 +118,7 @@ export const catalog: CatalogEntry[] = [
     block: {
       type: "hero-split",
       data: {
-        label: "ECO-VITAL",
+        label: "EECO-VITAL",
         eyebrow: "스마트팜 분전반용 AIoT 모듈",
         title: ["전력과 환경을 함께 보고", "위험하면 전원을 끊습니다"],
         actions: [{ label: "자세히 보기", href: "#" }],
@@ -206,7 +207,7 @@ export const catalog: CatalogEntry[] = [
       type: "tile-grid",
       data: {
         tiles: [
-          { label: "Eco-Vital", title: ["분전반 장착형", "감지·차단 모듈"], href: "#", media: product },
+          { label: "Eeco-Vital", title: ["분전반 장착형", "감지·차단 모듈"], href: "#", media: product },
           { label: "Web Platform", title: ["실시간 관제와", "이력 관리"], href: "#", media: photo("웹 플랫폼 화면을 보는 담당자") },
           { label: "Smart Greenhouse", title: ["스마트 온실"], href: "#", media: photo("온실 내부") },
           { label: "Livestock · Vertical Farm", title: ["축사·수직농장"], href: "#", media: photo("축사 또는 수직농장 내부") },

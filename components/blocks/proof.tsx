@@ -1,3 +1,5 @@
+import { ChevronRight } from "lucide-react";
+import { ButtonLink } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
 import { Media, type MediaData } from "./media";
 
@@ -14,15 +16,17 @@ export type StatsGalleryProps = {
 
 // 참고: 케빈랩 "제로에너지빌딩 인증 현황" — 왼쪽 제목 + 기준일, 오른쪽 윗선 있는 숫자, 아래 현장 사진 4장과 캡션
 export function StatsGallery({ title, basis, stats, gallery = [], surface, id }: StatsGalleryProps) {
+  // 항목이 4개 이상이면 제목을 위로 올리고 숫자를 한 줄에 펼친다
+  const wide = stats.length > 3;
   return (
     <section id={id} className={cn("block-y", surface ? "bg-surface" : "bg-canvas")}>
       <div className="container-page">
-        <div className="grid gap-10 lg:grid-cols-2">
+        <div className={cn("grid gap-10", !wide && "lg:grid-cols-2")}>
           <div>
             <h2 className="text-title font-bold">{title}</h2>
             {basis && <p className="mt-3 text-sm font-semibold text-ink-subtle">{basis}</p>}
           </div>
-          <dl className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-3">
+          <dl className={cn("grid grid-cols-2 gap-8", wide ? "lg:grid-cols-4" : "sm:grid-cols-3")}>
             {stats.map((stat) => (
               <div key={stat.label} className="flex flex-col-reverse justify-end gap-4 border-t border-line-strong pt-6">
                 <dt className="text-sm font-semibold text-ink-muted">{stat.label}</dt>
@@ -91,6 +95,8 @@ export type DashboardPreviewProps = {
   title: string;
   description: string;
   note: string;
+  /** 데모·로그인 링크 (케빈랩 "서비스 바로가기") */
+  action?: { label: string; href: string };
   id?: string;
 };
 
@@ -119,15 +125,20 @@ function linePath(values: number[], w: number, h: number, max = 100) {
 }
 
 // 참고: 케빈랩 4ST ZIP "건물 전기 사용량·생산량 실시간 모니터링" — 가운데 제목·설명, 아래 대시보드 화면을 HTML로 재현
-export function DashboardPreview({ title, description, note, id }: DashboardPreviewProps) {
+export function DashboardPreview({ title, description, note, action, id }: DashboardPreviewProps) {
   const W = 560;
   const H = 200;
   return (
     <section id={id} className="block-y bg-canvas">
       <div className="container-page">
-        <div className="mx-auto max-w-2xl text-center">
+        <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
           <h2 className="text-display font-bold">{title}</h2>
           <p className="mt-5 text-[0.9375rem] leading-[1.75] text-ink-muted">{description}</p>
+          {action && (
+            <ButtonLink href={action.href} variant="outline" shape="pill" className="mt-8 border-ink">
+              {action.label} <ChevronRight className="size-4" />
+            </ButtonLink>
+          )}
         </div>
         <div className="mt-12 rounded-[10px] bg-canvas p-3 shadow-[0_0_40px_10px_rgb(175_175_175/0.12)] sm:p-4">
           <div className="grid gap-3 lg:grid-cols-[1.5fr_1fr]">

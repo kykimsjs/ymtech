@@ -50,7 +50,7 @@ const en: Dictionary = {
     alert: "Fire Alert",
   },
   product: {
-    name: "Eco-Vital Module",
+    name: "Eeco-Vital Module",
     caption: "Intelligent power & environment module",
   },
 };

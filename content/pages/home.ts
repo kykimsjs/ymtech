@@ -42,12 +42,14 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
       type: "stats-gallery",
       data: {
         surface: true,
-        title: "시험으로 확인한 숫자",
+        // 기획안 1장 핵심 메시지 "기술 신뢰성"(KETI 검증, KESCO 규격 준수) + 6장 핵심 수치 3개
+        title: "기술 신뢰성",
         basis: "2026년 10월 기획안 기준",
         stats: [
-          { label: "전압·전류 측정 오차 (KETI)", value: "±2", unit: "%" },
+          { label: "전압·전류 측정 정확도 · KETI 검증", value: "±2", unit: "%" },
           { label: "이상 감지 후 자동 차단", value: "10", unit: "초" },
-          { label: "실시간 전력 감지", value: "3", unit: "상" },
+          { label: "화재 예지 알고리즘 · 정상·화재 연출 데이터 비교", value: "AI", unit: "" },
+          { label: "전기설비 규격 준수", value: "KESCO", unit: "" },
         ],
       },
     },
@@ -56,8 +58,8 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
       data: {
         title: "솔루션",
         tiles: [
-          { label: "Eco-Vital Module", title: ["분전반 장착형", "감지·차단 모듈"], href: "#", media: product },
-          { label: "Web Platform", title: ["통합 안전관리", "웹 플랫폼"], href: "#", media: photo("웹 플랫폼 화면을 보는 담당자") },
+          { label: "지능형 에코-비탈(Eeco-Vital) 모듈", title: ["분전반 장착형", "감지·차단 모듈"], href: "#", media: product },
+          { label: "통합 안전관리 웹 플랫폼", title: ["실시간 관제와", "이력 관리"], href: "#", media: photo("웹 플랫폼 화면을 보는 담당자") },
         ],
       },
     },
@@ -67,6 +69,8 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
         title: "실시간 관제",
         description: "분전반별 전력 사용량과 시간대별 변화, 온·습도를 한 화면에서 봅니다. 이상이 생기면 경보를 울리고 이력으로 남깁니다.",
         note: "예시 화면입니다. 실제 웹 플랫폼 화면으로 교체 예정",
+        // 기획안 3장 와이어프레임 "실시간 관제 데모 링크" (데모 주소 받으면 연결)
+        action: { label: "웹 플랫폼 데모 로그인", href: "#" },
       },
     },
     {
