@@ -35,20 +35,23 @@
   --color-eco-900: #002c33;
   --color-eco-950: #001c21;
 
-  /* Neutral — Cool Gray 7C "기업 기반과 서비스" */
+  /*
+   * Neutral — 시안 A "CI 블루" 채택 (2026-10-26)
+   * 바탕·선은 푸른 기가 도는 회색, 글자는 네이비, 어두운 구간은 CI 블루를 누른 네이비.
+   */
   --color-ci-gray: #9d9d9d;
   --color-canvas: #ffffff;
-  --color-surface: #f5f6f8;
-  --color-surface-strong: #eceef2;
-  --color-line: #e3e5ea;
-  --color-line-strong: #c9ccd3;
-  --color-ink: #12151c;
-  --color-ink-muted: #4a505c;
-  /* 캡션용 회색: 흰 바탕 5.5:1, surface 5.1:1, surface-strong 4.75:1 (WCAG AA 4.5:1 이상) */
-  --color-ink-subtle: #636975;
-  /* 어두운 블록 바탕 — 레퍼런스(안심해 #222~#333, 아이오크롭스 #2C2C2C) */
-  --color-graphite-800: #2a2c31;
-  --color-graphite-900: #1f2126;
+  --color-surface: #f3f5f9;
+  --color-surface-strong: #e8ecf3;
+  --color-line: #dfe4ec;
+  --color-line-strong: #c3cad6;
+  --color-ink: #101a35;
+  --color-ink-muted: #454f66;
+  /* 캡션용 회색: 흰 바탕 5.65:1, surface 5.18:1, surface-strong 4.77:1 (WCAG AA 4.5:1 이상) */
+  --color-ink-subtle: #5d6780;
+  /* 어두운 블록 바탕 (흰 글씨 14.8:1 이상) */
+  --color-graphite-800: #1b2647;
+  --color-graphite-900: #131c38;
 
   /* Status — CI 서브 컬러 */
   --color-danger: #ce1719;

@@ -56,10 +56,11 @@ export const themes: DraftTheme[] = [
   {
     id: "ci-blue",
     key: "A",
-    name: "CI 블루",
-    summary: "CI 메인 블루가 주인공입니다. 어두운 구간은 네이비, 중립색은 푸른 기가 도는 회색입니다. 매뉴얼에 가장 충실한 안입니다.",
+    name: "CI 블루 (채택)",
+    summary: "CI 메인 블루가 주인공입니다. 어두운 구간은 네이비, 중립색은 푸른 기가 도는 회색입니다. 매뉴얼에 가장 충실한 안으로, 사이트 기본 토큰으로 채택했습니다.",
     headerTone: "light",
     swatches: ["#415ba6", "#007684", "#101a35", "#f3f5f9"],
+    // 채택안: globals.css 기본 토큰과 같은 값. 비교를 위해 그대로 둔다.
     vars: {
       ...ramp("brand", ciBlue),
       ...ramp("eco", ciTeal),
