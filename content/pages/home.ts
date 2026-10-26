@@ -2,7 +2,7 @@ import type { Block } from "@/components/blocks/registry";
 import { keyPoints, nav, photo, product, quickActions } from "@/content/block-catalog";
 
 // HOME 블록 순서 (2026-10-26 확정)
-//   헤더 → 히어로(제품 좌우 분할) → 핵심 소구점 → 증거(숫자) → 솔루션 바로가기 → 실시간 관제 → (적용 분야·실증) → Quick Actions → 푸터
+//   헤더 → 히어로(단일 사진) → 핵심 소구점 → 증거(숫자) → 솔루션 바로가기 → 실시간 관제 → (적용 분야·실증) → Quick Actions → 푸터
 // 자료가 없는 블록은 hidden에 이유를 적어 운영 화면에서 뺀다. 시안 화면에서는 표시해서 보여준다.
 export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "dark" } = {}): Block[] {
   return [
@@ -25,17 +25,16 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
       },
     },
     {
-      type: "hero-split",
+      // 단일 사진 히어로. 현장 사진이 오기 전까지 임시 이미지를 쓴다.
+      type: "hero-media",
       data: {
-        heading: "h1",
-        eyebrow: "AIoT 스마트팜 에너지·화재 관리 솔루션",
         title: ["화재예방부터", "에너지 최적화까지"],
         description: "스마트팜의 안전과 효율을 완성하는 AIoT 에너지·화재 관리 솔루션",
+        media: photo("스마트팜 온실 전경 또는 분전반 앞 점검 장면 (가로 사진, 2400px 이상)"),
         actions: [
           { label: "도입·실증 문의", href: "#" },
           { label: "제품 소개서 다운로드", href: "#" },
         ],
-        media: product,
       },
     },
     { type: "key-points", data: { items: keyPoints } },
