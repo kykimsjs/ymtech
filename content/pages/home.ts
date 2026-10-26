@@ -1,5 +1,5 @@
 import type { Block } from "@/components/blocks/registry";
-import { featureRows, nav, photo, product, quickActions } from "@/content/block-catalog";
+import { featureRows, nav, photo, platformScreen, product, quickActions } from "@/content/block-catalog";
 import { fullAddress, organization } from "@/lib/site";
 
 // HOME 블록 순서 (2026-10-26 확정)
@@ -72,7 +72,7 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
         tiles: [
           { label: "지능형 에코-비탈(Eeco-Vital) 모듈", title: ["분전반 장착형", "감지·차단 모듈"], href: "#", media: product },
           // 웹 플랫폼 준비 중 (2026-10-26)
-          { label: "통합 안전관리 웹 플랫폼", title: ["실시간 관제와", "이력 관리"], href: "#", media: photo("웹 플랫폼 화면을 보는 담당자"), status: "준비 중" },
+          { label: "통합 안전관리 웹 플랫폼", title: ["실시간 관제와", "이력 관리"], href: "#", media: platformScreen, status: "준비 중" },
         ],
       },
     },

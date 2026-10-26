@@ -12,6 +12,12 @@ export const product: MediaData = {
   focus: "60% 45%",
 };
 export const photo = (hint: string): MediaData => ({ alt: hint, hint });
+// 웹 플랫폼 타일용 임시 사진 (실제 플랫폼 화면을 받으면 교체). Pexels 8636589, Pexels 라이선스
+export const platformScreen: MediaData = {
+  src: "/images/home/platform-screen.webp",
+  alt: "차트와 표가 띄워진 관제 모니터",
+  focus: "50% 40%",
+};
 
 // 기획안 3장 HOME — 핵심 소구점 3가지
 export const keyPoints = [
