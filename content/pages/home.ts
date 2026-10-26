@@ -140,10 +140,10 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
         status: "준비 중",
         // 기획안 5장 SOFTWARE · 제품소개 3장 (개발 용어는 고객이 알아들을 말로)
         features: [
-          { title: "실시간 대시보드", text: "전력 사용량·온습도 그래프" },
-          { title: "경보와 자동 차단", text: "시각·청각 경보, 전원 차단" },
-          { title: "이력 관리", text: "이상 이력 조회, 엑셀 내려받기" },
-          { title: "데이터 보안", text: "클라우드 저장, 권한별 열람" },
+          { title: "실시간 대시보드", text: "전력 사용량·온습도 그래프", screen: "dashboard" },
+          { title: "경보와 자동 차단", text: "시각·청각 경보, 전원 차단", screen: "alarm" },
+          { title: "이력 관리", text: "이상 이력 조회, 엑셀 내려받기", screen: "history" },
+          { title: "데이터 보안", text: "클라우드 저장, 권한별 열람", screen: "access" },
         ],
         note: "예시 화면 · 표시된 수치는 실제 데이터가 아닙니다",
       },
