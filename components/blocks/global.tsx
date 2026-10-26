@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Logo } from "@/components/ui/logo";
+import { ScrollTopButton } from "@/components/ui/scroll-top-button";
 
 export type AnnouncementBarProps = { text: string; linkLabel: string; href: string };
 
@@ -28,6 +29,7 @@ export type SiteFooterProps = {
 export function SiteFooter({ columns, info, copyright }: SiteFooterProps) {
   return (
     <footer className="bg-graphite-900 text-white/60">
+      <ScrollTopButton />
       <div className="container-page grid gap-12 py-14 lg:grid-cols-12">
         <div className="lg:col-span-4">
           <Logo tone="white" className="w-40" />
