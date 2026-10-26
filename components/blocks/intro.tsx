@@ -35,7 +35,7 @@ export function Statement({ eyebrow, title, paragraphs, id }: StatementProps) {
         <div className="max-w-[50rem]">
         <p className="text-display font-bold text-ink-muted">{eyebrow}</p>
         <h2 className="text-display font-bold">{title}</h2>
-        <p className="mt-8 text-lg leading-[1.75] text-ink-muted">{lead}</p>
+        <p className="mt-8 text-lg leading-[1.75] whitespace-pre-line text-ink-muted">{lead}</p>
         {rest.map((paragraph) => (
           <div key={paragraph} className="mt-6 flex flex-col gap-3">
             <Logo type="symbol" className="w-7" />
