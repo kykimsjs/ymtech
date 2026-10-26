@@ -28,8 +28,8 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
     {
       // 사진 4장이 천천히 넘어가는 히어로. 자체 현장 사진을 받기 전까지 무료 사진을 쓴다.
       // 사진 출처: Pexels (pexels.com/photo/<번호>), Pexels 라이선스 — 상업 이용 가능, 출처 표기 의무 없음
-      //   interior 7299928 · panel-tech 10871929 · electric-arc 2635595 · worker 7299987
-      // 순서: 어디에 쓰이나(스마트팜) → 무엇을 지키나(분전반) → 무엇을 막나(전기 화재 위험) → 안심하고 일하는 현장
+      //   interior 7299928 · panel-tech 10871929 · fire-alarm 14860386 · worker 7299987
+      // 순서: 어디에 쓰이나(스마트팜) → 무엇을 지키나(분전반) → 무엇에 대비하나(화재) → 안심하고 일하는 현장
       type: "hero-media",
       data: {
         title: ["화재예방부터", "에너지 최적화까지"],
@@ -38,7 +38,7 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
         media: [
           { src: "/images/hero/interior.webp", alt: "넓은 온실 안에 재배 포트와 점적 관수 호스가 줄지어 있다", focus: "60% 50%" },
           { src: "/images/hero/panel-tech.webp", alt: "보호구를 쓴 기술자가 분전반 차단기를 점검하고 있다", focus: "60% 40%" },
-          { src: "/images/hero/electric-arc.webp", alt: "어두운 공간에서 퍼지는 전기 아크", focus: "50% 45%" },
+          { src: "/images/hero/fire-alarm.webp", alt: "골함석 벽에 달린 화재 경보기와 경보 버튼", focus: "65% 40%" },
           { src: "/images/hero/worker.webp", alt: "온실에서 작물을 살피는 재배 담당자", focus: "48% 55%" },
         ],
         actions: [
