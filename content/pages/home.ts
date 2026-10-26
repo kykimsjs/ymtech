@@ -90,7 +90,7 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
       type: "trust-figures",
       data: {
         title: "기술 신뢰성",
-        description: "측정 정확도는 KETI의 검증을 거쳤고, 전기설비는 KESCO 규격을 따릅니다.",
+        description: "측정 정확도는 KETI의 검증을 거쳤고,\n전기설비는 KESCO 규격을 따릅니다.",
         figures: [
           { value: "±2", unit: "%", label: "전압·전류 측정 정확도" },
           { value: "10", unit: "초", label: "이상 감지 후 자동 차단" },

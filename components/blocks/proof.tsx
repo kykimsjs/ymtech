@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { ChevronRight } from "lucide-react";
+import { BreakText } from "@/components/ui/break-text";
 import { ButtonLink } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
 import { Media, type MediaData } from "./media";
@@ -521,7 +522,11 @@ export function TrustFigures({ title, description, figures, evidence, id }: Trus
         <div className="grid gap-10 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-5">
             <h2 className="text-display font-bold">{title}</h2>
-            {description && <p className="mt-5 max-w-[26em] text-[1.0625rem] leading-[1.75] text-ink-muted">{description}</p>}
+            {description && (
+              <p className="mt-5 max-w-[26em] text-[1.0625rem] leading-[1.75] text-ink-muted">
+                <BreakText text={description} />
+              </p>
+            )}
           </div>
           <dl className="grid grid-cols-2 gap-6 lg:col-span-7 lg:gap-10">
             {figures.map((figure) => (
