@@ -165,7 +165,7 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
       // 사진: Pexels 32146752 (온실 내부), Pexels 라이선스
       type: "closing-cta",
       data: {
-        title: "우리 농장 분전반에도 달 수 있을까요?",
+        title: "우리 농장 분전반에도 설치할 수 있을까요?",
         text: "전화나 이메일로 바로 물어보셔도 되고,\n문의 양식을 남겨 주셔도 됩니다.",
         contacts: [
           { label: "대표전화", value: organization.phone, href: `tel:${phoneE164}` },
