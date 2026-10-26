@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { ButtonLink } from "@/components/ui/button";
+import { HeroSlideshow } from "./hero-slideshow";
 import { Media, type MediaData } from "./media";
 
 type Action = { label: string; href: string };
@@ -9,17 +10,35 @@ export type HeroMediaProps = {
   title: string[];
   description?: string;
   caption?: string;
-  media: MediaData;
+  /** 사진 한 장, 또는 여러 장이면 천천히 넘어가며 점 내비게이션이 붙는다 */
+  media: MediaData | MediaData[];
   actions?: Action[];
+  /** 사진 위 덧칠. strong: 화면 전체를 눌러 줌, soft: 글씨가 있는 왼쪽만 눌러 사진을 살림 */
+  overlay?: "strong" | "soft";
+};
+
+const overlays = {
+  strong: "bg-linear-to-r from-black/75 via-black/50 to-black/25",
+  soft: "bg-linear-to-r from-black/75 via-black/45 to-black/5",
 };
 
 // 참고: 아이오크롭스 메인 히어로 — 화면 가득 사진(영상), 어둡게 깔고 제목은 컨테이너 왼쪽
-export function HeroMedia({ title, description, caption, media, actions = [] }: HeroMediaProps) {
+//       여러 장일 때 점 내비게이션은 안심해·케빈랩 메인 슬라이드
+export function HeroMedia({ title, description, caption, media, actions = [], overlay = "strong" }: HeroMediaProps) {
+  const slides = Array.isArray(media) ? media : [media];
   return (
     <section className="relative isolate h-[min(88svh,52rem)] min-h-[34rem] overflow-hidden bg-graphite-900 text-white">
-      <Media media={media} tone="dark" preload fill className="-z-20" />
+      {slides.length > 1 ? (
+        <HeroSlideshow labels={slides.map((slide) => slide.alt)}>
+          {slides.map((slide, i) => (
+            <Media key={slide.src ?? slide.alt} media={slide} tone="dark" preload={i === 0} fill />
+          ))}
+        </HeroSlideshow>
+      ) : (
+        <Media media={slides[0]} tone="dark" preload fill className="-z-20" />
+      )}
       {/* 글씨가 있는 왼쪽은 진하게, 오른쪽은 사진이 보이게 */}
-      <div aria-hidden className="absolute inset-0 -z-10 bg-linear-to-r from-black/75 via-black/50 to-black/25" />
+      <div aria-hidden className={`absolute inset-0 -z-10 ${overlays[overlay]}`} />
       <div className="container-page flex h-full flex-col justify-center">
         <h1 className="text-display-xl font-semibold">
           {title.map((line) => (
@@ -28,7 +47,7 @@ export function HeroMedia({ title, description, caption, media, actions = [] }: 
             </span>
           ))}
         </h1>
-        {description && <p className="mt-6 max-w-xl text-lg leading-[1.7] text-white/80">{description}</p>}
+        {description && <p className="mt-6 max-w-xl text-lg leading-[1.7] text-white/90">{description}</p>}
         {caption && <p className="mt-4 text-[0.9375rem] font-semibold text-white/90">{caption}</p>}
         {actions.length > 0 && (
           <div className="mt-10 flex flex-wrap gap-3">
