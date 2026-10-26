@@ -3,7 +3,7 @@ import { featureRows, nav, photo, platformScreen, product, quickActions } from "
 import { fullAddress, organization, phoneE164 } from "@/lib/site";
 
 // HOME 블록 순서 (2026-10-26 확정)
-//   헤더 → 히어로(사진 4장 슬라이드) → 핵심 소구점(좌우 교차) → 기술 신뢰성 → 솔루션 → 실시간 관제(준비 중) → (설치 사례) → 문의(Quick Actions 포함) → 푸터
+//   헤더 → 히어로(사진 4장 슬라이드) → 문제 제기 문단 → 핵심 소구점(펼침 패널) → 기술 신뢰성 → 솔루션 → 실시간 관제(준비 중) → (설치 사례) → 문의(Quick Actions 포함) → 푸터
 // 자료가 없는 블록은 hidden에 이유를 적어 운영 화면에서 뺀다 (블록 카탈로그 등 showHidden 화면에서만 보임).
 export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "dark" } = {}): Block[] {
   return [
@@ -46,7 +46,21 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
         ],
       },
     },
-    { type: "feature-rows", data: { title: "분전반 안에서 감지부터 차단까지", items: featureRows } },
+    {
+      // 움직이는 히어로와 사진 패널 사이에 쉬어 가는 글 블록 (회사 소개는 별도 페이지)
+      // 문구 근거: 기획안 6장 차별성(기존 제품은 단일 센서 위주), 4장 CEO 인사말(20년 현장 노하우)
+      type: "statement",
+      data: {
+        eyebrow: "농업 전력 안전",
+        title: "분전반 화재를 미리 알고 끊습니다",
+        paragraphs: [
+          "지금 쓰이는 제품은 대부분 온습도나 전력 가운데 하나만 잽니다. 와이엠이노테크는 20년 현장 경험을 바탕으로 농업 시설의 전력 안전 사각지대를 줄이려 합니다.",
+          "에코-비탈 모듈은 전력 감지, 환경 감지, AI 분석, 자동 차단을 모듈 하나에 넣었습니다.",
+        ],
+      },
+    },
+    // 소구점 3개: 데스크톱은 마우스를 올리면 펼쳐지는 세로 3분할, 모바일은 아코디언
+    { type: "feature-panels", data: { title: "분전반 안에서 감지부터 차단까지", items: featureRows } },
     {
       // 기획안 1장 핵심 메시지 "기술 신뢰성"(KETI 검증, KESCO 규격 준수) + 6장 핵심 수치 3개
       // 숫자인 두 개만 크게, 나머지는 근거 줄로 보낸다

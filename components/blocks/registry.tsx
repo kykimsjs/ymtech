@@ -5,6 +5,7 @@ import { AnnouncementBar, SiteFooter } from "./global";
 import { HeroMedia, HeroSplit, PageTitle } from "./hero";
 import { IntroSplit, Statement } from "./intro";
 import { AnchorTabs } from "./anchor-tabs";
+import { FeaturePanels } from "./feature-panels";
 import { FeatureRows } from "./feature-rows";
 import { KeyPoints, QuickActions } from "./points";
 import { DashboardPreview, LogoGrid, ProductCert, ProductGrid, StatsGallery, Timeline, TrustFigures } from "./proof";
@@ -24,6 +25,7 @@ export const blockComponents = {
   statement: Statement,
   "key-points": KeyPoints,
   "feature-rows": FeatureRows,
+  "feature-panels": FeaturePanels,
   "quick-actions": QuickActions,
   "tile-grid": TileGrid,
   "card-grid": CardGrid,

@@ -49,7 +49,15 @@ export const featureRows: FeatureRowsProps["items"] = [
     ],
     visual: { media: { src: "/images/home/sensing-farm.webp", alt: "센서와 배선이 설치된 실내 수경재배 시설", focus: "50% 50%" } },
   },
-  { ...keyPoints[2], visual: { diagram: "cutoff" } },
+  {
+    ...keyPoints[2],
+    facts: [
+      { label: "차단", value: "SSR(전자식 릴레이) 자동 차단" },
+      { label: "경보", value: "시각·청각 경보" },
+      { label: "기록", value: "웹 플랫폼 실시간 알림·이력" },
+    ],
+    visual: { diagram: "cutoff" },
+  },
 ];
 
 // 기획안 3장 HOME — Quick Actions
@@ -237,6 +245,12 @@ export const catalog: CatalogEntry[] = [
     name: "소구점 좌우 교차 (사진·도식)",
     ref: "아이오크롭스 솔루션 소개 · 케빈랩 기능 소개",
     block: { type: "feature-rows", data: { title: "분전반 안에서 감지부터 차단까지", items: featureRows } },
+  },
+  {
+    group: "소개",
+    name: "소구점 펼침 패널 (세로 3분할)",
+    ref: "확장형 패널(expandable panels) · 모바일은 아코디언",
+    block: { type: "feature-panels", data: { title: "분전반 안에서 감지부터 차단까지", items: featureRows } },
   },
 
   // ── 설명 ─────────────────────────────────────────
