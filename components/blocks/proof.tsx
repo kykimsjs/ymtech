@@ -372,7 +372,9 @@ export function DashboardPreview({ title, description, note, action, status, fea
     <>
       {status && <p className="mb-4 rounded-full bg-surface-strong px-3 py-1 text-sm font-semibold text-ink-muted">{status}</p>}
       <h2 className="text-display font-bold">{title}</h2>
-      <p className="mt-5 text-[0.9375rem] leading-[1.75] text-ink-muted">{description}</p>
+      <p className="mt-5 text-[0.9375rem] leading-[1.75] text-ink-muted">
+        <BreakText text={description} />
+      </p>
       {action && (
         <ButtonLink href={action.href} variant="outline" shape="pill" className="mt-8 border-ink">
           {action.label} <ChevronRight className="size-4" />

@@ -134,7 +134,7 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
       type: "dashboard-preview",
       data: {
         title: "실시간 관제",
-        description: "분전반별 전력 사용량과 시간대별 변화, 온·습도를 한 화면에서 봅니다. 이상이 생기면 경보를 울리고 이력으로 남깁니다.",
+        description: "분전반별 전력 사용량과 시간대별 변화, 온·습도를 한 화면에서 봅니다.\n이상이 생기면 경보를 울리고 이력으로 남깁니다.",
         // 웹 플랫폼 준비 중 (2026-10-26). 열리면 status·note를 빼고 기획안 3장 "실시간 관제 데모 링크"를 action으로 연결
         //   action: { label: "웹 플랫폼 데모 로그인", href: "<데모 주소>" },
         status: "준비 중",
