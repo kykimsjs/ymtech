@@ -118,7 +118,13 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
       data: {
         title: "솔루션",
         tiles: [
-          { label: "지능형 에코-비탈(Eeco-Vital) 모듈", title: ["분전반 장착형", "감지·차단 모듈"], href: "#", media: product },
+          {
+            label: "지능형 에코-비탈(Eeco-Vital) 모듈",
+            title: ["분전반 장착형", "감지·차단 모듈"],
+            href: "#",
+            media: product,
+            brand: { src: "/brand/modiq-signature-white.png", alt: "MODIQ Advanced Smart Module", width: 1139, height: 322 },
+          },
           // 웹 플랫폼 준비 중 (2026-10-26)
           { label: "통합 안전관리 웹 플랫폼", title: ["실시간 관제와", "이력 관리"], href: "#", media: platformScreen, status: "준비 중" },
         ],

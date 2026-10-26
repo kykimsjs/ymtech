@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { ButtonLink } from "@/components/ui/button";
@@ -8,43 +9,57 @@ import { Media, type MediaData } from "./media";
 export type TileGridProps = {
   /** 앞에 intro-split 같은 머리말 블록이 없을 때 쓰는 제목 */
   title?: string;
-  /** status: 아직 열지 않은 서비스 표시 (예: "준비 중") */
-  tiles: { label: string; title: string[]; href: string; media: MediaData; status?: string }[];
+  /** status: 아직 열지 않은 서비스 표시 (예: "준비 중"), brand: 제품 BI 시그니처(흰색 판) */
+  tiles: {
+    label: string;
+    title: string[];
+    href: string;
+    media: MediaData;
+    status?: string;
+    brand?: { src: string; alt: string; width: number; height: number };
+  }[];
   tone?: "light" | "dark";
   id?: string;
 };
 
-// 참고: 아이오크롭스 대표 솔루션 — 간격 없는 2열 사진 타일, 위쪽 가운데에 제품명·두 줄 제목·Read More
+// 참고: 아이오크롭스 대표 솔루션 — 2열 사진 타일. 글이 사진(제품)을 가리지 않도록 사진 아래 칸에 로고·제품명·제목·자세히 보기
 export function TileGrid({ title, tiles, tone = "dark", id }: TileGridProps) {
   const dark = tone === "dark";
   return (
     <section id={id} className={cn("pb-20 lg:pb-28", title && "pt-20 lg:pt-28", dark ? "bg-graphite-900" : "bg-canvas")}>
       {title && <h2 className={cn("container-page mb-10 text-display font-bold", dark && "text-white")}>{title}</h2>}
-      <div className="container-page grid sm:grid-cols-2">
+      <div className="container-page grid gap-4 sm:grid-cols-2 lg:gap-6">
         {tiles.map((tile) => (
-          <Link key={tile.label} href={tile.href} className="group relative isolate aspect-square overflow-hidden text-white">
-            <Media
-              media={tile.media}
-              tone="dark"
-              sizes="(min-width: 640px) 50vw, 100vw"
-              fill
-              className="-z-20 bg-graphite-900 transition-transform duration-500 group-hover:scale-[1.03] motion-reduce:transition-none"
-            />
-            <div aria-hidden className="absolute inset-0 -z-10 bg-black/40 transition-colors group-hover:bg-black/55" />
-            <div className="flex flex-col items-center px-6 pt-[14%] text-center">
-              {tile.status && (
-                <span className="mb-3 rounded-full border border-white/60 px-3 py-1 text-xs font-semibold">{tile.status}</span>
-              )}
-              <p className="text-[0.9375rem]">{tile.label}</p>
-              <p className="mt-2 text-title font-semibold">
-                {tile.title.map((line) => (
-                  <span key={line} className="block">
-                    {line}
-                  </span>
-                ))}
-              </p>
-              <span className="mt-6 inline-flex items-center gap-1 text-[0.9375rem]">
-                자세히 보기 <ArrowRight className="size-4" />
+          <Link
+            key={tile.label}
+            href={tile.href}
+            className={cn("group flex flex-col overflow-hidden rounded-card", dark ? "bg-graphite-800 text-white" : "bg-surface text-ink")}
+          >
+            <div className="overflow-hidden">
+              <Media
+                media={tile.media}
+                tone="dark"
+                sizes="(min-width: 640px) 50vw, 100vw"
+                className="aspect-[4/3] transition-transform duration-500 group-hover:scale-[1.03] motion-reduce:transition-none"
+              />
+            </div>
+            <div className="flex flex-1 flex-col p-6 lg:p-8">
+              {/* 로고 또는 상태 표시 줄: 높이를 맞춰 두 칸의 제목 줄이 나란히 오게 */}
+              <div className="flex h-9 items-center lg:h-10">
+                {tile.brand ? (
+                  <Image src={tile.brand.src} alt={tile.brand.alt} width={tile.brand.width} height={tile.brand.height} className="h-full w-auto" />
+                ) : (
+                  tile.status && (
+                    <span className={cn("rounded-full border px-3 py-1 text-xs font-semibold", dark ? "border-white/50" : "border-line-strong")}>
+                      {tile.status}
+                    </span>
+                  )
+                )}
+              </div>
+              <p className={cn("mt-4 text-[0.9375rem]", dark ? "text-white/70" : "text-ink-muted")}>{tile.label}</p>
+              <p className="mt-1 text-title font-semibold">{tile.title.join(" ")}</p>
+              <span className="mt-6 inline-flex items-center gap-1 text-[0.9375rem] font-semibold">
+                자세히 보기 <ArrowRight className="size-4 transition-transform group-hover:translate-x-1 motion-reduce:transition-none" />
               </span>
             </div>
           </Link>
