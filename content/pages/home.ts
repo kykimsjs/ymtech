@@ -1,5 +1,5 @@
 import type { Block } from "@/components/blocks/registry";
-import { featureRows, nav, photo, platformScreen, product, quickActions } from "@/content/block-catalog";
+import { featureRows, nav, photo, platformScreen, product, quickActions, trustItems } from "@/content/block-catalog";
 import { fullAddress, organization, phoneE164 } from "@/lib/site";
 
 // HOME 블록 순서 (2026-10-26 확정)
@@ -91,26 +91,9 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
       data: {
         title: "기술 신뢰성",
         description: "측정 정확도는 KETI의 검증을 거쳤고,\n전기설비는 KESCO 규격을 따릅니다.",
-        figures: [
-          { value: "±2", unit: "%", label: "전압·전류 측정 정확도" },
-          { value: "10", unit: "초", label: "이상 감지 후 자동 차단" },
-        ],
-        evidence: [
-          // 마크: 각 기관 홈페이지 공식 CI (keti.re.kr 연구원소개 > CI, kesco.or.kr 홍보센터 > CI)
-          // AI 화재 예지는 위 소구점 패널 02에서 다루므로 여기서는 기획안 "기술 신뢰성" 두 근거만 둔다
-          {
-            name: "측정 정확도 검증",
-            full: "한국전자기술연구원(KETI)",
-            text: "전압·전류 측정 정확도 ±2%",
-            logo: { src: "/images/marks/keti.png", width: 900, height: 209 },
-          },
-          {
-            name: "전기설비 규격 준수",
-            full: "한국전기안전공사(KESCO)",
-            text: "한국전기안전공사 전기설비 규격",
-            logo: { src: "/images/marks/kesco.png", width: 900, height: 194 },
-          },
-        ],
+        items: trustItems,
+        // 기관 마크는 R&D > 특허·인증 페이지로 (2026-10-26)
+        layout: "numbers",
       },
     },
     {

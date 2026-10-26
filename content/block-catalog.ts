@@ -62,6 +62,24 @@ export const featureRows: FeatureRowsProps["items"] = [
   },
 ];
 
+// 기획안 HOME "기술 신뢰성" 근거 항목 (±2% KETI 검증, 10초 KESCO 규격 준수). HOME은 숫자 항목만 쓴다
+export const trustItems = [
+  {
+    value: "±2",
+    unit: "%",
+    label: "전압·전류 측정 정확도",
+    source: "한국전자기술연구원(KETI) 검증",
+    mark: { src: "/images/marks/keti.png", alt: "한국전자기술연구원(KETI)", width: 900, height: 209 },
+  },
+  { value: "10", unit: "초", label: "이상 감지 후 자동 차단", source: "한국전기안전공사(KESCO) 규격 준수" },
+  {
+    value: "KESCO",
+    label: "전기설비 규격 준수",
+    source: "한국전기안전공사 전기설비 규격",
+    mark: { src: "/images/marks/kesco.png", alt: "한국전기안전공사(KESCO)", width: 900, height: 194 },
+  },
+];
+
 // 기획안 3장 HOME — Quick Actions
 export const quickActions = [
   { icon: "download" as const, label: "제품 소개서", text: "에코-비탈 모듈 소개서(PDF)를 내려받습니다.", href: "#" },

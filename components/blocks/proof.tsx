@@ -325,61 +325,117 @@ export function Timeline({ eyebrow, title, years, id }: TimelineProps) {
   );
 }
 
+type Logo = { src: string; alt: string; width: number; height: number };
+
 export type TrustFiguresProps = {
   title: string;
   description?: string;
-  /** 크게 보여줄 숫자. 숫자가 아닌 항목은 evidence로 보낸다 */
-  figures: { value: string; unit: string; label: string }[];
-  /** 숫자를 뒷받침하는 기관·근거. logo가 있으면 기관 공식 CI를 보여준다 */
-  evidence: { name: string; full?: string; text: string; logo?: { src: string; width: number; height: number } }[];
+  /** 근거 항목. unit이 있으면 숫자 항목, mark가 있으면 기관 공식 마크를 함께 보여준다 */
+  items: { value: string; unit?: string; label: string; source: string; mark?: Logo }[];
+  /** numbers: 숫자만(제목 왼쪽·숫자 오른쪽, HOME), rows: 행 목록 + 마크, strip: 숫자 + 아래 마크 띠 (특허·인증 페이지용) */
+  layout?: "rows" | "strip" | "numbers";
+  /** 기준일 (예: 2026.10 기준) */
+  basis?: string;
   id?: string;
 };
 
-// 기획안 HOME "기술 신뢰성"(KETI 검증 · KESCO 규격 준수).
-// 참고: 케빈랩 인증 현황(제목 왼쪽, 숫자 오른쪽) + 여의시스템 인증 목록(기관명과 내용을 한 줄씩)
-export function TrustFigures({ title, description, figures, evidence, id }: TrustFiguresProps) {
+function Figure({ value, unit, className }: { value: string; unit?: string; className?: string }) {
+  return (
+    <p className={cn("font-bold tracking-[-0.04em] tabular-nums", className)}>
+      <span className="text-brand-500">{value}</span>
+      {unit && <span className="ml-1 text-[0.45em] tracking-normal text-brand-500">{unit}</span>}
+    </p>
+  );
+}
+
+// 기획안 HOME "기술 신뢰성"(KETI 검증 · KESCO 규격 준수) + 핵심 수치.
+// 참고: 케빈랩 4ST ZIP 인증 현황(제목·기준일 왼쪽, 라벨 + 큰 숫자 오른쪽), 아이오크롭스 연혁(가로선으로 나뉜 행 목록)
+export function TrustFigures({ title, description, items, layout = "rows", basis, id }: TrustFiguresProps) {
+  const numbers = items.filter((item) => item.unit);
+  const marks = items.filter((item) => item.mark);
+  const head = (
+    <>
+      <h2 className="text-display font-bold">{title}</h2>
+      {basis && <p className="mt-3 text-sm font-semibold text-ink-subtle">{basis}</p>}
+      {description && (
+        <p className="mt-5 max-w-[30em] text-[1.0625rem] leading-[1.75] text-ink-muted">
+          <BreakText text={description} />
+        </p>
+      )}
+    </>
+  );
+
+  if (layout === "rows") {
+    return (
+      <section id={id} className="block-y scroll-mt-14 bg-surface">
+        <div className="container-page grid gap-10 lg:grid-cols-12">
+          <div className="lg:col-span-4">{head}</div>
+          <ul className="border-t-2 border-ink lg:col-span-8">
+            {items.map((item) => (
+              <li
+                key={item.label}
+                className="grid grid-cols-[6.5rem_1fr] items-center gap-x-6 gap-y-3 border-b border-line-strong py-6 sm:grid-cols-[9rem_1fr_auto] lg:py-7"
+              >
+                {/* 숫자가 아닌 값(KESCO 등)은 한 줄에 들어가게 작게 */}
+                <Figure
+                  value={item.value}
+                  unit={item.unit}
+                  className={cn(
+                    "leading-none whitespace-nowrap",
+                    item.unit ? "text-[clamp(2rem,1.6rem+1.6vw,3rem)]" : "text-[clamp(1.5rem,1.3rem+0.8vw,2rem)]",
+                  )}
+                />
+                <div>
+                  <p className="text-lg font-bold">{item.label}</p>
+                  <p className="mt-1 text-[0.9375rem] text-ink-muted">{item.source}</p>
+                </div>
+                {item.mark && (
+                  <Image
+                    src={item.mark.src}
+                    alt={item.mark.alt}
+                    width={item.mark.width}
+                    height={item.mark.height}
+                    className="col-start-2 h-8 w-auto sm:col-start-3 lg:h-10"
+                  />
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section id={id} className="block-y scroll-mt-14 bg-surface">
       <div className="container-page">
         <div className="grid gap-10 lg:grid-cols-12 lg:items-end">
-          <div className="lg:col-span-5">
-            <h2 className="text-display font-bold">{title}</h2>
-            {description && (
-              <p className="mt-5 max-w-[26em] text-[1.0625rem] leading-[1.75] text-ink-muted">
-                <BreakText text={description} />
-              </p>
-            )}
-          </div>
-          <dl className="grid grid-cols-2 gap-6 lg:col-span-7 lg:gap-10">
-            {figures.map((figure) => (
-              <div key={figure.label} className="flex flex-col-reverse justify-end gap-3">
-                <dt className="text-[0.9375rem] font-semibold text-ink-muted">{figure.label}</dt>
-                <dd className="text-[clamp(3.5rem,2.4rem+4.4vw,6.5rem)] leading-[0.95] font-bold tracking-[-0.04em] tabular-nums">
-                  <span className="text-brand-500">{figure.value}</span>
-                  <span className="ml-1 text-[0.45em] tracking-normal text-ink">{figure.unit}</span>
+          <div className="lg:col-span-6">{head}</div>
+          <dl className="grid grid-cols-2 gap-8 lg:col-span-6">
+            {numbers.map((item) => (
+              <div key={item.label}>
+                <dt className="text-[0.9375rem] font-semibold text-ink-muted">{item.label}</dt>
+                <dd className="mt-3">
+                  <Figure value={item.value} unit={item.unit} className="text-[clamp(3.25rem,2.4rem+3vw,5rem)] leading-[0.95]" />
+                  {layout === "numbers" && <span className="mt-3 block text-sm text-ink-subtle">{item.source}</span>}
                 </dd>
               </div>
             ))}
           </dl>
         </div>
-        <ul className={cn("mt-14 grid border-t border-ink lg:mt-20", evidence.length === 2 ? "md:grid-cols-2" : "md:grid-cols-3")}>
-          {evidence.map((item, i) => (
-            <li key={item.name} className={cn("border-b border-line-strong py-6 md:border-b-0 md:py-8", i > 0 && "md:border-l md:pl-8", i < evidence.length - 1 && "md:pr-8")}>
-              {item.logo && (
-                <Image
-                  src={item.logo.src}
-                  alt={item.full ?? item.name}
-                  width={item.logo.width}
-                  height={item.logo.height}
-                  className="mb-6 h-10 w-auto lg:h-12"
-                />
-              )}
-              <p className="text-lg font-bold">{item.name}</p>
-              {item.full && !item.logo && <p className="text-sm text-ink-subtle">{item.full}</p>}
-              <p className="mt-3 text-[0.9375rem] leading-[1.7] text-ink-muted">{item.text}</p>
-            </li>
-          ))}
-        </ul>
+        {layout === "strip" && marks.length > 0 && (
+          <ul className="mt-12 flex flex-col gap-6 rounded-card bg-canvas px-6 py-6 sm:flex-row sm:items-center sm:gap-12 lg:mt-16 lg:px-10">
+            <li className="shrink-0 text-sm font-bold text-ink-muted">검증 · 규격</li>
+            {marks.map((item) => (
+              <li key={item.label} className="flex items-center gap-4">
+                {item.mark && (
+                  <Image src={item.mark.src} alt={item.mark.alt} width={item.mark.width} height={item.mark.height} className="h-9 w-auto lg:h-10" />
+                )}
+                <span className="text-[0.9375rem] text-ink-muted">{item.label}</span>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </section>
   );
