@@ -132,11 +132,13 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
         status: "준비 중",
         // 기획안 5장 SOFTWARE · 제품소개 3장 (개발 용어는 고객이 알아들을 말로)
         features: [
-          { title: "실시간 대시보드", text: "전력 사용량과 시간대별 변화, 온·습도를 그래프로 봅니다." },
-          { title: "경보와 자동 차단", text: "화재 위험이 감지되면 시각·청각 경보를 울리고 전원을 차단합니다." },
-          { title: "이력 관리", text: "이상 이력을 조회하고 데이터를 엑셀로 내려받습니다." },
-          { title: "데이터 보안", text: "데이터는 클라우드에 저장하고, 권한에 따라 볼 수 있는 범위를 나눕니다." },
+          { title: "실시간 대시보드", text: "전력 사용량·온습도 그래프" },
+          { title: "경보와 자동 차단", text: "시각·청각 경보, 전원 차단" },
+          { title: "이력 관리", text: "이상 이력 조회, 엑셀 내려받기" },
+          { title: "데이터 보안", text: "클라우드 저장, 권한별 열람" },
         ],
+        // 모니터 목업 이미지는 클라이언트에게 받을 예정. 받으면 public/images/home/에 넣고 연결
+        //   mockup: { src: "/images/home/platform-mockup.webp", alt: "...", width: 0, height: 0 },
         note: "예시 화면 · 표시된 수치는 실제 데이터가 아닙니다",
       },
     },

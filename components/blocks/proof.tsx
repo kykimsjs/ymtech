@@ -103,6 +103,8 @@ export type DashboardPreviewProps = {
   status?: string;
   /** 기능 목록. 있으면 좌우 분할 배치 */
   features?: { title: string; text: string }[];
+  /** 좌우 분할일 때 오른쪽에 넣을 목업 이미지. 없으면 HTML로 그린 모니터 목업 */
+  mockup?: MediaData & { width: number; height: number };
   id?: string;
 };
 
@@ -131,11 +133,18 @@ function linePath(values: number[], w: number, h: number, max = 100) {
 }
 
 // 웹 플랫폼 관제 화면을 HTML로 재현한 그림 (수치는 예시). compact면 한 열로 쌓고 도넛 그래프를 뺀다.
-function DashboardScreen({ compact, className }: { compact?: boolean; className?: string }) {
+// bare: 모니터 목업 안에 넣을 때 테두리·그림자 없이
+function DashboardScreen({ compact, bare, className }: { compact?: boolean; bare?: boolean; className?: string }) {
   const W = 560;
   const H = 200;
   return (
-    <div className={cn("relative rounded-[10px] bg-canvas p-3 shadow-[0_0_40px_10px_rgb(175_175_175/0.12)] sm:p-4", className)}>
+    <div
+      className={cn(
+        "relative bg-canvas p-3 sm:p-4",
+        !bare && "rounded-[10px] shadow-[0_0_40px_10px_rgb(175_175_175/0.12)]",
+        className,
+      )}
+    >
       <div className={cn("grid gap-3", !compact && "lg:grid-cols-[1.5fr_1fr]")}>
         <div className="rounded-lg border border-line p-6">
           <div className="flex items-baseline justify-between">
@@ -185,8 +194,8 @@ function DashboardScreen({ compact, className }: { compact?: boolean; className?
               </tbody>
             </table>
           </div>
-          <div className={cn("items-center gap-6 rounded-lg border border-line p-6", compact ? "hidden" : "flex")}>
-            <svg viewBox="0 0 42 42" className="size-28 shrink-0 -rotate-90" role="img" aria-label="용도별 사용 비율 (예시)">
+          <div className={cn("items-center gap-5 rounded-lg border border-line p-6", compact ? "hidden" : bare ? "hidden lg:flex" : "flex")}>
+            <svg viewBox="0 0 42 42" className={cn("shrink-0 -rotate-90", bare ? "size-20" : "size-28")} role="img" aria-label="용도별 사용 비율 (예시)">
               {donut.map((part) => (
                 <circle
                   key={part.label}
@@ -203,7 +212,7 @@ function DashboardScreen({ compact, className }: { compact?: boolean; className?
             </svg>
             <ul className="flex flex-col gap-1.5 text-sm">
               {breakdown.map((part) => (
-                <li key={part.label} className="flex items-center gap-2">
+                <li key={part.label} className="flex items-center gap-2 whitespace-nowrap">
                   <span className="size-2.5 rounded-sm" style={{ background: part.color }} />
                   {part.label}
                   <span className="ml-auto pl-3 text-ink-subtle tabular-nums">{part.value}%</span>
@@ -217,9 +226,28 @@ function DashboardScreen({ compact, className }: { compact?: boolean; className?
   );
 }
 
+// 모니터 목업: 검은 테두리 + 앱 상단바 + 목·받침대. 화면 내용은 children
+function MonitorMockup({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <figure className="mx-auto w-full max-w-[52rem]">
+      <div className="rounded-[14px] bg-graphite-900 p-2 shadow-[0_24px_48px_-16px_rgb(16_26_53/0.35)] sm:p-3">
+        <div className="overflow-hidden rounded-md bg-canvas">
+          <div className="flex items-center justify-between gap-3 border-b border-line bg-surface px-4 py-2.5 text-xs">
+            <span className="font-semibold text-ink-muted">통합 안전관리 웹 플랫폼 · {title}</span>
+            <span className="rounded-full bg-surface-strong px-2 py-0.5 font-semibold text-ink-muted">예시 화면</span>
+          </div>
+          {children}
+        </div>
+      </div>
+      <div aria-hidden className="mx-auto h-10 w-24 bg-linear-to-b from-line-strong to-line [clip-path:polygon(18%_0,82%_0,100%_100%,0_100%)] sm:h-14 sm:w-32" />
+      <div aria-hidden className="mx-auto h-2.5 w-52 rounded-full bg-line-strong sm:w-64" />
+    </figure>
+  );
+}
+
 // 참고: 케빈랩 4ST ZIP "건물 전기 사용량·생산량 실시간 모니터링" — 가운데 제목·설명, 아래 대시보드 화면을 HTML로 재현
 // features가 있으면 왼쪽 설명·기능 목록 + 오른쪽 작은 화면으로 나눈다 (준비 중인 서비스를 과하게 크게 보여주지 않도록)
-export function DashboardPreview({ title, description, note, action, status, features, id }: DashboardPreviewProps) {
+export function DashboardPreview({ title, description, note, action, status, features, mockup, id }: DashboardPreviewProps) {
   const head = (
     <>
       {status && <p className="mb-4 rounded-full bg-surface-strong px-3 py-1 text-sm font-semibold text-ink-muted">{status}</p>}
@@ -235,23 +263,37 @@ export function DashboardPreview({ title, description, note, action, status, fea
   const noteLine = note && <p className="mt-4 text-right text-xs text-ink-subtle">{note}</p>;
 
   if (features) {
+    // 왼쪽 좁은 칸에 짧은 글, 오른쪽은 모니터 목업 속 예시 화면 (준비 중인 서비스를 가볍게 보여준다)
     return (
-      <section id={id} className="block-y scroll-mt-14 bg-canvas">
+      <section id={id} className="block-y scroll-mt-14 bg-surface">
         <div className="container-page grid gap-12 lg:grid-cols-12 lg:items-center">
-          <div className="flex flex-col items-start lg:col-span-5">
+          <div className="flex flex-col items-start lg:col-span-4">
             {head}
-            <dl className="mt-10 w-full border-t border-line">
+            <dl className="mt-8 grid w-full grid-cols-2 gap-x-6 gap-y-5">
               {features.map((feature) => (
-                <div key={feature.title} className="border-b border-line py-4">
-                  <dt className="font-bold">{feature.title}</dt>
-                  <dd className="mt-1 text-[0.9375rem] leading-[1.7] text-ink-muted">{feature.text}</dd>
+                <div key={feature.title} className="border-t border-line-strong pt-3">
+                  <dt className="text-[0.9375rem] font-bold">{feature.title}</dt>
+                  <dd className="mt-1 text-sm leading-[1.6] text-ink-muted">{feature.text}</dd>
                 </div>
               ))}
             </dl>
           </div>
-          <div className="lg:col-span-6 lg:col-start-7">
-            <DashboardScreen compact />
-            {noteLine}
+          <div className="lg:col-span-8 lg:col-start-5">
+            {mockup?.src ? (
+              <Image
+                src={mockup.src}
+                alt={mockup.alt}
+                width={mockup.width}
+                height={mockup.height}
+                sizes="(min-width: 1024px) 780px, 100vw"
+                className="mx-auto h-auto w-full"
+              />
+            ) : (
+              <MonitorMockup title={title}>
+                <DashboardScreen bare />
+              </MonitorMockup>
+            )}
+            {note && <p className="mt-4 text-center text-xs text-ink-subtle">{note}</p>}
           </div>
         </div>
       </section>
