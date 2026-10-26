@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // 기존 정적 사이트 (참고용)
+    "legacy/**",
   ]),
 ]);
 
