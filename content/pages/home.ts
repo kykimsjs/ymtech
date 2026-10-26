@@ -48,16 +48,20 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
     },
     { type: "feature-rows", data: { title: "분전반 안에서 감지부터 차단까지", items: featureRows } },
     {
-      type: "stats-gallery",
+      // 기획안 1장 핵심 메시지 "기술 신뢰성"(KETI 검증, KESCO 규격 준수) + 6장 핵심 수치 3개
+      // 숫자인 두 개만 크게, 나머지는 근거 줄로 보낸다
+      type: "trust-figures",
       data: {
-        surface: true,
-        // 기획안 1장 핵심 메시지 "기술 신뢰성"(KETI 검증, KESCO 규격 준수) + 6장 핵심 수치 3개
         title: "기술 신뢰성",
-        stats: [
-          { label: "전압·전류 측정 정확도 · KETI 검증", value: "±2", unit: "%" },
-          { label: "이상 감지 후 자동 차단", value: "10", unit: "초" },
-          { label: "화재 예지 알고리즘 · 정상·화재 연출 데이터 비교", value: "AI", unit: "" },
-          { label: "전기설비 규격 준수", value: "KESCO", unit: "" },
+        description: "측정 정확도는 KETI의 검증을 거쳤고, 전기설비는 KESCO 규격을 따릅니다.",
+        figures: [
+          { value: "±2", unit: "%", label: "전압·전류 측정 정확도" },
+          { value: "10", unit: "초", label: "이상 감지 후 자동 차단" },
+        ],
+        evidence: [
+          { name: "KETI", full: "한국전자기술연구원", text: "전압·전류 측정 정확도 ±2% 검증" },
+          { name: "KESCO", full: "한국전기안전공사", text: "전기설비 규격 준수" },
+          { name: "AI 화재 예지", full: "예지 보전 알고리즘", text: "정상 데이터와 화재 연출 데이터를 비교·분석해 이상 징후를 찾습니다" },
         ],
       },
     },

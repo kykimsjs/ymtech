@@ -310,3 +310,50 @@ export function Timeline({ eyebrow, title, years, id }: TimelineProps) {
     </section>
   );
 }
+
+export type TrustFiguresProps = {
+  title: string;
+  description?: string;
+  /** 크게 보여줄 숫자. 숫자가 아닌 항목은 evidence로 보낸다 */
+  figures: { value: string; unit: string; label: string }[];
+  /** 숫자를 뒷받침하는 기관·근거 */
+  evidence: { name: string; full?: string; text: string }[];
+  id?: string;
+};
+
+// 기획안 HOME "기술 신뢰성"(KETI 검증 · KESCO 규격 준수).
+// 참고: 케빈랩 인증 현황(제목 왼쪽, 숫자 오른쪽) + 여의시스템 인증 목록(기관명과 내용을 한 줄씩)
+export function TrustFigures({ title, description, figures, evidence, id }: TrustFiguresProps) {
+  return (
+    <section id={id} className="block-y scroll-mt-14 bg-surface">
+      <div className="container-page">
+        <div className="grid gap-10 lg:grid-cols-12 lg:items-end">
+          <div className="lg:col-span-5">
+            <h2 className="text-display font-bold">{title}</h2>
+            {description && <p className="mt-5 max-w-[26em] text-[1.0625rem] leading-[1.75] text-ink-muted">{description}</p>}
+          </div>
+          <dl className="grid grid-cols-2 gap-6 lg:col-span-7 lg:gap-10">
+            {figures.map((figure) => (
+              <div key={figure.label} className="flex flex-col-reverse justify-end gap-3">
+                <dt className="text-[0.9375rem] font-semibold text-ink-muted">{figure.label}</dt>
+                <dd className="text-[clamp(3.5rem,2.4rem+4.4vw,6.5rem)] leading-[0.95] font-bold tracking-[-0.04em] tabular-nums">
+                  <span className="text-brand-500">{figure.value}</span>
+                  <span className="ml-1 text-[0.45em] tracking-normal text-ink">{figure.unit}</span>
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+        <ul className="mt-14 grid border-t border-ink md:grid-cols-3 lg:mt-20">
+          {evidence.map((item, i) => (
+            <li key={item.name} className={cn("border-b border-line-strong py-6 md:border-b-0 md:py-8", i > 0 && "md:border-l md:pl-8", i < evidence.length - 1 && "md:pr-8")}>
+              <p className="text-lg font-bold">{item.name}</p>
+              {item.full && <p className="text-sm text-ink-subtle">{item.full}</p>}
+              <p className="mt-3 text-[0.9375rem] leading-[1.7] text-ink-muted">{item.text}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}

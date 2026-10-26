@@ -7,7 +7,7 @@ import { IntroSplit, Statement } from "./intro";
 import { AnchorTabs } from "./anchor-tabs";
 import { FeatureRows } from "./feature-rows";
 import { KeyPoints, QuickActions } from "./points";
-import { DashboardPreview, LogoGrid, ProductCert, ProductGrid, StatsGallery, Timeline } from "./proof";
+import { DashboardPreview, LogoGrid, ProductCert, ProductGrid, StatsGallery, Timeline, TrustFigures } from "./proof";
 import { SiteHeader } from "./site-header";
 import { AudienceTabs, GalleryTabs, TabsMedia } from "./tab-blocks";
 
@@ -34,6 +34,7 @@ export const blockComponents = {
   "audience-tabs": AudienceTabs,
   "gallery-tabs": GalleryTabs,
   "stats-gallery": StatsGallery,
+  "trust-figures": TrustFigures,
   "product-cert": ProductCert,
   "dashboard-preview": DashboardPreview,
   "product-grid": ProductGrid,
