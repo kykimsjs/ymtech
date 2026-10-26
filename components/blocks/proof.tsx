@@ -193,8 +193,8 @@ function DashboardScreen({ compact, bare, className }: { compact?: boolean; bare
               </tbody>
             </table>
           </div>
-          <div className={cn("items-center gap-5 rounded-lg border border-line p-6", compact ? "hidden" : "flex")}>
-            <svg viewBox="0 0 42 42" className="size-28 shrink-0 -rotate-90" role="img" aria-label="용도별 사용 비율 (예시)">
+          <div className={cn("items-center gap-5 rounded-lg border border-line", bare ? "p-4" : "p-6", compact ? "hidden" : "flex")}>
+            <svg viewBox="0 0 42 42" className={cn("shrink-0 -rotate-90", bare ? "size-20" : "size-28")} role="img" aria-label="용도별 사용 비율 (예시)">
               {donut.map((part) => (
                 <circle
                   key={part.label}
@@ -228,7 +228,7 @@ function DashboardScreen({ compact, bare, className }: { compact?: boolean; bare
 // 모니터 목업: 검은 테두리 + 앱 상단바 + 목·받침대. 화면 내용은 children
 // 모니터 목업: 클라이언트가 준 모니터 이미지(ChatGPT 생성, 투명 배경) 화면 자리에 예시 대시보드를 끼운다.
 // 화면 자리 비율은 원본 이미지에서 잰 값 (왼쪽 2.062% · 위 2.766% · 너비 95.876% · 높이 73.617%, 가로세로 1.747)
-const SCREEN_W = 1000;
+const SCREEN_W = 840;
 const SCREEN_H = Math.round(SCREEN_W / 1.747);
 
 function MonitorMockup({ title, children }: { title: string; children: React.ReactNode }) {

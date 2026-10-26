@@ -32,8 +32,9 @@ export function ScaledScreen({
   return (
     <div ref={ref} className={cn("overflow-hidden", className)} style={style}>
       <div
+        // transform: scale은 글씨를 비트맵처럼 줄여 흐려지므로, 줄인 크기에서 다시 그리는 zoom을 쓴다.
         // 크기를 재기 전에는 숨겨서 원래 크기로 번쩍 보이지 않게
-        style={{ width: designWidth, height: designHeight, transform: `scale(${scale})`, transformOrigin: "0 0", visibility: scale ? "visible" : "hidden" }}
+        style={{ width: designWidth, height: designHeight, zoom: scale || 1, visibility: scale ? "visible" : "hidden" }}
       >
         {children}
       </div>
