@@ -137,8 +137,6 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
           { title: "이력 관리", text: "이상 이력 조회, 엑셀 내려받기" },
           { title: "데이터 보안", text: "클라우드 저장, 권한별 열람" },
         ],
-        // 모니터 목업 이미지는 클라이언트에게 받을 예정. 받으면 public/images/home/에 넣고 연결
-        //   mockup: { src: "/images/home/platform-mockup.webp", alt: "...", width: 0, height: 0 },
         note: "예시 화면 · 표시된 수치는 실제 데이터가 아닙니다",
       },
     },

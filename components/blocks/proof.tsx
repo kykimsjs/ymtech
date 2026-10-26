@@ -3,6 +3,7 @@ import { ChevronRight } from "lucide-react";
 import { ButtonLink } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
 import { Media, type MediaData } from "./media";
+import { ScaledScreen } from "./scaled-screen";
 
 export type StatsGalleryProps = {
   title: string;
@@ -103,8 +104,6 @@ export type DashboardPreviewProps = {
   status?: string;
   /** 기능 목록. 있으면 좌우 분할 배치 */
   features?: { title: string; text: string }[];
-  /** 좌우 분할일 때 오른쪽에 넣을 목업 이미지. 없으면 HTML로 그린 모니터 목업 */
-  mockup?: MediaData & { width: number; height: number };
   id?: string;
 };
 
@@ -145,7 +144,7 @@ function DashboardScreen({ compact, bare, className }: { compact?: boolean; bare
         className,
       )}
     >
-      <div className={cn("grid gap-3", !compact && "lg:grid-cols-[1.5fr_1fr]")}>
+      <div className={cn("grid gap-3", bare ? "grid-cols-[1.5fr_1fr]" : !compact && "lg:grid-cols-[1.5fr_1fr]")}>
         <div className="rounded-lg border border-line p-6">
           <div className="flex items-baseline justify-between">
             <p className="font-semibold">전체 전력 사용 현황</p>
@@ -194,8 +193,8 @@ function DashboardScreen({ compact, bare, className }: { compact?: boolean; bare
               </tbody>
             </table>
           </div>
-          <div className={cn("items-center gap-5 rounded-lg border border-line p-6", compact ? "hidden" : bare ? "hidden lg:flex" : "flex")}>
-            <svg viewBox="0 0 42 42" className={cn("shrink-0 -rotate-90", bare ? "size-20" : "size-28")} role="img" aria-label="용도별 사용 비율 (예시)">
+          <div className={cn("items-center gap-5 rounded-lg border border-line p-6", compact ? "hidden" : "flex")}>
+            <svg viewBox="0 0 42 42" className="size-28 shrink-0 -rotate-90" role="img" aria-label="용도별 사용 비율 (예시)">
               {donut.map((part) => (
                 <circle
                   key={part.label}
@@ -227,27 +226,36 @@ function DashboardScreen({ compact, bare, className }: { compact?: boolean; bare
 }
 
 // 모니터 목업: 검은 테두리 + 앱 상단바 + 목·받침대. 화면 내용은 children
+// 모니터 목업: 클라이언트가 준 모니터 이미지(ChatGPT 생성, 투명 배경) 화면 자리에 예시 대시보드를 끼운다.
+// 화면 자리 비율은 원본 이미지에서 잰 값 (왼쪽 2.062% · 위 2.766% · 너비 95.876% · 높이 73.617%, 가로세로 1.747)
+const SCREEN_W = 1000;
+const SCREEN_H = Math.round(SCREEN_W / 1.747);
+
 function MonitorMockup({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <figure className="mx-auto w-full max-w-[52rem]">
-      <div className="rounded-[14px] bg-graphite-900 p-2 shadow-[0_24px_48px_-16px_rgb(16_26_53/0.35)] sm:p-3">
-        <div className="overflow-hidden rounded-md bg-canvas">
-          <div className="flex items-center justify-between gap-3 border-b border-line bg-surface px-4 py-2.5 text-xs">
+    <figure aria-label={`통합 안전관리 웹 플랫폼 ${title} 예시 화면`} className="relative mx-auto w-full max-w-[34rem]">
+      <Image src="/images/home/monitor.webp" alt="" width={1261} height={940} sizes="(min-width: 640px) 544px, 100vw" className="h-auto w-full" />
+      <ScaledScreen
+        designWidth={SCREEN_W}
+        designHeight={SCREEN_H}
+        className="absolute bg-surface"
+        style={{ left: "2.062%", top: "2.766%", width: "95.876%", height: "73.617%" }}
+      >
+        <div className="flex h-full flex-col bg-surface">
+          <div className="flex items-center justify-between gap-3 border-b border-line bg-canvas px-5 py-3 text-sm">
             <span className="font-semibold text-ink-muted">통합 안전관리 웹 플랫폼 · {title}</span>
-            <span className="rounded-full bg-surface-strong px-2 py-0.5 font-semibold text-ink-muted">예시 화면</span>
+            <span className="rounded-full bg-surface-strong px-2.5 py-0.5 font-semibold text-ink-muted">예시 화면</span>
           </div>
           {children}
         </div>
-      </div>
-      <div aria-hidden className="mx-auto h-10 w-24 bg-linear-to-b from-line-strong to-line [clip-path:polygon(18%_0,82%_0,100%_100%,0_100%)] sm:h-14 sm:w-32" />
-      <div aria-hidden className="mx-auto h-2.5 w-52 rounded-full bg-line-strong sm:w-64" />
+      </ScaledScreen>
     </figure>
   );
 }
 
 // 참고: 케빈랩 4ST ZIP "건물 전기 사용량·생산량 실시간 모니터링" — 가운데 제목·설명, 아래 대시보드 화면을 HTML로 재현
 // features가 있으면 왼쪽 설명·기능 목록 + 오른쪽 작은 화면으로 나눈다 (준비 중인 서비스를 과하게 크게 보여주지 않도록)
-export function DashboardPreview({ title, description, note, action, status, features, mockup, id }: DashboardPreviewProps) {
+export function DashboardPreview({ title, description, note, action, status, features, id }: DashboardPreviewProps) {
   const head = (
     <>
       {status && <p className="mb-4 rounded-full bg-surface-strong px-3 py-1 text-sm font-semibold text-ink-muted">{status}</p>}
@@ -263,11 +271,11 @@ export function DashboardPreview({ title, description, note, action, status, fea
   const noteLine = note && <p className="mt-4 text-right text-xs text-ink-subtle">{note}</p>;
 
   if (features) {
-    // 왼쪽 좁은 칸에 짧은 글, 오른쪽은 모니터 목업 속 예시 화면 (준비 중인 서비스를 가볍게 보여준다)
+    // 왼쪽에 짧은 글, 오른쪽은 작은 모니터 목업 속 예시 화면 (준비 중인 서비스를 가볍게 보여준다)
     return (
       <section id={id} className="block-y scroll-mt-14 bg-surface">
         <div className="container-page grid gap-12 lg:grid-cols-12 lg:items-center">
-          <div className="flex flex-col items-start lg:col-span-4">
+          <div className="flex flex-col items-start lg:col-span-5">
             {head}
             <dl className="mt-8 grid w-full grid-cols-2 gap-x-6 gap-y-5">
               {features.map((feature) => (
@@ -278,21 +286,10 @@ export function DashboardPreview({ title, description, note, action, status, fea
               ))}
             </dl>
           </div>
-          <div className="lg:col-span-8 lg:col-start-5">
-            {mockup?.src ? (
-              <Image
-                src={mockup.src}
-                alt={mockup.alt}
-                width={mockup.width}
-                height={mockup.height}
-                sizes="(min-width: 1024px) 780px, 100vw"
-                className="mx-auto h-auto w-full"
-              />
-            ) : (
-              <MonitorMockup title={title}>
-                <DashboardScreen bare />
-              </MonitorMockup>
-            )}
+          <div className="lg:col-span-6 lg:col-start-7">
+            <MonitorMockup title={title}>
+              <DashboardScreen bare />
+            </MonitorMockup>
             {note && <p className="mt-4 text-center text-xs text-ink-subtle">{note}</p>}
           </div>
         </div>
