@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { BreakText } from "@/components/ui/break-text";
 import { ButtonLink } from "@/components/ui/button";
 import { Media, type MediaData } from "./media";
 
@@ -10,6 +11,7 @@ export type ProductShowcaseProps = {
   label: string;
   title: string[];
   name: string;
+  /** 줄바꿈 문자는 데스크톱에서만 줄을 나눈다 (BreakText) */
   description?: string;
   media: MediaData;
   actions?: Action[];
@@ -42,7 +44,11 @@ export function ProductShowcase({ brand, label, title, name, description, media,
               ))}
             </h2>
             <p className="mt-6 text-lg font-semibold">{name}</p>
-            {description && <p className="mt-3 text-[1.0625rem] leading-[1.75] text-white/75">{description}</p>}
+            {description && (
+              <p className="mt-3 text-[1.0625rem] leading-[1.75] text-white/75">
+                <BreakText text={description} />
+              </p>
+            )}
             {actions.length > 0 && (
               <div className="mt-8 flex flex-wrap gap-3">
                 {actions.map((action, i) => (

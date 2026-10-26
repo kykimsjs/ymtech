@@ -68,7 +68,7 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
         label: "주력 제품",
         title: ["에너지 관리의 효율을 높이는", "YM이노테크의 혁신적인 솔루션"],
         name: "지능형 에코-비탈(Eeco-Vital) 모듈",
-        description: "분전반 안에 장착해 전력과 환경을 함께 감지하고, 이상이 생기면 자동으로 전원을 차단합니다.",
+        description: "분전반 안에 장착해 전력과 환경을 함께 감지하고,\n이상이 생기면 자동으로 전원을 차단합니다.",
         media: product,
         actions: [
           { label: "제품 자세히 보기", href: "#" },

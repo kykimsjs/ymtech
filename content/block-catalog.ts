@@ -41,7 +41,8 @@ export const featureRows: FeatureRowsProps["items"] = [
   },
   {
     ...keyPoints[1],
-    text: "전압·전류와 온·습도를 함께 감지하고, AI가 화재로 이어질 이상 징후를 미리 찾습니다.",
+    // \n: 데스크톱에서만 의미 단위로 줄바꿈 (BreakText)
+    text: "전압·전류와 온·습도를 함께 감지하고,\nAI가 화재로 이어질 이상 징후를 미리 찾습니다.",
     facts: [
       { label: "전력", value: "전압 · 전류" },
       { label: "환경", value: "온·습도 · 불꽃 · 침수 · 진동" },
@@ -51,6 +52,7 @@ export const featureRows: FeatureRowsProps["items"] = [
   },
   {
     ...keyPoints[2],
+    text: "이상이 감지되면 자동으로 차단하고,\n웹 플랫폼으로 실시간 알림과 이력을 남깁니다.",
     facts: [
       { label: "차단", value: "SSR(전자식 릴레이) 자동 차단" },
       { label: "경보", value: "시각·청각 경보" },

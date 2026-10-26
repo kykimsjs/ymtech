@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Plus } from "lucide-react";
+import { BreakText } from "@/components/ui/break-text";
 import { cn } from "@/lib/cn";
 import type { FeatureRowsProps } from "./feature-rows";
 import { Media } from "./media";
@@ -85,7 +86,9 @@ export function FeaturePanels({ title, items, id }: FeaturePanelsProps) {
                       {item.label}
                     </p>
                     <h3 className="mt-3 text-title font-bold">{item.title}</h3>
-                    <p className="mt-3 text-[0.9375rem] leading-[1.7] text-white/85 sm:text-base">{item.text}</p>
+                    <p className="mt-3 text-[0.9375rem] leading-[1.7] text-white/85 sm:text-base">
+                      <BreakText text={item.text} />
+                    </p>
                     {item.facts && (
                       <dl className="mt-5 border-t border-white/25 text-sm sm:text-[0.9375rem]">
                         {item.facts.map((fact) => (

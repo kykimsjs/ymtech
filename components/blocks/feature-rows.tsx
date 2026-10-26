@@ -1,3 +1,4 @@
+import { BreakText } from "@/components/ui/break-text";
 import { cn } from "@/lib/cn";
 import { Media, type MediaData } from "./media";
 
@@ -41,7 +42,9 @@ export function FeatureRows({ title, items, id }: FeatureRowsProps) {
                     {item.label}
                   </p>
                   <h3 className="mt-4 text-title font-bold">{item.title}</h3>
-                  <p className="mt-5 max-w-[30em] text-[1.0625rem] leading-[1.75] text-ink-muted">{item.text}</p>
+                  <p className="mt-5 max-w-[30em] text-[1.0625rem] leading-[1.75] text-ink-muted">
+                    <BreakText text={item.text} />
+                  </p>
                   {item.facts && (
                     <dl className="mt-8 border-t border-line">
                       {item.facts.map((fact) => (

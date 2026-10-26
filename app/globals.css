@@ -111,6 +111,20 @@
     overflow-wrap: anywhere;
   }
 
+  /* 줄바꿈 다듬기 (지원하지 않는 브라우저는 평소대로 줄바꿈)
+     제목: 줄 길이를 고르게, 본문: 마지막 줄에 단어 하나만 남지 않게 */
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p,
+  li,
+  dd {
+    text-wrap: pretty;
+  }
+
   ::selection {
     background: var(--color-brand-200);
   }
