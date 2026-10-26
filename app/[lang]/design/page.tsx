@@ -50,8 +50,8 @@ export default async function DesignPage() {
             ))}
           </nav>
           <span className="max-lg:hidden">
-            <ButtonLink href={`/${locale}/design/home`} variant="outline" size="sm">
-              HOME 시안
+            <ButtonLink href={`/${locale}`} variant="outline" size="sm">
+              메인 보기
             </ButtonLink>
           </span>
           <ButtonLink href={`/${locale}/design/blocks`} variant="dark" size="sm" className="ml-auto md:ml-0">

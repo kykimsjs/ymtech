@@ -150,3 +150,8 @@
 @utility border-ci {
   border-image: linear-gradient(90deg, var(--color-brand-500), var(--color-eco-500)) 1;
 }
+
+/* 실제 페이지에서는 임시 이미지 위의 "어떤 사진이 필요한지" 안내를 숨긴다 (블록 카탈로그에서만 보임) */
+[data-site] [data-media-hint] {
+  display: none;
+}

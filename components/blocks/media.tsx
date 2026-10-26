@@ -52,7 +52,11 @@ export function Media({
         style={media.focus ? { objectPosition: media.focus } : undefined}
       />
       {temporary && (
-        <span className="absolute right-2 bottom-2 max-w-[80%] truncate rounded-sm bg-black/55 px-2 py-1 text-[0.6875rem] text-white/90">
+        // 실제 페이지(data-site 안)에서는 globals.css 규칙으로 숨긴다
+        <span
+          data-media-hint
+          className="absolute right-2 bottom-2 max-w-[80%] truncate rounded-sm bg-black/55 px-2 py-1 text-[0.6875rem] text-white/90"
+        >
           임시 이미지 · {media.hint ?? media.alt}
         </span>
       )}

@@ -3,7 +3,7 @@ import { keyPoints, nav, photo, product, quickActions } from "@/content/block-ca
 
 // HOME 블록 순서 (2026-10-26 확정)
 //   헤더 → 히어로(단일 사진) → 핵심 소구점 → 증거(숫자) → 솔루션 바로가기 → 실시간 관제 → (적용 분야·실증) → Quick Actions → 푸터
-// 자료가 없는 블록은 hidden에 이유를 적어 운영 화면에서 뺀다. 시안 화면에서는 표시해서 보여준다.
+// 자료가 없는 블록은 hidden에 이유를 적어 운영 화면에서 뺀다 (블록 카탈로그 등 showHidden 화면에서만 보임).
 export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "dark" } = {}): Block[] {
   return [
     {
@@ -19,8 +19,8 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
         tone: headerTone,
         sticky: true,
         locales: [
-          { label: "KR", href: "#", active: true },
-          { label: "EN", href: "#" },
+          { label: "KR", href: "/ko", active: true },
+          { label: "EN", href: "/en" },
         ],
       },
     },
@@ -44,7 +44,6 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
         surface: true,
         // 기획안 1장 핵심 메시지 "기술 신뢰성"(KETI 검증, KESCO 규격 준수) + 6장 핵심 수치 3개
         title: "기술 신뢰성",
-        basis: "2026년 10월 기획안 기준",
         stats: [
           { label: "전압·전류 측정 정확도 · KETI 검증", value: "±2", unit: "%" },
           { label: "이상 감지 후 자동 차단", value: "10", unit: "초" },
@@ -68,7 +67,6 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
       data: {
         title: "실시간 관제",
         description: "분전반별 전력 사용량과 시간대별 변화, 온·습도를 한 화면에서 봅니다. 이상이 생기면 경보를 울리고 이력으로 남깁니다.",
-        note: "예시 화면입니다. 실제 웹 플랫폼 화면으로 교체 예정",
         // 기획안 3장 와이어프레임 "실시간 관제 데모 링크" (데모 주소 받으면 연결)
         action: { label: "웹 플랫폼 데모 로그인", href: "#" },
       },
@@ -91,10 +89,8 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
       data: {
         columns: nav.map((item) => ({ title: item.label, links: item.children.map((c) => c.label) })),
         info: [
-          { label: "(주)와이엠이노테크", value: "" },
-          { label: "대표", value: "[확인 필요]" },
-          { label: "사업자등록번호", value: "[확인 필요]" },
-          { label: "주소", value: "[확인 필요]" },
+          // 대표·사업자등록번호·주소는 자료를 받으면 추가
+          { label: "와이엠이노테크", value: "YM INNOTECH" },
         ],
         copyright: "© YM INNOTECH. All rights reserved.",
       },

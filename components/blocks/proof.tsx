@@ -94,7 +94,8 @@ export function ProductCert({ media, name, points, marks, id }: ProductCertProps
 export type DashboardPreviewProps = {
   title: string;
   description: string;
-  note: string;
+  /** 화면 아래 작은 안내 (예: "예시 화면") */
+  note?: string;
   /** 데모·로그인 링크 (케빈랩 "서비스 바로가기") */
   action?: { label: string; href: string };
   id?: string;
@@ -219,7 +220,7 @@ export function DashboardPreview({ title, description, note, action, id }: Dashb
             </div>
           </div>
         </div>
-        <p className="mt-4 text-right text-xs text-ink-subtle">{note}</p>
+        {note && <p className="mt-4 text-right text-xs text-ink-subtle">{note}</p>}
       </div>
     </section>
   );
