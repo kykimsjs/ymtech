@@ -73,9 +73,20 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
           { value: "10", unit: "초", label: "이상 감지 후 자동 차단" },
         ],
         evidence: [
-          { name: "KETI", full: "한국전자기술연구원", text: "전압·전류 측정 정확도 ±2% 검증" },
-          { name: "KESCO", full: "한국전기안전공사", text: "전기설비 규격 준수" },
-          { name: "AI 화재 예지", full: "예지 보전 알고리즘", text: "정상 데이터와 화재 연출 데이터를 비교·분석해 이상 징후를 찾습니다" },
+          // 마크: 각 기관 홈페이지 공식 CI (keti.re.kr 연구원소개 > CI, kesco.or.kr 홍보센터 > CI)
+          // AI 화재 예지는 위 소구점 패널 02에서 다루므로 여기서는 기획안 "기술 신뢰성" 두 근거만 둔다
+          {
+            name: "측정 정확도 검증",
+            full: "한국전자기술연구원(KETI)",
+            text: "전압·전류 측정 정확도 ±2%",
+            logo: { src: "/images/marks/keti.png", width: 900, height: 209 },
+          },
+          {
+            name: "전기설비 규격 준수",
+            full: "한국전기안전공사(KESCO)",
+            text: "한국전기안전공사 전기설비 규격",
+            logo: { src: "/images/marks/kesco.png", width: 900, height: 194 },
+          },
         ],
       },
     },

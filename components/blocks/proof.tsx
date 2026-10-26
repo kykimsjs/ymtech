@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ChevronRight } from "lucide-react";
 import { ButtonLink } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
@@ -319,8 +320,8 @@ export type TrustFiguresProps = {
   description?: string;
   /** 크게 보여줄 숫자. 숫자가 아닌 항목은 evidence로 보낸다 */
   figures: { value: string; unit: string; label: string }[];
-  /** 숫자를 뒷받침하는 기관·근거 */
-  evidence: { name: string; full?: string; text: string }[];
+  /** 숫자를 뒷받침하는 기관·근거. logo가 있으면 기관 공식 CI를 보여준다 */
+  evidence: { name: string; full?: string; text: string; logo?: { src: string; width: number; height: number } }[];
   id?: string;
 };
 
@@ -347,11 +348,20 @@ export function TrustFigures({ title, description, figures, evidence, id }: Trus
             ))}
           </dl>
         </div>
-        <ul className="mt-14 grid border-t border-ink md:grid-cols-3 lg:mt-20">
+        <ul className={cn("mt-14 grid border-t border-ink lg:mt-20", evidence.length === 2 ? "md:grid-cols-2" : "md:grid-cols-3")}>
           {evidence.map((item, i) => (
             <li key={item.name} className={cn("border-b border-line-strong py-6 md:border-b-0 md:py-8", i > 0 && "md:border-l md:pl-8", i < evidence.length - 1 && "md:pr-8")}>
+              {item.logo && (
+                <Image
+                  src={item.logo.src}
+                  alt={item.full ?? item.name}
+                  width={item.logo.width}
+                  height={item.logo.height}
+                  className="mb-6 h-10 w-auto lg:h-12"
+                />
+              )}
               <p className="text-lg font-bold">{item.name}</p>
-              {item.full && <p className="text-sm text-ink-subtle">{item.full}</p>}
+              {item.full && !item.logo && <p className="text-sm text-ink-subtle">{item.full}</p>}
               <p className="mt-3 text-[0.9375rem] leading-[1.7] text-ink-muted">{item.text}</p>
             </li>
           ))}

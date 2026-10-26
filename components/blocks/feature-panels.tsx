@@ -43,7 +43,7 @@ export function FeaturePanels({ title, items, id }: FeaturePanelsProps) {
                     diagram
                       ? "bg-transparent"
                       : open
-                        ? "bg-linear-to-t from-black/85 via-black/45 to-black/5"
+                        ? "bg-linear-to-t from-black/90 from-20% via-black/65 via-55% to-black/10"
                         : "bg-black/60",
                   )}
                 />
