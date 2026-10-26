@@ -6,15 +6,19 @@ import { icons, type IconName } from "./icons";
 import { Media, type MediaData } from "./media";
 
 export type TileGridProps = {
+  /** 앞에 intro-split 같은 머리말 블록이 없을 때 쓰는 제목 */
+  title?: string;
   tiles: { label: string; title: string[]; href: string; media: MediaData }[];
   tone?: "light" | "dark";
   id?: string;
 };
 
 // 참고: 아이오크롭스 대표 솔루션 — 간격 없는 2열 사진 타일, 위쪽 가운데에 제품명·두 줄 제목·Read More
-export function TileGrid({ tiles, tone = "dark", id }: TileGridProps) {
+export function TileGrid({ title, tiles, tone = "dark", id }: TileGridProps) {
+  const dark = tone === "dark";
   return (
-    <section id={id} className={cn("pb-20 lg:pb-28", tone === "dark" ? "bg-graphite-900" : "bg-canvas")}>
+    <section id={id} className={cn("pb-20 lg:pb-28", title && "pt-20 lg:pt-28", dark ? "bg-graphite-900" : "bg-canvas")}>
+      {title && <h2 className={cn("container-page mb-10 text-display font-bold", dark && "text-white")}>{title}</h2>}
       <div className="container-page grid sm:grid-cols-2">
         {tiles.map((tile) => (
           <Link key={tile.label} href={tile.href} className="group relative isolate aspect-square overflow-hidden text-white">

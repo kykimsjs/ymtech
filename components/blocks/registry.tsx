@@ -45,13 +45,32 @@ export const blockComponents = {
 export type BlockType = keyof typeof blockComponents;
 
 export type Block = {
-  [K in BlockType]: { type: K; key?: string; data: ComponentProps<(typeof blockComponents)[K]> };
+  [K in BlockType]: {
+    type: K;
+    key?: string;
+    /** 자료가 없어 운영 화면에서 뺄 때 그 이유 (예: "현장 사진 대기") */
+    hidden?: string;
+    data: ComponentProps<(typeof blockComponents)[K]>;
+  };
 }[BlockType];
 
-export function Blocks({ items }: { items: Block[] }) {
+// showHidden: 시안에서는 숨김 블록도 "운영 시 숨김" 표시를 달아 보여준다
+export function Blocks({ items, showHidden = false }: { items: Block[]; showHidden?: boolean }) {
   return items.map((block, i) => {
+    if (block.hidden && !showHidden) return null;
     // 타입과 데이터의 짝은 Block 유니온이 보장한다
     const Component = blockComponents[block.type] as ComponentType<typeof block.data>;
-    return <Component key={block.key ?? `${block.type}-${i}`} {...block.data} />;
+    const key = block.key ?? `${block.type}-${i}`;
+    if (!block.hidden) return <Component key={key} {...block.data} />;
+    return (
+      <div key={key} className="relative">
+        <p className="absolute top-2 right-3 z-20 rounded-full bg-danger px-3 py-1 text-xs font-semibold whitespace-nowrap text-white">
+          운영 시 숨김 · {block.hidden}
+        </p>
+        <div className="opacity-50">
+          <Component {...block.data} />
+        </div>
+      </div>
+    );
   });
 }

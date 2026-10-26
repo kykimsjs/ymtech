@@ -120,7 +120,7 @@ export const catalog: CatalogEntry[] = [
         label: "ECO-VITAL",
         eyebrow: "스마트팜 분전반용 AIoT 모듈",
         title: ["전력과 환경을 함께 보고", "위험하면 전원을 끊습니다"],
-        action: { label: "자세히 보기", href: "#" },
+        actions: [{ label: "자세히 보기", href: "#" }],
         media: product,
       },
     },
@@ -366,10 +366,10 @@ export const catalog: CatalogEntry[] = [
       type: "stats-gallery",
       data: {
         title: "숫자로 보는 에코-비탈 모듈",
-        basis: "2026년 10월 기획안 기준 · *제품소개 자료에는 30초로 되어 있어 확인 필요",
+        basis: "2026년 10월 기획안 기준",
         stats: [
           { label: "전압·전류 측정 오차 (KETI)", value: "±2", unit: "%" },
-          { label: "이상 감지 후 차단", value: "10", unit: "초*" },
+          { label: "이상 감지 후 차단", value: "10", unit: "초" },
           { label: "실시간 전력 감지", value: "3", unit: "상" },
         ],
         gallery: [

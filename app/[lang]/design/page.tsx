@@ -50,7 +50,7 @@ export default async function DesignPage() {
             ))}
           </nav>
           <span className="max-lg:hidden">
-            <ButtonLink href={`/${locale}/design/drafts`} variant="outline" size="sm">
+            <ButtonLink href={`/${locale}/design/home`} variant="outline" size="sm">
               HOME 시안
             </ButtonLink>
           </span>

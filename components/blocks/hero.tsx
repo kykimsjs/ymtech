@@ -44,39 +44,67 @@ export function HeroMedia({ title, description, caption, media, actions = [] }: 
 }
 
 export type HeroSplitProps = {
-  label: string;
+  /** 사진 위 제품명 (선택) */
+  label?: string;
   eyebrow: string;
   title: string[];
-  action: Action;
+  description?: string;
+  /** 첫 번째는 채운 버튼, 나머지는 테두리 버튼 */
+  actions: Action[];
   media: MediaData;
   reverse?: boolean;
+  /** HOME 첫 화면처럼 페이지 제목이면 h1 */
+  heading?: "h1" | "h2";
 };
 
-// 참고: 케빈랩 메인 — 왼쪽 반은 사진 위 제품명, 오른쪽 반은 흰 바탕 가운데 정렬 문구 + 알약형 테두리 버튼
-export function HeroSplit({ label, eyebrow, title, action, media, reverse }: HeroSplitProps) {
+// 참고: 케빈랩 메인 — 왼쪽 반은 사진, 오른쪽 반은 흰 바탕 가운데 정렬 문구 + 알약형 버튼
+export function HeroSplit({ label, eyebrow, title, description, actions, media, reverse, heading = "h2" }: HeroSplitProps) {
+  const Heading = heading;
   return (
     <section className="grid bg-canvas lg:min-h-[44rem] lg:grid-cols-2">
       <div className={reverse ? "relative lg:order-2" : "relative"}>
-        <Media media={media} tone="dark" sizes="(min-width: 1024px) 50vw, 100vw" className="aspect-[4/3] h-full w-full bg-graphite-900 lg:aspect-auto" />
-        {/* 케빈랩은 사진 가운데에 제품명을 두지만, 제품 사진을 가리지 않도록 왼쪽 아래에 둔다.
-            사진 아래쪽이 밝아도 읽히도록 어두운 그라데이션을 깐다. */}
-        <div aria-hidden className="absolute inset-x-0 bottom-0 h-2/5 bg-linear-to-t from-black/60 to-transparent" />
-        <p className="absolute bottom-8 left-8 text-[clamp(1.75rem,1.3rem+1.8vw,2.75rem)] font-bold tracking-[-0.01em] text-white [text-shadow:0_2px_24px_rgb(0_0_0/0.45)]">
-          {label}
-        </p>
+        <Media
+          media={media}
+          tone="dark"
+          preload={heading === "h1"}
+          sizes="(min-width: 1024px) 50vw, 100vw"
+          className="aspect-[4/3] h-full w-full bg-graphite-900 lg:aspect-auto"
+        />
+        {label && (
+          <>
+            {/* 케빈랩은 사진 가운데에 제품명을 두지만, 제품 사진을 가리지 않도록 왼쪽 아래에 둔다.
+                사진 아래쪽이 밝아도 읽히도록 어두운 그라데이션을 깐다. */}
+            <div aria-hidden className="absolute inset-x-0 bottom-0 h-2/5 bg-linear-to-t from-black/60 to-transparent" />
+            <p className="absolute bottom-8 left-8 text-[clamp(1.75rem,1.3rem+1.8vw,2.75rem)] font-bold tracking-[-0.01em] text-white [text-shadow:0_2px_24px_rgb(0_0_0/0.45)]">
+              {label}
+            </p>
+          </>
+        )}
       </div>
-      <div className="flex flex-col items-center justify-center gap-6 px-6 py-20 text-center">
-        <p className="font-semibold text-ink-muted">{eyebrow}</p>
-        <h2 className="text-display font-bold">
+      <div className="flex flex-col items-center justify-center gap-6 px-6 py-16 text-center lg:py-20">
+        <p className="font-semibold text-brand-600">{eyebrow}</p>
+        <Heading className={heading === "h1" ? "text-display-xl font-bold" : "text-display font-bold"}>
           {title.map((line) => (
             <span key={line} className="block">
               {line}
             </span>
           ))}
-        </h2>
-        <ButtonLink href={action.href} variant="outline" shape="pill" className="mt-4 border-ink">
-          {action.label} <ChevronRight className="size-4" />
-        </ButtonLink>
+        </Heading>
+        {description && <p className="max-w-md text-lg leading-[1.7] text-ink-muted">{description}</p>}
+        <div className="mt-4 flex flex-wrap justify-center gap-3">
+          {actions.map((action, i) => (
+            <ButtonLink
+              key={action.label}
+              href={action.href}
+              variant={i === 0 ? "primary" : "outline"}
+              shape="pill"
+              size="lg"
+              className={i === 0 ? "" : "border-ink"}
+            >
+              {action.label} {i === 0 && <ChevronRight className="size-4" />}
+            </ButtonLink>
+          ))}
+        </div>
       </div>
     </section>
   );

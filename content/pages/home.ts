@@ -1,11 +1,16 @@
 import type { Block } from "@/components/blocks/registry";
 import { keyPoints, nav, photo, product, quickActions } from "@/content/block-catalog";
 
-// HOME 블록 순서 — 기획안 3장(헤드카피 → 소구점 → 바로가기 → 관제 데모 → Quick Actions)에
-// 재분석(plan-analysis.md)에서 권장한 증거 영역(숫자·현장)을 더했다.
-export function homeBlocks({ headerTone }: { headerTone: "light" | "dark" }): Block[] {
+// HOME 블록 순서 (2026-10-26 확정)
+//   헤더 → 히어로(제품 좌우 분할) → 핵심 소구점 → 증거(숫자) → 솔루션 바로가기 → 실시간 관제 → (적용 분야·실증) → Quick Actions → 푸터
+// 자료가 없는 블록은 hidden에 이유를 적어 운영 화면에서 뺀다. 시안 화면에서는 표시해서 보여준다.
+export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "dark" } = {}): Block[] {
   return [
-    { type: "announcement-bar", data: { text: "에코-비탈 모듈 제품 소개서", linkLabel: "PDF 받기", href: "#" } },
+    {
+      type: "announcement-bar",
+      hidden: "제품 소개서 PDF 대기",
+      data: { text: "에코-비탈 모듈 제품 소개서", linkLabel: "PDF 받기", href: "#" },
+    },
     {
       type: "site-header",
       data: {
@@ -20,52 +25,40 @@ export function homeBlocks({ headerTone }: { headerTone: "light" | "dark" }): Bl
       },
     },
     {
-      type: "hero-media",
+      type: "hero-split",
       data: {
+        heading: "h1",
+        eyebrow: "AIoT 스마트팜 에너지·화재 관리 솔루션",
         title: ["화재예방부터", "에너지 최적화까지"],
         description: "스마트팜의 안전과 효율을 완성하는 AIoT 에너지·화재 관리 솔루션",
-        media: photo("온실 분전반 앞에서 모듈을 점검하는 직원 (가로 사진 또는 영상)"),
         actions: [
-          { label: "제품 소개서 다운로드", href: "#" },
           { label: "도입·실증 문의", href: "#" },
+          { label: "제품 소개서 다운로드", href: "#" },
         ],
+        media: product,
       },
     },
     { type: "key-points", data: { items: keyPoints } },
     {
-      type: "intro-split",
+      type: "stats-gallery",
       data: {
-        tone: "dark",
-        title: ["주요 제품", "바로가기"],
-        description: "분전반에 다는 에코-비탈 모듈과, 그 데이터를 보여주는 통합 안전관리 웹 플랫폼을 함께 공급합니다.",
+        surface: true,
+        title: "시험으로 확인한 숫자",
+        basis: "2026년 10월 기획안 기준",
+        stats: [
+          { label: "전압·전류 측정 오차 (KETI)", value: "±2", unit: "%" },
+          { label: "이상 감지 후 자동 차단", value: "10", unit: "초" },
+          { label: "실시간 전력 감지", value: "3", unit: "상" },
+        ],
       },
     },
     {
       type: "tile-grid",
       data: {
+        title: "솔루션",
         tiles: [
-          { label: "Eco-Vital", title: ["분전반 장착형", "감지·차단 모듈"], href: "#", media: product },
-          { label: "Web Platform", title: ["실시간 관제와", "이력 관리"], href: "#", media: photo("웹 플랫폼 화면을 보는 담당자") },
-          { label: "Smart Greenhouse", title: ["스마트 온실"], href: "#", media: photo("온실 내부") },
-          { label: "Livestock · Vertical Farm", title: ["축사·수직농장"], href: "#", media: photo("축사 또는 수직농장 내부") },
-        ],
-      },
-    },
-    {
-      type: "stats-gallery",
-      data: {
-        title: "숫자로 보는 에코-비탈 모듈",
-        basis: "2026년 10월 기획안 기준 · *제품소개 자료에는 30초로 되어 있어 확인 필요",
-        stats: [
-          { label: "전압·전류 측정 오차 (KETI)", value: "±2", unit: "%" },
-          { label: "이상 감지 후 차단", value: "10", unit: "초*" },
-          { label: "실시간 전력 감지", value: "3", unit: "상" },
-        ],
-        gallery: [
-          { caption: "전남 중소 스마트팜", media: photo("실증 현장 외관") },
-          { caption: "㈜그린에이트 협력 현장", media: photo("협력 현장 분전반") },
-          { caption: "KETI 시험", media: photo("시험 장면 또는 성적서") },
-          { caption: "[현장 이름]", media: photo("추가 실증 현장") },
+          { label: "Eco-Vital Module", title: ["분전반 장착형", "감지·차단 모듈"], href: "#", media: product },
+          { label: "Web Platform", title: ["통합 안전관리", "웹 플랫폼"], href: "#", media: photo("웹 플랫폼 화면을 보는 담당자") },
         ],
       },
     },
@@ -78,14 +71,15 @@ export function homeBlocks({ headerTone }: { headerTone: "light" | "dark" }): Bl
       },
     },
     {
-      type: "benefit-band",
+      type: "gallery-tabs",
+      hidden: "현장 사진 대기",
       data: {
-        title: "와이엠이노테크의 미션",
-        items: [
-          { icon: "shield", title: "안전성", text: "AI 이상 감지와 실시간 자동 차단으로 화재 피해를 막습니다." },
-          { icon: "leaf", title: "에너지 효율", text: "전력과 환경 데이터를 함께 분석해 에너지 사용을 줄입니다." },
-          { icon: "users", title: "보급형", text: "중소 스마트팜에 맞춘 저비용 구성으로 공급합니다." },
-        ],
+        title: "설치 사례",
+        description: "에코-비탈 모듈이 실제로 달린 분전반입니다.",
+        groups: ["스마트 온실", "축사", "수직농장"].map((label) => ({
+          label,
+          items: [1, 2, 3, 4].map((n) => ({ caption: `${label} 분전반 ${n}`, media: photo(`${label} 분전반 내부 설치 ${n}`) })),
+        })),
       },
     },
     { type: "quick-actions", data: { items: quickActions } },

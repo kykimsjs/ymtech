@@ -3,21 +3,24 @@ import { Media, type MediaData } from "./media";
 
 export type StatsGalleryProps = {
   title: string;
-  basis: string;
+  basis?: string;
   stats: { label: string; value: string; unit: string }[];
-  gallery: { caption: string; media: MediaData }[];
+  /** 현장 사진. 없으면 숫자만 보여준다 */
+  gallery?: { caption: string; media: MediaData }[];
+  /** 앞뒤 블록과 구분할 때 회색 바탕 */
+  surface?: boolean;
   id?: string;
 };
 
 // 참고: 케빈랩 "제로에너지빌딩 인증 현황" — 왼쪽 제목 + 기준일, 오른쪽 윗선 있는 숫자, 아래 현장 사진 4장과 캡션
-export function StatsGallery({ title, basis, stats, gallery, id }: StatsGalleryProps) {
+export function StatsGallery({ title, basis, stats, gallery = [], surface, id }: StatsGalleryProps) {
   return (
-    <section id={id} className="block-y bg-canvas">
+    <section id={id} className={cn("block-y", surface ? "bg-surface" : "bg-canvas")}>
       <div className="container-page">
         <div className="grid gap-10 lg:grid-cols-2">
           <div>
             <h2 className="text-title font-bold">{title}</h2>
-            <p className="mt-3 text-sm font-semibold text-ink-subtle">{basis}</p>
+            {basis && <p className="mt-3 text-sm font-semibold text-ink-subtle">{basis}</p>}
           </div>
           <dl className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-3">
             {stats.map((stat) => (
@@ -31,14 +34,16 @@ export function StatsGallery({ title, basis, stats, gallery, id }: StatsGalleryP
             ))}
           </dl>
         </div>
-        <ul className="mt-14 grid grid-cols-2 gap-4 lg:grid-cols-4">
-          {gallery.map((item) => (
-            <li key={item.caption}>
-              <Media media={item.media} sizes="(min-width: 1024px) 300px, 50vw" className="aspect-[4/3] rounded-[10px]" />
-              <p className="mt-4 text-center text-[0.9375rem] font-semibold text-ink-muted">{item.caption}</p>
-            </li>
-          ))}
-        </ul>
+        {gallery.length > 0 && (
+          <ul className="mt-14 grid grid-cols-2 gap-4 lg:grid-cols-4">
+            {gallery.map((item) => (
+              <li key={item.caption}>
+                <Media media={item.media} sizes="(min-width: 1024px) 300px, 50vw" className="aspect-[4/3] rounded-[10px]" />
+                <p className="mt-4 text-center text-[0.9375rem] font-semibold text-ink-muted">{item.caption}</p>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </section>
   );
