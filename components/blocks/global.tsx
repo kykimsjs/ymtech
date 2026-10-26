@@ -21,11 +21,13 @@ export function AnnouncementBar({ text, linkLabel, href }: AnnouncementBarProps)
 
 export type SiteFooterProps = {
   columns: { title: string; links: string[] }[];
-  info: { label: string; value: string }[];
+  /** 회사 정보 줄. 성격별로 묶는다 (예: 1줄 회사·대표·주소, 2줄 사업자번호·연락처). href가 있으면 링크 */
+  info: { label?: string; value: string; href?: string }[][];
   copyright: string;
 };
 
-// 참고: 지노시스 하단(어두운 바탕, 로고 + 사업자 정보 줄글) + 메뉴 열
+// 참고: 지노시스 하단(어두운 바탕, 로고 + 사업자 정보 줄글) + 메뉴 열,
+//       케빈랩 하단(회사 정보 마지막 줄과 같은 높이 오른쪽 끝에 카피라이트)
 export function SiteFooter({ columns, info, copyright }: SiteFooterProps) {
   return (
     <footer className="bg-graphite-900 text-white/60">
@@ -48,14 +50,28 @@ export function SiteFooter({ columns, info, copyright }: SiteFooterProps) {
         </nav>
       </div>
       <div className="border-t border-white/10">
-        <div className="container-page flex flex-col gap-4 py-8 text-[0.8125rem] leading-6 lg:flex-row lg:justify-between">
-          <p className="flex flex-wrap gap-x-4">
-            {info.map((item) => (
-              <span key={item.label}>
-                {item.label} {item.value}
-              </span>
+        <div className="container-page flex flex-col gap-4 py-8 text-[0.8125rem] leading-6 lg:flex-row lg:items-end lg:justify-between lg:gap-10">
+          <address className="flex flex-col gap-1 not-italic">
+            {info.map((line, i) => (
+              <p key={i} className="flex flex-wrap items-center gap-x-3">
+                {line.map((item, j) => (
+                  <span key={item.value} className="flex items-center gap-x-3">
+                    {j > 0 && <span aria-hidden className="h-3 w-px bg-white/25" />}
+                    <span>
+                      {item.label && <span className="mr-1.5 text-white/45">{item.label}</span>}
+                      {item.href ? (
+                        <a href={item.href} className="hover:text-white">
+                          {item.value}
+                        </a>
+                      ) : (
+                        item.value
+                      )}
+                    </span>
+                  </span>
+                ))}
+              </p>
             ))}
-          </p>
+          </address>
           <p className="shrink-0 text-white/55">{copyright}</p>
         </div>
       </div>

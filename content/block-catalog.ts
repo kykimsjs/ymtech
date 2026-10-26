@@ -130,12 +130,12 @@ export const catalog: CatalogEntry[] = [
       data: {
         columns: nav.map((item) => ({ title: item.label, links: item.children.map((c) => c.label) })),
         info: [
-          { label: organization.name, value: organization.alternateName },
-          { label: "대표", value: organization.ceo },
-          { label: "사업자등록번호", value: "[확인 필요]" },
-          { label: "주소", value: fullAddress },
-          { label: "대표전화", value: organization.phone },
-          { label: "이메일", value: organization.email },
+          [{ value: organization.name }, { label: "대표", value: organization.ceo }, { value: fullAddress }],
+          [
+            { label: "사업자등록번호", value: "[확인 필요]" },
+            { label: "대표전화", value: organization.phone },
+            { label: "이메일", value: organization.email },
+          ],
         ],
         copyright: "© YM INNOTECH. All rights reserved.",
       },

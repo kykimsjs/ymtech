@@ -180,13 +180,13 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
       type: "site-footer",
       data: {
         columns: nav.map((item) => ({ title: item.label, links: item.children.map((c) => c.label) })),
+        // 1줄 회사·대표·주소, 2줄 연락처 (사업자등록번호는 받으면 2줄 맨 앞에)
         info: [
-          // 사업자등록번호는 자료를 받으면 추가
-          { label: organization.name, value: organization.alternateName },
-          { label: "대표", value: organization.ceo },
-          { label: "주소", value: fullAddress },
-          { label: "대표전화", value: organization.phone },
-          { label: "이메일", value: organization.email },
+          [{ value: organization.name }, { label: "대표", value: organization.ceo }, { value: fullAddress }],
+          [
+            { label: "대표전화", value: organization.phone, href: `tel:${phoneE164}` },
+            { label: "이메일", value: organization.email, href: `mailto:${organization.email}` },
+          ],
         ],
         copyright: "© YM INNOTECH. All rights reserved.",
       },
