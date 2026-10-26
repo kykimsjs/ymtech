@@ -20,7 +20,7 @@ export const organization = {
   // 우편번호·참고항목(빛가람동)은 주소정보누리집(juso.go.kr) 조회 결과 (2026-10-26)
   address: {
     postalCode: "58324",
-    region: "전라남도",
+    region: "전남광주통합특별시",
     locality: "나주시",
     street: "그린로 370, 411-412호",
     district: "빛가람동",
