@@ -34,7 +34,7 @@ export function ProductShowcase({ brand, label, title, name, description, media,
             className="aspect-[4/3] rounded-card lg:col-span-6"
           />
           <div className="lg:col-span-6 lg:col-start-7 lg:pl-4">
-            {brand && <Image src={brand.src} alt={brand.alt} width={brand.width} height={brand.height} className="mb-8 h-12 w-auto lg:h-14" />}
+            {brand && <Image src={brand.src} alt={brand.alt} width={brand.width} height={brand.height} sizes="200px" className="mb-8 h-12 w-auto lg:h-14" />}
             <p className="text-eyebrow font-semibold text-eco-300">{label}</p>
             <h2 className="mt-4 text-[clamp(1.75rem,1.3rem+1.6vw,2.25rem)] leading-[1.3] font-bold tracking-[-0.02em]">
               {title.map((line) => (

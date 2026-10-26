@@ -26,13 +26,17 @@ export function Media({
   tone = "light",
   fill = false,
   preload,
+  lowPriority,
 }: {
   media: MediaData;
   className?: string;
   sizes?: string;
   tone?: "light" | "dark";
   fill?: boolean;
+  /** 첫 화면의 가장 큰 이미지(LCP): 바로, 우선해서 받는다 */
   preload?: boolean;
+  /** 당장 보이지 않는 이미지(넘어갈 슬라이드 등): 다른 이미지보다 나중에 받는다 */
+  lowPriority?: boolean;
 }) {
   const temporary = !media.src;
   const src = media.src ?? placeholderSrc(media.hint ?? media.alt);
@@ -44,7 +48,9 @@ export function Media({
         alt={media.alt}
         fill
         sizes={sizes}
-        preload={preload}
+        // Next 16 문서 권장: LCP 이미지는 preload 대신 loading="eager" + fetchPriority="high"
+        loading={preload ? "eager" : undefined}
+        fetchPriority={preload ? "high" : lowPriority ? "low" : undefined}
         // 임시 이미지는 외부 주소를 그대로 쓴다 (최적화·도메인 설정 없이)
         unoptimized={temporary}
         // 임시 이미지는 흑백: 주제와 무관한 사진 색이 화면 색감 판단을 흐리지 않도록

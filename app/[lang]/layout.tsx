@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import { fontVariables } from "@/app/fonts/fonts";
 import { getDictionary, getLocale } from "@/content/dictionaries";
 import { locales } from "@/lib/i18n";
 import { indexedLocales, siteUrl } from "@/lib/site";
@@ -43,7 +42,7 @@ export const viewport: Viewport = {
 
 export default async function RootLayout({ children }: LayoutProps<"/[lang]">) {
   return (
-    <html lang={await getLocale()} className={`${fontVariables} h-full antialiased`}>
+    <html lang={await getLocale()} className="h-full antialiased">
       <body className="flex min-h-full flex-col">{children}</body>
     </html>
   );

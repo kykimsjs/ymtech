@@ -47,7 +47,7 @@ export function TileGrid({ title, tiles, tone = "dark", id }: TileGridProps) {
               {/* 로고 또는 상태 표시 줄: 높이를 맞춰 두 칸의 제목 줄이 나란히 오게 */}
               <div className="flex h-9 items-center lg:h-10">
                 {tile.brand ? (
-                  <Image src={tile.brand.src} alt={tile.brand.alt} width={tile.brand.width} height={tile.brand.height} className="h-full w-auto" />
+                  <Image src={tile.brand.src} alt={tile.brand.alt} width={tile.brand.width} height={tile.brand.height} sizes="160px" className="h-full w-auto" />
                 ) : (
                   tile.status && (
                     <span className={cn("rounded-full border px-3 py-1 text-xs font-semibold", dark ? "border-white/50" : "border-line-strong")}>

@@ -31,7 +31,7 @@ export function HeroMedia({ title, description, caption, media, actions = [], ov
       {slides.length > 1 ? (
         <HeroSlideshow labels={slides.map((slide) => slide.alt)}>
           {slides.map((slide, i) => (
-            <Media key={slide.src ?? slide.alt} media={slide} tone="dark" preload={i === 0} fill />
+            <Media key={slide.src ?? slide.alt} media={slide} tone="dark" preload={i === 0} lowPriority={i > 0} fill />
           ))}
         </HeroSlideshow>
       ) : (

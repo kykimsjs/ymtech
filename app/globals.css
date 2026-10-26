@@ -102,6 +102,13 @@
     -webkit-text-size-adjust: 100%;
   }
 
+  /* 페이지 안 이동(#앵커, 맨 위로)만 부드럽게. 휠 스크롤은 브라우저 기본 그대로, 움직임 줄이기 설정이면 끈다 */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
   body {
     background: var(--color-canvas);
     color: var(--color-ink);

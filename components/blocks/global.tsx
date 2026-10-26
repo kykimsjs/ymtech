@@ -51,14 +51,14 @@ export function SiteFooter({ columns, info, copyright }: SiteFooterProps) {
       </div>
       <div className="border-t border-white/10">
         <div className="container-page flex flex-col gap-4 py-8 text-[0.8125rem] leading-6 lg:flex-row lg:items-end lg:justify-between lg:gap-10">
-          <address className="flex flex-col gap-1 not-italic">
+          <address className="flex flex-col gap-1 text-white/80 not-italic">
             {info.map((line, i) => (
               <p key={i} className="flex flex-wrap items-center gap-x-3">
                 {line.map((item, j) => (
                   <span key={item.value} className="flex items-center gap-x-3">
                     {j > 0 && <span aria-hidden className="h-3 w-px bg-white/25" />}
                     <span>
-                      {item.label && <span className="mr-1.5 text-white/45">{item.label}</span>}
+                      {item.label && <span className="mr-1.5 text-white/60">{item.label}</span>}
                       {item.href ? (
                         <a href={item.href} className="hover:text-white">
                           {item.value}

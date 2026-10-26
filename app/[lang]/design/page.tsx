@@ -9,6 +9,7 @@ import { cn } from "@/lib/cn";
 import { Colors } from "./_sections/colors";
 import { Components } from "./_sections/components";
 import { Patterns } from "./_sections/patterns";
+import { fontVariables } from "@/app/fonts/fonts";
 import { Typography } from "./_sections/typography";
 
 export const metadata: Metadata = {
@@ -34,7 +35,8 @@ export default async function DesignPage() {
   };
 
   return (
-    <div className="bg-surface">
+    // CI 지정서체(Leferi)·Noto Serif KR은 디자인 시스템 페이지에서만 쓴다. 전체 페이지에 걸면 글꼴 선언 CSS가 첫 화면을 막는다
+    <div className={`${fontVariables} bg-surface`}>
       <header className="sticky top-0 z-20 border-b border-line bg-canvas/90 backdrop-blur">
         <div className="container-page flex h-16 items-center gap-3 md:gap-6">
           <Link href={`/${locale}`} className="flex shrink-0 items-center gap-3">

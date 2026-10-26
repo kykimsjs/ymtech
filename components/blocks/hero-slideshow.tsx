@@ -33,10 +33,16 @@ export function HeroSlideshow({
   const slides = Children.toArray(children);
   const count = slides.length;
   const [index, setIndex] = useState(0);
+  // 본 적 있는 사진과 바로 다음 사진만 그린다: 처음에 사진 네 장을 한꺼번에 받지 않도록
+  const [seen, setSeen] = useState<number[]>([0]);
   const [paused, setPaused] = useState(false);
   const reducedMotion = usePrefersReducedMotion();
   const autoplay = !reducedMotion && count > 1;
-  const go = (next: number) => setIndex((next + count) % count);
+  const go = (next: number) => {
+    const target = (next + count) % count;
+    setIndex(target);
+    setSeen((list) => (list.includes(target) ? list : [...list, target]));
+  };
   const pad = (n: number) => String(n).padStart(2, "0");
 
   return (
@@ -51,7 +57,7 @@ export function HeroSlideshow({
               i === index ? "opacity-100" : "opacity-0",
             )}
           >
-            {slide}
+            {(seen.includes(i) || i === (index + 1) % count) && slide}
           </div>
         ))}
       </div>

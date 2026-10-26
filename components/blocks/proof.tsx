@@ -395,6 +395,7 @@ export function TrustFigures({ title, description, items, layout = "rows", basis
                     alt={item.mark.alt}
                     width={item.mark.width}
                     height={item.mark.height}
+                    sizes="180px"
                     className="col-start-2 h-8 w-auto sm:col-start-3 lg:h-10"
                   />
                 )}
@@ -429,7 +430,7 @@ export function TrustFigures({ title, description, items, layout = "rows", basis
             {marks.map((item) => (
               <li key={item.label} className="flex items-center gap-4">
                 {item.mark && (
-                  <Image src={item.mark.src} alt={item.mark.alt} width={item.mark.width} height={item.mark.height} className="h-9 w-auto lg:h-10" />
+                  <Image src={item.mark.src} alt={item.mark.alt} width={item.mark.width} height={item.mark.height} sizes="180px" className="h-9 w-auto lg:h-10" />
                 )}
                 <span className="text-[0.9375rem] text-ink-muted">{item.label}</span>
               </li>
