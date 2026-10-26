@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, ChevronRight, Mail, MapPin, Phone, Printer } from "lucide-react";
+import { BreakText } from "@/components/ui/break-text";
 import { ButtonLink } from "@/components/ui/button";
 import { icons, type IconName } from "./icons";
 import { Media, type MediaData } from "./media";
@@ -141,7 +142,9 @@ export function ClosingCta({ title, text, contacts, actions, media, id }: Closin
       <div className="container-page grid gap-12 py-20 lg:grid-cols-12 lg:items-center lg:py-28">
         <div className="lg:col-span-5">
           <h2 className="text-display font-bold text-balance">{title}</h2>
-          <p className="mt-5 text-[1.0625rem] leading-[1.75] text-white/80">{text}</p>
+          <p className="mt-5 text-[1.0625rem] leading-[1.75] text-white/80">
+            <BreakText text={text} />
+          </p>
           <dl className="mt-10 flex flex-col gap-3">
             {contacts.map((contact) => (
               <div key={contact.label} className="flex items-baseline gap-4">
