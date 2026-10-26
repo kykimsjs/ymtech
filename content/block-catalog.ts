@@ -1,5 +1,6 @@
 import type { Block } from "@/components/blocks/registry";
 import type { MediaData } from "@/components/blocks/media";
+import { fullAddress, organization } from "@/lib/site";
 
 // 블록 카탈로그 예시 데이터. 사실은 docs/ 기획안·제품소개에서만 가져온다.
 // 자료가 없는 값(연도, 고객사, 주소, 사진)은 [ ]로 비워 둔다.
@@ -86,11 +87,11 @@ export const catalog: CatalogEntry[] = [
       data: {
         columns: nav.map((item) => ({ title: item.label, links: item.children.map((c) => c.label) })),
         info: [
-          { label: "(주)와이엠이노테크", value: "" },
-          { label: "대표", value: "[확인 필요]" },
+          { label: organization.name, value: organization.alternateName },
+          { label: "대표", value: organization.ceo },
           { label: "사업자등록번호", value: "[확인 필요]" },
-          { label: "주소", value: "[확인 필요]" },
-          { label: "Tel", value: "[확인 필요]" },
+          { label: "주소", value: fullAddress },
+          { label: "대표전화", value: organization.phone },
         ],
         copyright: "© YM INNOTECH. All rights reserved.",
       },
@@ -510,8 +511,8 @@ export const catalog: CatalogEntry[] = [
       data: {
         id: "contact",
         title: "Contact",
-        offices: [{ name: "본사", address: "[주소 확인 필요]" }],
-        phone: "[전화번호 확인 필요]",
+        offices: [{ name: "본사", address: fullAddress }],
+        phone: organization.phone,
         email: "[이메일 확인 필요]",
         map: photo("카카오맵 또는 네이버 지도 임베드 영역"),
       },

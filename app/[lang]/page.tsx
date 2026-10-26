@@ -3,7 +3,7 @@ import { Blocks } from "@/components/blocks/registry";
 import { Logo } from "@/components/ui/logo";
 import { getDictionary, getLocale } from "@/content/dictionaries";
 import { homeBlocks } from "@/content/pages/home";
-import { organization, siteUrl } from "@/lib/site";
+import { organization, phoneE164, siteUrl } from "@/lib/site";
 
 export async function generateMetadata(_: unknown, parent: ResolvingMetadata): Promise<Metadata> {
   const [locale, inherited] = await Promise.all([getLocale(), parent]);
@@ -32,6 +32,14 @@ async function StructuredData() {
         url: siteUrl,
         logo: `${siteUrl}${organization.logo}`,
         description: meta.description,
+        telephone: phoneE164,
+        address: {
+          "@type": "PostalAddress",
+          addressCountry: "KR",
+          addressRegion: organization.address.region,
+          addressLocality: organization.address.locality,
+          streetAddress: organization.address.street,
+        },
       },
       {
         "@type": "WebSite",

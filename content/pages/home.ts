@@ -1,5 +1,6 @@
 import type { Block } from "@/components/blocks/registry";
 import { keyPoints, nav, photo, product, quickActions } from "@/content/block-catalog";
+import { fullAddress, organization } from "@/lib/site";
 
 // HOME 블록 순서 (2026-10-26 확정)
 //   헤더 → 히어로(단일 사진) → 핵심 소구점 → 증거(숫자) → 솔루션 바로가기 → 실시간 관제 → (적용 분야·실증) → Quick Actions → 푸터
@@ -89,8 +90,11 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
       data: {
         columns: nav.map((item) => ({ title: item.label, links: item.children.map((c) => c.label) })),
         info: [
-          // 대표·사업자등록번호·주소는 자료를 받으면 추가
-          { label: "와이엠이노테크", value: "YM INNOTECH" },
+          // 사업자등록번호는 자료를 받으면 추가
+          { label: organization.name, value: organization.alternateName },
+          { label: "대표", value: organization.ceo },
+          { label: "주소", value: fullAddress },
+          { label: "대표전화", value: organization.phone },
         ],
         copyright: "© YM INNOTECH. All rights reserved.",
       },
