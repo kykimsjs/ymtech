@@ -1,9 +1,9 @@
 import type { Block } from "@/components/blocks/registry";
 import { featureRows, nav, photo, platformScreen, product, quickActions } from "@/content/block-catalog";
-import { fullAddress, organization } from "@/lib/site";
+import { fullAddress, organization, phoneE164 } from "@/lib/site";
 
 // HOME 블록 순서 (2026-10-26 확정)
-//   헤더 → 히어로(단일 사진) → 핵심 소구점 → 증거(숫자) → 솔루션 바로가기 → 실시간 관제 → (적용 분야·실증) → Quick Actions → 푸터
+//   헤더 → 히어로(사진 4장 슬라이드) → 핵심 소구점(좌우 교차) → 기술 신뢰성 → 솔루션 → 실시간 관제(준비 중) → (설치 사례) → 문의(Quick Actions 포함) → 푸터
 // 자료가 없는 블록은 hidden에 이유를 적어 운영 화면에서 뺀다 (블록 카탈로그 등 showHidden 화면에서만 보임).
 export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "dark" } = {}): Block[] {
   return [
@@ -99,7 +99,22 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
         })),
       },
     },
-    { type: "quick-actions", data: { items: quickActions } },
+    {
+      // 기획안 HOME Quick Actions를 페이지 끝 문의 섹션 안에 넣었다
+      // 사진: Pexels 32146752 (온실 내부), Pexels 라이선스
+      type: "closing-cta",
+      data: {
+        title: "우리 농장 분전반에도 달 수 있을까요?",
+        text: "전화나 이메일로 바로 물어보셔도 되고, 문의 양식을 남겨 주셔도 됩니다.",
+        contacts: [
+          { label: "대표전화", value: organization.phone, href: `tel:${phoneE164}` },
+          { label: "이메일", value: organization.email, href: `mailto:${organization.email}` },
+        ],
+        // 문의를 맨 위로
+        actions: [quickActions[1], quickActions[0], quickActions[2]],
+        media: { src: "/images/home/closing-greenhouse.webp", alt: "환기팬이 달린 온실에서 자라는 잎채소", focus: "50% 50%" },
+      },
+    },
     {
       type: "site-footer",
       data: {

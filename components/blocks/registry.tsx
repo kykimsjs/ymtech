@@ -1,5 +1,5 @@
 import type { ComponentProps, ComponentType } from "react";
-import { ConsultCard, ContactMap, CtaBanner } from "./conversion";
+import { ClosingCta, ConsultCard, ContactMap, CtaBanner } from "./conversion";
 import { BenefitBand, CardGrid, MediaText, Story, TileGrid } from "./features";
 import { AnnouncementBar, SiteFooter } from "./global";
 import { HeroMedia, HeroSplit, PageTitle } from "./hero";
@@ -42,6 +42,7 @@ export const blockComponents = {
   timeline: Timeline,
   "consult-card": ConsultCard,
   "cta-banner": CtaBanner,
+  "closing-cta": ClosingCta,
   "contact-map": ContactMap,
 } as const;
 

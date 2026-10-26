@@ -1,5 +1,7 @@
+import Link from "next/link";
 import { ArrowRight, ChevronRight, Mail, MapPin, Phone, Printer } from "lucide-react";
 import { ButtonLink } from "@/components/ui/button";
+import { icons, type IconName } from "./icons";
 import { Media, type MediaData } from "./media";
 
 type Action = { label: string; href: string };
@@ -113,6 +115,75 @@ export function ContactMap({ title, offices, phone, fax, email, map, id }: Conta
             <MapPin className="size-4" /> 지도 앱에서 보기
           </ButtonLink>
         </div>
+      </div>
+    </section>
+  );
+}
+
+export type ClosingCtaProps = {
+  title: string;
+  text: string;
+  /** 대표 연락처: 바로 걸고 보낼 수 있게 링크로 건다 */
+  contacts: { label: string; value: string; href: string }[];
+  /** 기획안 HOME Quick Actions. status가 있으면 아직 열지 않은 항목 */
+  actions: { icon: IconName; label: string; text: string; href: string; status?: string }[];
+  media: MediaData;
+  id?: string;
+};
+
+// 페이지 끝 문의 섹션. 사진 위 왼쪽에 제목·연락처, 오른쪽에 Quick Actions를 줄 목록으로 둔다.
+// 참고: 케빈랩 "서비스 바로가기" 띠(배경 사진 + 행동 유도), 아이오크롭스 상담 카드(어두운 사진 위 왼쪽 문구)
+export function ClosingCta({ title, text, contacts, actions, media, id }: ClosingCtaProps) {
+  return (
+    <section id={id} className="relative isolate scroll-mt-14 overflow-hidden bg-graphite-900 text-white">
+      <Media media={media} tone="dark" sizes="100vw" fill className="-z-20" />
+      <div aria-hidden className="absolute inset-0 -z-10 bg-linear-to-r from-graphite-900/90 via-graphite-900/80 to-graphite-900/60" />
+      <div className="container-page grid gap-12 py-20 lg:grid-cols-12 lg:items-center lg:py-28">
+        <div className="lg:col-span-5">
+          <h2 className="text-display font-bold text-balance">{title}</h2>
+          <p className="mt-5 text-[1.0625rem] leading-[1.75] text-white/80">{text}</p>
+          <dl className="mt-10 flex flex-col gap-3">
+            {contacts.map((contact) => (
+              <div key={contact.label} className="flex items-baseline gap-4">
+                <dt className="w-16 shrink-0 text-sm text-white/70">{contact.label}</dt>
+                <dd>
+                  <a href={contact.href} className="text-xl font-semibold tabular-nums underline-offset-4 hover:underline">
+                    {contact.value}
+                  </a>
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+        <ul className="border-t border-white/30 lg:col-span-6 lg:col-start-7">
+          {actions.map((action) => {
+            const Icon = icons[action.icon];
+            const body = (
+              <>
+                <Icon className="mt-0.5 size-6 shrink-0" strokeWidth={1.5} />
+                <span className="flex-1">
+                  <span className="block text-lg font-bold">{action.label}</span>
+                  <span className="mt-1 block text-sm leading-6 text-white/75">{action.text}</span>
+                </span>
+              </>
+            );
+            return (
+              <li key={action.label} className="border-b border-white/30">
+                {action.status ? (
+                  <div className="flex items-start gap-5 py-6 text-white/70">
+                    {body}
+                    <span className="shrink-0 rounded-full border border-white/40 px-2.5 py-0.5 text-xs font-semibold">{action.status}</span>
+                  </div>
+                ) : (
+                  <Link href={action.href} className="group flex items-start gap-5 py-6">
+                    {body}
+                    <ArrowRight className="mt-1 size-5 shrink-0 transition-transform group-hover:translate-x-1 motion-reduce:transition-none" />
+                  </Link>
+                )}
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </section>
   );
