@@ -28,7 +28,7 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
     {
       // 사진 4장이 천천히 넘어가는 히어로. 자체 현장 사진을 받기 전까지 무료 사진을 쓴다.
       // 사진 출처: Pexels (pexels.com/photo/<번호>), Pexels 라이선스 — 상업 이용 가능, 출처 표기 의무 없음
-      //   interior 7299928 · panel-tech 10871929 · fire-alarm 14860386 · tablet-manager 5230960(좌우 반전)
+      //   greenhouse-strawberry 11534647 · panel-engineer 17842832(좌우 반전) · fire-alarm 14860386 · tablet-manager 5230960(좌우 반전)
       // 순서: 어디에 쓰이나(스마트팜) → 무엇을 지키나(분전반) → 무엇에 대비하나(화재) → 태블릿으로 관리하는 현장
       type: "hero-media",
       data: {
@@ -36,8 +36,8 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
         description: "스마트팜의 안전과 효율을 완성하는 AIoT 에너지·화재 관리 솔루션",
         overlay: "soft",
         media: [
-          { src: "/images/hero/interior.webp", alt: "넓은 온실 안에 재배 포트와 점적 관수 호스가 줄지어 있다", focus: "60% 50%" },
-          { src: "/images/hero/panel-tech.webp", alt: "보호구를 쓴 기술자가 분전반 차단기를 점검하고 있다", focus: "60% 40%" },
+          { src: "/images/hero/greenhouse-strawberry.webp", alt: "비닐 온실 안에 딸기 재배 줄이 길게 이어져 있다", focus: "50% 55%" },
+          { src: "/images/hero/panel-engineer.webp", alt: "안전모와 반사 작업복을 입은 기술자가 분전반을 점검하고 있다", focus: "70% 40%" },
           { src: "/images/hero/fire-alarm.webp", alt: "골함석 벽에 달린 화재 경보기와 경보 버튼", focus: "65% 40%" },
           { src: "/images/hero/tablet-manager.webp", alt: "온실에서 태블릿으로 작물 상태를 확인하는 관리자", focus: "62% 50%" },
         ],
