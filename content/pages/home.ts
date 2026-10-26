@@ -95,6 +95,7 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
           { label: "대표", value: organization.ceo },
           { label: "주소", value: fullAddress },
           { label: "대표전화", value: organization.phone },
+          { label: "이메일", value: organization.email },
         ],
         copyright: "© YM INNOTECH. All rights reserved.",
       },

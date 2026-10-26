@@ -33,9 +33,11 @@ async function StructuredData() {
         logo: `${siteUrl}${organization.logo}`,
         description: meta.description,
         telephone: phoneE164,
+        email: organization.email,
         address: {
           "@type": "PostalAddress",
           addressCountry: "KR",
+          postalCode: organization.address.postalCode,
           addressRegion: organization.address.region,
           addressLocality: organization.address.locality,
           streetAddress: organization.address.street,

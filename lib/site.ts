@@ -16,14 +16,18 @@ export const organization = {
   logo: "/brand/ym-signature.png",
   ceo: "유영민",
   phone: "010-8681-9434",
+  email: "dol-7@hanmail.net",
+  // 우편번호·참고항목(빛가람동)은 주소정보누리집(juso.go.kr) 조회 결과 (2026-10-26)
   address: {
+    postalCode: "58324",
     region: "전라남도",
     locality: "나주시",
     street: "그린로 370, 411-412호",
+    district: "빛가람동",
   },
 };
 
-export const fullAddress = `${organization.address.region} ${organization.address.locality} ${organization.address.street}`;
+export const fullAddress = `(${organization.address.postalCode}) ${organization.address.region} ${organization.address.locality} ${organization.address.street} (${organization.address.district})`;
 
 // 국제 표기 전화번호 (010-8681-9434 → +82-10-8681-9434)
 export const phoneE164 = `+82-${organization.phone.replace(/^0/, "")}`;
