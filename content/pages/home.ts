@@ -63,6 +63,8 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
       // 주력 제품 소개. 문구는 클라이언트 제공 소개글(2026-10-26) 그대로
       type: "product-showcase",
       data: {
+        // BI 매뉴얼 BS 09 시그니처(MODIQ + Advanced Smart Module), 어두운 바탕용 흰색 판 (BS 13 색상 활용 기준)
+        brand: { src: "/brand/modiq-signature-white.png", alt: "MODIQ Advanced Smart Module", width: 1139, height: 322 },
         label: "주력 제품",
         title: ["에너지 관리의 효율을 높이는", "YM이노테크의 혁신적인 솔루션"],
         name: "지능형 에코-비탈(Eeco-Vital) 모듈",

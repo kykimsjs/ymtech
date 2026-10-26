@@ -1,9 +1,12 @@
+import Image from "next/image";
 import { ButtonLink } from "@/components/ui/button";
 import { Media, type MediaData } from "./media";
 
 type Action = { label: string; href: string };
 
 export type ProductShowcaseProps = {
+  /** 제품 브랜드(BI) 시그니처. 어두운 바탕이므로 흰색 판을 쓴다 */
+  brand?: { src: string; alt: string; width: number; height: number };
   label: string;
   title: string[];
   name: string;
@@ -17,7 +20,7 @@ export type ProductShowcaseProps = {
 
 // 주력 제품(에코-비탈 모듈) 소개. 어두운 바탕에 제품 사진을 크게, 옆에 소개 문구, 아래 특징 줄.
 // 참고: 케빈랩 4ST ZIP 제품 소개(왼쪽 큰 제품 사진, 오른쪽 제품명·설명), 아이오크롭스 대표 솔루션(어두운 바탕)
-export function ProductShowcase({ label, title, name, description, media, actions = [], features, id }: ProductShowcaseProps) {
+export function ProductShowcase({ brand, label, title, name, description, media, actions = [], features, id }: ProductShowcaseProps) {
   return (
     <section id={id} className="block-y scroll-mt-14 bg-graphite-900 text-white">
       <div className="container-page">
@@ -29,6 +32,7 @@ export function ProductShowcase({ label, title, name, description, media, action
             className="aspect-[4/3] rounded-card lg:col-span-6"
           />
           <div className="lg:col-span-6 lg:col-start-7 lg:pl-4">
+            {brand && <Image src={brand.src} alt={brand.alt} width={brand.width} height={brand.height} className="mb-8 h-12 w-auto lg:h-14" />}
             <p className="text-eyebrow font-semibold text-eco-300">{label}</p>
             <h2 className="mt-4 text-[clamp(1.75rem,1.3rem+1.6vw,2.25rem)] leading-[1.3] font-bold tracking-[-0.02em]">
               {title.map((line) => (
