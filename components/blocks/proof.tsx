@@ -101,6 +101,8 @@ export type DashboardPreviewProps = {
   action?: { label: string; href: string };
   /** 아직 열지 않은 서비스 표시 (예: "준비 중") */
   status?: string;
+  /** 기능 목록. 있으면 좌우 분할 배치 */
+  features?: { title: string; text: string }[];
   id?: string;
 };
 
@@ -128,103 +130,140 @@ function linePath(values: number[], w: number, h: number, max = 100) {
   return values.map((v, i) => `${i ? "L" : "M"}${((i / (values.length - 1)) * w).toFixed(1)},${(h - (v / max) * h).toFixed(1)}`).join(" ");
 }
 
-// 참고: 케빈랩 4ST ZIP "건물 전기 사용량·생산량 실시간 모니터링" — 가운데 제목·설명, 아래 대시보드 화면을 HTML로 재현
-export function DashboardPreview({ title, description, note, action, status, id }: DashboardPreviewProps) {
+// 웹 플랫폼 관제 화면을 HTML로 재현한 그림 (수치는 예시). compact면 한 열로 쌓고 도넛 그래프를 뺀다.
+function DashboardScreen({ compact, className }: { compact?: boolean; className?: string }) {
   const W = 560;
   const H = 200;
   return (
-    <section id={id} className="block-y bg-canvas">
-      <div className="container-page">
-        <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
-          {status && <p className="mb-4 rounded-full bg-surface-strong px-3 py-1 text-sm font-semibold text-ink-muted">{status}</p>}
-          <h2 className="text-display font-bold">{title}</h2>
-          <p className="mt-5 text-[0.9375rem] leading-[1.75] text-ink-muted">{description}</p>
-          {action && (
-            <ButtonLink href={action.href} variant="outline" shape="pill" className="mt-8 border-ink">
-              {action.label} <ChevronRight className="size-4" />
-            </ButtonLink>
-          )}
+    <div className={cn("relative rounded-[10px] bg-canvas p-3 shadow-[0_0_40px_10px_rgb(175_175_175/0.12)] sm:p-4", className)}>
+      <div className={cn("grid gap-3", !compact && "lg:grid-cols-[1.5fr_1fr]")}>
+        <div className="rounded-lg border border-line p-6">
+          <div className="flex items-baseline justify-between">
+            <p className="font-semibold">전체 전력 사용 현황</p>
+            <p className="text-xl font-bold text-brand-500 tabular-nums">
+              1,284 <span className="text-sm text-ink-muted">kWh</span>
+            </p>
+          </div>
+          <ul className="mt-4 flex justify-end gap-4 text-xs text-ink-muted">
+            <li className="flex items-center gap-1.5"><span className="h-0.5 w-4 bg-brand-500" />오늘</li>
+            <li className="flex items-center gap-1.5"><span className="h-0.5 w-4 bg-line-strong" />어제</li>
+          </ul>
+          <svg viewBox={`-24 -6 ${W + 30} ${H + 26}`} className="mt-2 w-full" role="img" aria-label="시간대별 전력 사용량 그래프 (예시)">
+            {[0, 50, 100].map((t) => (
+              <g key={t}>
+                <line x1={0} x2={W} y1={H - (t / 100) * H} y2={H - (t / 100) * H} stroke="var(--color-line)" />
+                <text x={-6} y={H - (t / 100) * H + 4} textAnchor="end" className="fill-ink-subtle text-[10px]">{t}</text>
+              </g>
+            ))}
+            {[0, 6, 12, 18, 23].map((hr) => (
+              <text key={hr} x={(hr / 23) * W} y={H + 16} textAnchor="middle" className="fill-ink-subtle text-[10px]">{hr}시</text>
+            ))}
+            <path d={`${linePath(usage, W, H)} L${W},${H} L0,${H} Z`} fill="var(--color-brand-500)" fillOpacity={0.12} />
+            <path d={linePath(prev, W, H)} fill="none" stroke="var(--color-line-strong)" strokeWidth={1.5} />
+            <path d={linePath(usage, W, H)} fill="none" stroke="var(--color-brand-500)" strokeWidth={2} />
+          </svg>
         </div>
-        <div className="mt-12 rounded-[10px] bg-canvas p-3 shadow-[0_0_40px_10px_rgb(175_175_175/0.12)] sm:p-4">
-          <div className="grid gap-3 lg:grid-cols-[1.5fr_1fr]">
-            <div className="rounded-lg border border-line p-6">
-              <div className="flex items-baseline justify-between">
-                <p className="font-semibold">전체 전력 사용 현황</p>
-                <p className="text-xl font-bold text-brand-500 tabular-nums">
-                  1,284 <span className="text-sm text-ink-muted">kWh</span>
-                </p>
-              </div>
-              <ul className="mt-4 flex justify-end gap-4 text-xs text-ink-muted">
-                <li className="flex items-center gap-1.5"><span className="h-0.5 w-4 bg-brand-500" />오늘</li>
-                <li className="flex items-center gap-1.5"><span className="h-0.5 w-4 bg-line-strong" />어제</li>
-              </ul>
-              <svg viewBox={`-24 -6 ${W + 30} ${H + 26}`} className="mt-2 w-full" role="img" aria-label="시간대별 전력 사용량 그래프 (예시)">
-                {[0, 50, 100].map((t) => (
-                  <g key={t}>
-                    <line x1={0} x2={W} y1={H - (t / 100) * H} y2={H - (t / 100) * H} stroke="var(--color-line)" />
-                    <text x={-6} y={H - (t / 100) * H + 4} textAnchor="end" className="fill-ink-subtle text-[10px]">{t}</text>
-                  </g>
+        <div className="flex flex-col gap-3">
+          <div className="rounded-lg border border-line p-6">
+            <p className="font-semibold">분전반별 상태</p>
+            <table className="mt-4 w-full text-center text-sm">
+              <thead>
+                <tr className="bg-ink-muted text-white">
+                  <th className="py-2 font-medium">설비명</th>
+                  <th className="py-2 font-medium">상태</th>
+                  <th className="py-2 font-medium">전류(A)</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-line border-b border-line">
+                {devices.map((d) => (
+                  <tr key={d.name}>
+                    <td className="py-2.5">{d.name}</td>
+                    <td className={cn("py-2.5 font-semibold", d.status === "주의" ? "text-warning-ink" : "text-success-ink")}>{d.status}</td>
+                    <td className="py-2.5 tabular-nums">{d.value}</td>
+                  </tr>
                 ))}
-                {[0, 6, 12, 18, 23].map((hr) => (
-                  <text key={hr} x={(hr / 23) * W} y={H + 16} textAnchor="middle" className="fill-ink-subtle text-[10px]">{hr}시</text>
-                ))}
-                <path d={`${linePath(usage, W, H)} L${W},${H} L0,${H} Z`} fill="var(--color-brand-500)" fillOpacity={0.12} />
-                <path d={linePath(prev, W, H)} fill="none" stroke="var(--color-line-strong)" strokeWidth={1.5} />
-                <path d={linePath(usage, W, H)} fill="none" stroke="var(--color-brand-500)" strokeWidth={2} />
-              </svg>
-            </div>
-            <div className="flex flex-col gap-3">
-              <div className="rounded-lg border border-line p-6">
-                <p className="font-semibold">분전반별 상태</p>
-                <table className="mt-4 w-full text-center text-sm">
-                  <thead>
-                    <tr className="bg-ink-muted text-white">
-                      <th className="py-2 font-medium">설비명</th>
-                      <th className="py-2 font-medium">상태</th>
-                      <th className="py-2 font-medium">전류(A)</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-line border-b border-line">
-                    {devices.map((d) => (
-                      <tr key={d.name}>
-                        <td className="py-2.5">{d.name}</td>
-                        <td className={cn("py-2.5 font-semibold", d.status === "주의" ? "text-warning-ink" : "text-success-ink")}>{d.status}</td>
-                        <td className="py-2.5 tabular-nums">{d.value}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              <div className="flex items-center gap-6 rounded-lg border border-line p-6">
-                <svg viewBox="0 0 42 42" className="size-28 shrink-0 -rotate-90" role="img" aria-label="용도별 사용 비율 (예시)">
-                  {donut.map((part) => (
-                    <circle
-                      key={part.label}
-                      cx="21"
-                      cy="21"
-                      r="15.9155"
-                      fill="none"
-                      stroke={part.color}
-                      strokeWidth="5"
-                      strokeDasharray={`${part.value} ${100 - part.value}`}
-                      strokeDashoffset={-part.start}
-                    />
-                  ))}
-                </svg>
-                <ul className="flex flex-col gap-1.5 text-sm">
-                  {breakdown.map((part) => (
-                    <li key={part.label} className="flex items-center gap-2">
-                      <span className="size-2.5 rounded-sm" style={{ background: part.color }} />
-                      {part.label}
-                      <span className="ml-auto pl-3 text-ink-subtle tabular-nums">{part.value}%</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+              </tbody>
+            </table>
+          </div>
+          <div className={cn("items-center gap-6 rounded-lg border border-line p-6", compact ? "hidden" : "flex")}>
+            <svg viewBox="0 0 42 42" className="size-28 shrink-0 -rotate-90" role="img" aria-label="용도별 사용 비율 (예시)">
+              {donut.map((part) => (
+                <circle
+                  key={part.label}
+                  cx="21"
+                  cy="21"
+                  r="15.9155"
+                  fill="none"
+                  stroke={part.color}
+                  strokeWidth="5"
+                  strokeDasharray={`${part.value} ${100 - part.value}`}
+                  strokeDashoffset={-part.start}
+                />
+              ))}
+            </svg>
+            <ul className="flex flex-col gap-1.5 text-sm">
+              {breakdown.map((part) => (
+                <li key={part.label} className="flex items-center gap-2">
+                  <span className="size-2.5 rounded-sm" style={{ background: part.color }} />
+                  {part.label}
+                  <span className="ml-auto pl-3 text-ink-subtle tabular-nums">{part.value}%</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
-        {note && <p className="mt-4 text-right text-xs text-ink-subtle">{note}</p>}
+      </div>
+    </div>
+  );
+}
+
+// 참고: 케빈랩 4ST ZIP "건물 전기 사용량·생산량 실시간 모니터링" — 가운데 제목·설명, 아래 대시보드 화면을 HTML로 재현
+// features가 있으면 왼쪽 설명·기능 목록 + 오른쪽 작은 화면으로 나눈다 (준비 중인 서비스를 과하게 크게 보여주지 않도록)
+export function DashboardPreview({ title, description, note, action, status, features, id }: DashboardPreviewProps) {
+  const head = (
+    <>
+      {status && <p className="mb-4 rounded-full bg-surface-strong px-3 py-1 text-sm font-semibold text-ink-muted">{status}</p>}
+      <h2 className="text-display font-bold">{title}</h2>
+      <p className="mt-5 text-[0.9375rem] leading-[1.75] text-ink-muted">{description}</p>
+      {action && (
+        <ButtonLink href={action.href} variant="outline" shape="pill" className="mt-8 border-ink">
+          {action.label} <ChevronRight className="size-4" />
+        </ButtonLink>
+      )}
+    </>
+  );
+  const noteLine = note && <p className="mt-4 text-right text-xs text-ink-subtle">{note}</p>;
+
+  if (features) {
+    return (
+      <section id={id} className="block-y scroll-mt-14 bg-canvas">
+        <div className="container-page grid gap-12 lg:grid-cols-12 lg:items-center">
+          <div className="flex flex-col items-start lg:col-span-5">
+            {head}
+            <dl className="mt-10 w-full border-t border-line">
+              {features.map((feature) => (
+                <div key={feature.title} className="border-b border-line py-4">
+                  <dt className="font-bold">{feature.title}</dt>
+                  <dd className="mt-1 text-[0.9375rem] leading-[1.7] text-ink-muted">{feature.text}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+          <div className="lg:col-span-6 lg:col-start-7">
+            <DashboardScreen compact />
+            {noteLine}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section id={id} className="block-y bg-canvas">
+      <div className="container-page">
+        <div className="mx-auto flex max-w-2xl flex-col items-center text-center">{head}</div>
+        <DashboardScreen className="mt-12" />
+        {noteLine}
       </div>
     </section>
   );
