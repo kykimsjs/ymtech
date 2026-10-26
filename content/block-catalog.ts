@@ -1,4 +1,5 @@
 import type { Block } from "@/components/blocks/registry";
+import type { FeatureRowsProps } from "@/components/blocks/feature-rows";
 import type { MediaData } from "@/components/blocks/media";
 import { fullAddress, organization } from "@/lib/site";
 
@@ -18,6 +19,31 @@ export const keyPoints = [
   // 기획안 1장 핵심 메시지 2 "통합 효율성 — 전력·환경 센싱, AI, 차단 제어를 한 모듈로"를 함께 담는다
   { label: "복합 센싱 & AI 예지", title: "전력과 환경을 함께 봅니다", text: "전압·전류와 온·습도를 함께 감지하고, AI가 이상 징후를 미리 찾습니다. 감지부터 차단까지 모듈 하나가 맡습니다." },
   { label: "원격 관제 & 자동 대응", title: "10초 안에 전원을 끊습니다", text: "이상이 감지되면 자동으로 차단하고, 웹 플랫폼으로 실시간 알림과 이력을 남깁니다." },
+];
+
+// 핵심 소구점을 사진·도식과 함께 좌우로 펼친 판 (HOME). 사양은 제품소개·기획안 그대로.
+// 사진: Pexels 28950842(분전반) · 10269715(수경재배 시설), Pexels 라이선스
+export const featureRows: FeatureRowsProps["items"] = [
+  {
+    ...keyPoints[0],
+    facts: [
+      { label: "설치 위치", value: "분전반 내부 · Main/Sub MCCB 연동" },
+      { label: "계측", value: "3상(RST/UVW) 전압·전류" },
+      { label: "통신", value: "RS-232 · Wi-Fi · LAN" },
+    ],
+    visual: { media: { src: "/images/home/panel.webp", alt: "차단기가 줄지어 있는 분전반 내부", focus: "50% 50%" } },
+  },
+  {
+    ...keyPoints[1],
+    text: "전압·전류와 온·습도를 함께 감지하고, AI가 화재로 이어질 이상 징후를 미리 찾습니다.",
+    facts: [
+      { label: "전력", value: "전압 · 전류" },
+      { label: "환경", value: "온·습도 · 불꽃 · 침수 · 진동" },
+      { label: "분석", value: "AI 화재 이상 징후 예지" },
+    ],
+    visual: { media: { src: "/images/home/sensing-farm.webp", alt: "센서와 배선이 설치된 실내 수경재배 시설", focus: "50% 50%" } },
+  },
+  { ...keyPoints[2], visual: { diagram: "cutoff" } },
 ];
 
 // 기획안 3장 HOME — Quick Actions
@@ -198,6 +224,12 @@ export const catalog: CatalogEntry[] = [
     name: "핵심 소구점 3",
     ref: "기획안 HOME 소구점 · 케빈랩 인증 현황의 윗선 구성",
     block: { type: "key-points", data: { items: keyPoints } },
+  },
+  {
+    group: "소개",
+    name: "소구점 좌우 교차 (사진·도식)",
+    ref: "아이오크롭스 솔루션 소개 · 케빈랩 기능 소개",
+    block: { type: "feature-rows", data: { title: "분전반 안에서 감지부터 차단까지", items: featureRows } },
   },
 
   // ── 설명 ─────────────────────────────────────────

@@ -1,5 +1,5 @@
 import type { Block } from "@/components/blocks/registry";
-import { keyPoints, nav, photo, product, quickActions } from "@/content/block-catalog";
+import { featureRows, nav, photo, product, quickActions } from "@/content/block-catalog";
 import { fullAddress, organization } from "@/lib/site";
 
 // HOME 블록 순서 (2026-10-26 확정)
@@ -46,7 +46,7 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
         ],
       },
     },
-    { type: "key-points", data: { items: keyPoints } },
+    { type: "feature-rows", data: { title: "분전반 안에서 감지부터 차단까지", items: featureRows } },
     {
       type: "stats-gallery",
       data: {
