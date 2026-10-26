@@ -3,7 +3,7 @@ import { featureRows, nav, photo, platformScreen, product, quickActions } from "
 import { fullAddress, organization, phoneE164 } from "@/lib/site";
 
 // HOME 블록 순서 (2026-10-26 확정)
-//   헤더 → 히어로(사진 4장 슬라이드) → 문제 제기 문단 → 핵심 소구점(펼침 패널) → 기술 신뢰성 → 솔루션 → 실시간 관제(준비 중) → (설치 사례) → 문의(Quick Actions 포함) → 푸터
+//   헤더 → 히어로(사진 4장 슬라이드) → 문제 제기 문단 → 주력 제품(에코-비탈) → 핵심 소구점(펼침 패널) → 기술 신뢰성 → 솔루션 → 실시간 관제(준비 중) → (설치 사례) → 문의(Quick Actions 포함) → 푸터
 // 자료가 없는 블록은 hidden에 이유를 적어 운영 화면에서 뺀다 (블록 카탈로그 등 showHidden 화면에서만 보임).
 export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "dark" } = {}): Block[] {
   return [
@@ -56,6 +56,27 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
         paragraphs: [
           "지금 쓰이는 제품은 대부분 온습도나 전력 가운데 하나만 잽니다. 와이엠이노테크는 20년 현장 경험을 바탕으로 농업 시설의 전력 안전 사각지대를 줄이려 합니다.",
           "에코-비탈 모듈은 전력 감지, 환경 감지, AI 분석, 자동 차단을 모듈 하나에 넣었습니다.",
+        ],
+      },
+    },
+    {
+      // 주력 제품 소개. 문구는 클라이언트 제공 소개글(2026-10-26) 그대로
+      type: "product-showcase",
+      data: {
+        label: "주력 제품",
+        title: ["에너지 관리의 효율을 높이는", "YM이노테크의 혁신적인 솔루션"],
+        name: "지능형 에코-비탈(Eeco-Vital) 모듈",
+        description: "분전반 안에 장착해 전력과 환경을 함께 감지하고, 이상이 생기면 자동으로 전원을 차단합니다.",
+        media: product,
+        actions: [
+          { label: "제품 자세히 보기", href: "#" },
+          { label: "제품 소개서 다운로드", href: "#" },
+        ],
+        features: [
+          { title: "에너지 절감", text: "효율적인 에너지 관리로\n운영비 절감" },
+          { title: "안정적인 운용", text: "신뢰성 높은 성능으로\n안정적인 시스템 운영" },
+          { title: "간편한 설치", text: "산업 현장에 최적화된\n설계와 편리한 설치" },
+          { title: "지속가능한 미래", text: "친환경 에너지 관리로\n지속가능한 성장" },
         ],
       },
     },

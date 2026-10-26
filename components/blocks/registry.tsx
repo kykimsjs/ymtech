@@ -9,6 +9,7 @@ import { FeaturePanels } from "./feature-panels";
 import { FeatureRows } from "./feature-rows";
 import { KeyPoints, QuickActions } from "./points";
 import { DashboardPreview, LogoGrid, ProductCert, ProductGrid, StatsGallery, Timeline, TrustFigures } from "./proof";
+import { ProductShowcase } from "./product-showcase";
 import { SiteHeader } from "./site-header";
 import { AudienceTabs, GalleryTabs, TabsMedia } from "./tab-blocks";
 
@@ -28,6 +29,7 @@ export const blockComponents = {
   "feature-panels": FeaturePanels,
   "quick-actions": QuickActions,
   "tile-grid": TileGrid,
+  "product-showcase": ProductShowcase,
   "card-grid": CardGrid,
   "media-text": MediaText,
   "benefit-band": BenefitBand,
