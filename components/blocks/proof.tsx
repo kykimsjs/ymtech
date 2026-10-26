@@ -98,6 +98,8 @@ export type DashboardPreviewProps = {
   note?: string;
   /** 데모·로그인 링크 (케빈랩 "서비스 바로가기") */
   action?: { label: string; href: string };
+  /** 아직 열지 않은 서비스 표시 (예: "준비 중") */
+  status?: string;
   id?: string;
 };
 
@@ -126,13 +128,14 @@ function linePath(values: number[], w: number, h: number, max = 100) {
 }
 
 // 참고: 케빈랩 4ST ZIP "건물 전기 사용량·생산량 실시간 모니터링" — 가운데 제목·설명, 아래 대시보드 화면을 HTML로 재현
-export function DashboardPreview({ title, description, note, action, id }: DashboardPreviewProps) {
+export function DashboardPreview({ title, description, note, action, status, id }: DashboardPreviewProps) {
   const W = 560;
   const H = 200;
   return (
     <section id={id} className="block-y bg-canvas">
       <div className="container-page">
         <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
+          {status && <p className="mb-4 rounded-full bg-surface-strong px-3 py-1 text-sm font-semibold text-ink-muted">{status}</p>}
           <h2 className="text-display font-bold">{title}</h2>
           <p className="mt-5 text-[0.9375rem] leading-[1.75] text-ink-muted">{description}</p>
           {action && (

@@ -71,7 +71,8 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
         title: "솔루션",
         tiles: [
           { label: "지능형 에코-비탈(Eeco-Vital) 모듈", title: ["분전반 장착형", "감지·차단 모듈"], href: "#", media: product },
-          { label: "통합 안전관리 웹 플랫폼", title: ["실시간 관제와", "이력 관리"], href: "#", media: photo("웹 플랫폼 화면을 보는 담당자") },
+          // 웹 플랫폼 준비 중 (2026-10-26)
+          { label: "통합 안전관리 웹 플랫폼", title: ["실시간 관제와", "이력 관리"], href: "#", media: photo("웹 플랫폼 화면을 보는 담당자"), status: "준비 중" },
         ],
       },
     },
@@ -80,8 +81,10 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
       data: {
         title: "실시간 관제",
         description: "분전반별 전력 사용량과 시간대별 변화, 온·습도를 한 화면에서 봅니다. 이상이 생기면 경보를 울리고 이력으로 남깁니다.",
-        // 기획안 3장 와이어프레임 "실시간 관제 데모 링크" (데모 주소 받으면 연결)
-        action: { label: "웹 플랫폼 데모 로그인", href: "#" },
+        // 웹 플랫폼 준비 중 (2026-10-26). 열리면 status·note를 빼고 기획안 3장 "실시간 관제 데모 링크"를 action으로 연결
+        //   action: { label: "웹 플랫폼 데모 로그인", href: "<데모 주소>" },
+        status: "준비 중",
+        note: "예시 화면 · 표시된 수치는 실제 데이터가 아닙니다",
       },
     },
     {

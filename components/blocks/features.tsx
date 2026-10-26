@@ -8,7 +8,8 @@ import { Media, type MediaData } from "./media";
 export type TileGridProps = {
   /** 앞에 intro-split 같은 머리말 블록이 없을 때 쓰는 제목 */
   title?: string;
-  tiles: { label: string; title: string[]; href: string; media: MediaData }[];
+  /** status: 아직 열지 않은 서비스 표시 (예: "준비 중") */
+  tiles: { label: string; title: string[]; href: string; media: MediaData; status?: string }[];
   tone?: "light" | "dark";
   id?: string;
 };
@@ -31,6 +32,9 @@ export function TileGrid({ title, tiles, tone = "dark", id }: TileGridProps) {
             />
             <div aria-hidden className="absolute inset-0 -z-10 bg-black/40 transition-colors group-hover:bg-black/55" />
             <div className="flex flex-col items-center px-6 pt-[14%] text-center">
+              {tile.status && (
+                <span className="mb-3 rounded-full border border-white/60 px-3 py-1 text-xs font-semibold">{tile.status}</span>
+              )}
               <p className="text-[0.9375rem]">{tile.label}</p>
               <p className="mt-2 text-title font-semibold">
                 {tile.title.map((line) => (

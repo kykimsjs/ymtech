@@ -37,7 +37,8 @@ export function KeyPoints({ title, items, tone = "light", id }: KeyPointsProps) 
 
 export type QuickActionsProps = {
   title?: string;
-  items: { icon: IconName; label: string; text: string; href: string }[];
+  /** status가 있으면 아직 열지 않은 항목: 링크 대신 표시만 한다 (예: "오픈 예정") */
+  items: { icon: IconName; label: string; text: string; href: string; status?: string }[];
   tone?: "light" | "dark";
   id?: string;
 };
@@ -53,6 +54,32 @@ export function QuickActions({ title, items, tone = "light", id }: QuickActionsP
         <ul className="grid gap-3 md:grid-cols-3">
           {items.map((item) => {
             const Icon = icons[item.icon];
+            if (item.status) {
+              return (
+                <li
+                  key={item.label}
+                  className={cn("flex h-full items-start gap-5 rounded-card border border-dashed p-6", dark ? "border-white/20" : "border-line-strong")}
+                >
+                  <span
+                    className={cn(
+                      "flex size-12 shrink-0 items-center justify-center rounded-control",
+                      dark ? "bg-white/5 text-white/60" : "bg-surface-strong text-ink-subtle",
+                    )}
+                  >
+                    <Icon className="size-6" strokeWidth={1.75} />
+                  </span>
+                  <span className="flex-1">
+                    <span className="flex items-center justify-between gap-2 text-lg font-bold">
+                      {item.label}
+                      <span className={cn("shrink-0 rounded-full px-2.5 py-0.5 text-xs font-semibold", dark ? "bg-white/10" : "bg-surface-strong text-ink-muted")}>
+                        {item.status}
+                      </span>
+                    </span>
+                    <span className={cn("mt-1.5 block text-sm leading-6", dark ? "text-white/70" : "text-ink-muted")}>{item.text}</span>
+                  </span>
+                </li>
+              );
+            }
             return (
               <li key={item.label}>
                 <Link

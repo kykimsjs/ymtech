@@ -50,7 +50,8 @@ export const featureRows: FeatureRowsProps["items"] = [
 export const quickActions = [
   { icon: "download" as const, label: "제품 소개서", text: "에코-비탈 모듈 소개서(PDF)를 내려받습니다.", href: "#" },
   { icon: "message" as const, label: "도입·실증 문의", text: "농가, 시공사, 지자체 담당자 모두 문의하실 수 있습니다.", href: "#" },
-  { icon: "demo" as const, label: "웹 플랫폼 데모 로그인", text: "데모 계정으로 로그인해 실제 관제 화면을 봅니다.", href: "#" },
+  // 웹 플랫폼 준비 중 (2026-10-26). 열리면 status를 지우고 text를 "데모 계정으로 로그인해 실제 관제 화면을 봅니다."로 되돌린다
+  { icon: "demo" as const, label: "웹 플랫폼 데모 로그인", text: "웹 플랫폼은 준비 중입니다.", href: "#", status: "오픈 예정" },
 ];
 
 export type CatalogEntry = {
