@@ -1,26 +1,149 @@
 @import "tailwindcss";
+@import "pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+ * YM INNOTECH 디자인 토큰
+ * 색상 기준: CI 매뉴얼 BS 19 (브랜드마크 색상규정). HEX는 CI 로고 원본에서 추출.
+ *   brand = PANTONE 2117C, eco = PANTONE 315C, ci-gray = Cool Gray 7C
+ *   danger = 199C, warning = 165C, success = 376C (서브 컬러 → 상태 색으로 사용)
+ * static: 클래스에서 쓰지 않은 토큰도 CSS 변수로 항상 내보낸다 (style 속성·인라인 SVG에서 참조).
+ */
+@theme static {
+  /* Brand — PANTONE 2117C "우수하고 똑똑한 기술력" */
+  --color-brand-50: #f0f3fa;
+  --color-brand-100: #e1e7f5;
+  --color-brand-200: #c3ceea;
+  --color-brand-300: #9aabd9;
+  --color-brand-400: #6d83c2;
+  --color-brand-500: #415ba6;
+  --color-brand-600: #354c90;
+  --color-brand-700: #2b3d76;
+  --color-brand-800: #22305c;
+  --color-brand-900: #192344;
+  --color-brand-950: #0e152c;
+
+  /* Eco — PANTONE 315C "친환경 기술의 경제성" */
+  --color-eco-50: #e8f5f6;
+  --color-eco-100: #cbe9ec;
+  --color-eco-200: #98d3d9;
+  --color-eco-300: #5db7c1;
+  --color-eco-400: #2797a5;
+  --color-eco-500: #007684;
+  --color-eco-600: #006370;
+  --color-eco-700: #00505b;
+  --color-eco-800: #003e46;
+  --color-eco-900: #002c33;
+  --color-eco-950: #001c21;
+
+  /* Neutral — Cool Gray 7C "기업 기반과 서비스" */
+  --color-ci-gray: #9d9d9d;
+  --color-canvas: #ffffff;
+  --color-surface: #f5f6f8;
+  --color-surface-strong: #eceef2;
+  --color-line: #e3e5ea;
+  --color-line-strong: #c9ccd3;
+  --color-ink: #12151c;
+  --color-ink-muted: #4a505c;
+  /* 캡션용 회색: 흰 바탕 5.5:1, surface 5.1:1, surface-strong 4.75:1 (WCAG AA 4.5:1 이상) */
+  --color-ink-subtle: #636975;
+  /* 어두운 블록 바탕 — 레퍼런스(안심해 #222~#333, 아이오크롭스 #2C2C2C) */
+  --color-graphite-800: #2a2c31;
+  --color-graphite-900: #1f2126;
+
+  /* Status — CI 서브 컬러 */
+  --color-danger: #ce1719;
+  --color-danger-soft: #fbe8e8;
+  --color-warning: #ee7202;
+  --color-warning-ink: #a34c00;
+  --color-warning-soft: #fdf0e3;
+  --color-success: #87b026;
+  --color-success-ink: #587a10;
+  --color-success-soft: #f1f7e4;
+
+  /*
+   * Type scale — 레퍼런스 실측 기준 (2026-10, docs/reference-analysis.md)
+   *   히어로 48~64px, 섹션 제목 34~48px, 행간 1.2~1.35, 본문 16~18px · 행간 1.5~1.8
+   */
+  --text-display-xl: clamp(2.25rem, 1.55rem + 2.8vw, 3.5rem);
+  --text-display-xl--line-height: 1.25;
+  --text-display-xl--letter-spacing: -0.025em;
+  --text-display: clamp(1.75rem, 1.4rem + 1.5vw, 2.5rem);
+  --text-display--line-height: 1.3;
+  --text-display--letter-spacing: -0.02em;
+  --text-title: clamp(1.5rem, 1.3rem + 0.8vw, 2rem);
+  --text-title--line-height: 1.35;
+  --text-title--letter-spacing: -0.02em;
+  --text-subtitle: clamp(1.1875rem, 1.1rem + 0.35vw, 1.375rem);
+  --text-subtitle--line-height: 1.45;
+  --text-subtitle--letter-spacing: -0.01em;
+  --text-eyebrow: 0.9375rem;
+  --text-eyebrow--line-height: 1.4;
+
+  /* 레퍼런스: 버튼 0~8px, 카드 5~16px, 그림자는 거의 쓰지 않음 */
+  --radius-control: 0.375rem;
+  --radius-card: 0.75rem;
+  --shadow-card: 0 0 0 1px rgb(18 21 28 / 0.06), 0 6px 20px -10px rgb(18 21 28 / 0.12);
+  --shadow-lift: 0 0 0 1px rgb(18 21 28 / 0.06), 0 16px 32px -16px rgb(18 21 28 / 0.2);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui,
+    "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+  --font-display: var(--font-leferi-point), var(--font-sans);
+  --font-base: var(--font-leferi-base), var(--font-sans);
+  --font-serif: var(--font-noto-serif-kr), "Noto Serif KR", serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    /* 한글 단어 중간에서 줄바꿈되지 않도록 */
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
+
+  ::selection {
+    background: var(--color-brand-200);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* 페이지 공통 컨테이너 — 콘텐츠 폭 1200px (레퍼런스 1,000~1,280px) */
+@utility container-page {
+  width: 100%;
+  max-width: calc(75rem + 4rem);
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+
+  @media (width >= 48rem) {
+    padding-inline: 2rem;
+  }
+}
+
+/* 블록 상하 여백 — 레퍼런스 80~120px */
+@utility block-y {
+  padding-block: 4.5rem;
+
+  @media (width >= 64rem) {
+    padding-block: 7.5rem;
+  }
+}
+
+/* CI 전용 패턴 C타입에서 가져온 사선 모티프 */
+@utility bg-diagonal {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    currentColor 0 1px,
+    transparent 1px 28px
+  );
+}
+
+/* CI 전용 보더라인: 브랜드 블루 → 에코 틸 */
+@utility border-ci {
+  border-image: linear-gradient(90deg, var(--color-brand-500), var(--color-eco-500)) 1;
 }
