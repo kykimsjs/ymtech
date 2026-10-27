@@ -118,13 +118,15 @@ export type SystemDiagramProps = {
   stages: { label: string; boxes: { title: string; text: string; status?: string; highlight?: boolean }[] }[];
   /** 마지막에 되돌아오는 흐름 (예: 이상 시 자동 차단 → MCCB) */
   feedback?: string;
+  /** 아직 받지 못한 자료 안내 (시안에서만) */
+  pending?: string;
   tone?: "light" | "dark";
   id?: string;
 };
 
 // 실제 구성을 그린다 (design-taste 3장): 감지(MCCB·센서) → 모듈 → 통신 → 웹 플랫폼
 // 근거: 제품소개 2장 Technology – System Architecture
-export function SystemDiagram({ title, description, stages, feedback, tone = "light", id }: SystemDiagramProps) {
+export function SystemDiagram({ title, description, stages, feedback, pending, tone = "light", id }: SystemDiagramProps) {
   const dark = tone === "dark";
   return (
     <section id={id} className={cn("block-y scroll-mt-32", dark ? "bg-graphite-900 text-white" : "bg-canvas")}>
@@ -179,6 +181,7 @@ export function SystemDiagram({ title, description, stages, feedback, tone = "li
             {feedback}
           </p>
         )}
+        {pending && <Pending text={pending} tone={tone} className="mt-8 min-h-20" />}
       </div>
     </section>
   );
