@@ -161,6 +161,47 @@ function content(locale: Locale) {
   return { name, pageTitle, intro, features, diagram: systemDiagram("module", locale), spec, applications, tabs };
 }
 
+// 하드웨어 구성도 (2026-10-27, docs/시스템구성도.png 아래 그림 바탕): 분전반 안 MCCB → 모듈(센서 보드 ⇄ RS-232 ⇄ SBC 보드) → Wi-Fi·LAN → 웹 플랫폼
+export function hardwareArchitecture(locale: Locale): Block {
+  const t = translator(locale);
+  return {
+    type: "hardware-architecture",
+    data: {
+      title: t("시스템 구성", "System architecture"),
+      description: t(
+        "현장 센서 신호와 분전반의 전력을 모듈이 함께 받아 판단하고, 유·무선 통신으로 웹 플랫폼에 보냅니다.",
+        "The module takes in field sensor signals and the panel's power together, makes the call, and reports to the web platform over wired or wireless links.",
+      ),
+      sensors: {
+        label: t("현장 센서", "Field sensors"),
+        items: [
+          { title: t("온·습도", "Temp·humidity"), icon: "thermometer" },
+          { title: t("불꽃", "Flame"), icon: "flame" },
+          { title: t("침수", "Flooding"), icon: "droplets" },
+          { title: t("진동", "Vibration"), icon: "vibrate" },
+        ],
+      },
+      panel: { label: t("분전반", "Distribution panel"), breakers: ["Main MCCB", "Sub MCCB"], metering: t("3상(RST/UVW) 전압·전류", "3-phase (RST/UVW) voltage·current") },
+      module: {
+        label: t("에코-비탈 모듈", "Eeco-Vital module"),
+        sensorBoard: { title: t("센서 보드", "Sensor board"), text: t("전력·환경 신호 수집", "Collects power and environmental signals") },
+        sbc: { title: t("SBC 보드", "SBC board"), text: t("판단·제어, 유·무선 통신", "Decision and control, wired and wireless communication") },
+        link: "RS-232",
+        parts: [t("AC-DC 5V 전원", "AC-DC 5V power"), t("SSR 차단", "SSR cut-off")],
+      },
+      cutoff: t("이상이 감지되면 SSR이 전원을 차단합니다 (10초 이내)", "When an anomaly is detected, the SSR cuts power (within 10 seconds)"),
+      uplink: "Wi-Fi · LAN",
+      platform: {
+        label: t("관제", "Monitoring"),
+        title: t("통합 웹 플랫폼", "Web platform"),
+        text: t("실시간 대시보드 · 경보 · 이력", "Live dashboard · alarms · history"),
+        status: t("준비 중", "Coming soon"),
+      },
+      id: "system",
+    },
+  };
+}
+
 export function ecoVitalMeta(locale: Locale) {
   const t = translator(locale);
   return {
@@ -195,13 +236,22 @@ export const ecoVitalDrafts = [
 
 export type EcoVitalDraftId = (typeof ecoVitalDrafts)[number]["id"];
 
+// 새 구성도 시안 비교 (2026-10-27): 운영 페이지에 구성도만 바꿔 끼운다
+export const architectureDrafts = [
+  { id: "hardware", key: "HW", name: "하드웨어 (에코-비탈)", summary: "분전반 안 구조: 현장 센서 → 분전반(MCCB · 모듈 안 센서 보드 ⇄ RS-232 ⇄ SBC 보드) → Wi-Fi·LAN → 웹 플랫폼" },
+  { id: "software", key: "SW", name: "소프트웨어 (웹 플랫폼)", summary: "데이터 흐름: 현장 모듈 → Wi-Fi·LAN → 웹 플랫폼(기능 4개 · 서버 ⇄ 클라우드 저장소) → 권한별 접근 → 사용자" },
+] as const;
+
 // 운영 페이지(/ko/solutions/eco-vital)는 A안 (2026-10-27 확정). live면 "자료 필요" 상자를 빼고,
 // 사진이 없는 적용 분야는 사진이 올 때까지 뺀다.
 export function ecoVitalPageBlocks(locale: Locale): Block[] {
   return ecoVitalBlocks("a", { live: true, locale });
 }
 
-export function ecoVitalBlocks(draft: EcoVitalDraftId, { live = false, locale = "ko" }: { live?: boolean; locale?: Locale } = {}): Block[] {
+export function ecoVitalBlocks(
+  draft: EcoVitalDraftId,
+  { live = false, locale = "ko", newArchitecture = false }: { live?: boolean; locale?: Locale; newArchitecture?: boolean } = {},
+): Block[] {
   const { name, pageTitle, intro, features, diagram, spec, applications, tabs } = content(locale);
   const top = pageTop({ locale, path: "/solutions/eco-vital" });
   const bottom = pageBottom({ locale });
@@ -257,7 +307,7 @@ export function ecoVitalBlocks(draft: EcoVitalDraftId, { live = false, locale = 
     { type: "anchor-tabs", data: { items: tabs, belowHeader: true } },
     { type: "product-intro", data: { ...intro, id: "overview" } },
     { type: "feature-list", data: { variant: "rows", title: translator(locale)("주요 기능", "Features"), items: features, id: "features" } },
-    { type: "system-diagram", data: { ...diagram, id: "system" } },
+    newArchitecture ? hardwareArchitecture(locale) : { type: "system-diagram", data: { ...diagram, id: "system" } },
     { type: "spec-table", data: { ...spec, pending: live ? undefined : spec.pending, id: "spec" } },
     {
       type: "applications",

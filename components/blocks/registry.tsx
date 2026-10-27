@@ -15,6 +15,7 @@ import { AudienceTabs, GalleryTabs, TabsMedia } from "./tab-blocks";
 import { CeoMessage, CompanyHeader, HistoryPending, PartnerGroups, TeamNetwork, VisionMission } from "./company";
 import { Applications, FeatureList, ProductIntro, SpecTable, SystemDiagram } from "./solution";
 import { TechCompare } from "./tech";
+import { HardwareArchitecture, SoftwareArchitecture } from "./architecture";
 import { ContactLocation, ContactSection } from "./contact";
 
 // 블록 종류 → 컴포넌트. 페이지는 이 블록들을 순서대로 이어 붙인 목록이다.
@@ -67,6 +68,9 @@ export const blockComponents = {
   applications: Applications,
   // 기술·인증
   "tech-compare": TechCompare,
+  // 시스템 구성도 (docs/시스템구성도.png 바탕)
+  "hardware-architecture": HardwareArchitecture,
+  "software-architecture": SoftwareArchitecture,
   // 문의
   "contact-section": ContactSection,
   "contact-location": ContactLocation,

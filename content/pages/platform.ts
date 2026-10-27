@@ -74,6 +74,47 @@ function content(locale: Locale) {
   return { pageTitle, tour, features, stack };
 }
 
+// 소프트웨어 구성도 (2026-10-27): 현장 모듈 → Wi-Fi·LAN → 웹 플랫폼(기능 4 + 서버 ⇄ 저장소) → 권한별 접근 → 사용자
+// 근거: 제품소개 3장 SOFTWARE(NestJS·React·Cloudflare R2·JWT RBAC), docs/시스템구성도.png
+export function softwareArchitecture(locale: Locale): Block {
+  const t = translator(locale);
+  return {
+    type: "software-architecture",
+    data: {
+      title: t("시스템 구성", "System architecture"),
+      description: t(
+        "현장 모듈이 보낸 데이터를 웹 플랫폼이 받아 저장하고, 권한에 맞는 화면으로 보여줍니다.",
+        "The web platform receives and stores data from the field module, and shows each user the screens their role allows.",
+      ),
+      source: {
+        label: t("현장", "On site"),
+        title: t("에코-비탈 모듈", "Eeco-Vital module"),
+        text: t("분전반의 전력·환경 데이터와 이상 감지 신호", "Power and environmental data from the panel, plus anomaly signals"),
+      },
+      uplink: "Wi-Fi · LAN",
+      platform: {
+        label: t("통합 웹 플랫폼", "Web platform"),
+        status: t("준비 중", "Coming soon"),
+        functions: [
+          { title: t("실시간 대시보드", "Live dashboard"), icon: "dashboard" },
+          { title: t("경보·자동 대응", "Alarms & response"), icon: "alarm" },
+          { title: t("이력·엑셀", "History & Excel"), icon: "history" },
+          { title: t("권한 관리", "Access control"), icon: "access" },
+        ],
+        server: { title: t("서버", "Server"), text: "NestJS" },
+        storage: { title: t("클라우드 저장소", "Cloud storage"), text: "Cloudflare R2" },
+      },
+      access: t("권한별 접근", "Role-based access"),
+      users: {
+        label: t("사용자", "Users"),
+        title: t("웹 화면", "Web screens"),
+        text: t("권한(JWT 기반 RBAC)에 따라 볼 수 있는 화면과 데이터가 나뉩니다", "What each user can see depends on their role (JWT-based RBAC)"),
+      },
+      id: "system",
+    },
+  };
+}
+
 export function platformMeta(locale: Locale) {
   const t = translator(locale);
   return {
@@ -107,7 +148,7 @@ export function platformPageBlocks(locale: Locale): Block[] {
   return platformBlocks("b", locale);
 }
 
-export function platformBlocks(draft: PlatformDraftId, locale: Locale = "ko"): Block[] {
+export function platformBlocks(draft: PlatformDraftId, locale: Locale = "ko", { newArchitecture = false }: { newArchitecture?: boolean } = {}): Block[] {
   const { pageTitle, tour, features, stack } = content(locale);
   const top = pageTop({ locale, path: "/solutions/platform" });
   const bottom = pageBottom({ locale });
@@ -116,7 +157,7 @@ export function platformBlocks(draft: PlatformDraftId, locale: Locale = "ko"): B
     return [
       ...top,
       pageTitle,
-      { type: "system-diagram", data: { ...systemDiagram("platform", locale), id: "system" } },
+      newArchitecture ? softwareArchitecture(locale) : { type: "system-diagram", data: { ...systemDiagram("platform", locale), id: "system" } },
       tour,
       { type: "spec-table", data: { ...stack, id: "stack" } },
       ...bottom,
