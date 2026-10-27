@@ -256,7 +256,7 @@ export function ecoVitalBlocks(draft: EcoVitalDraftId, { live = false, locale = 
     pageTitle,
     { type: "anchor-tabs", data: { items: tabs, belowHeader: true } },
     { type: "product-intro", data: { ...intro, id: "overview" } },
-    { type: "feature-list", data: { variant: "rows", title: "주요 기능", items: features, id: "features" } },
+    { type: "feature-list", data: { variant: "rows", title: translator(locale)("주요 기능", "Features"), items: features, id: "features" } },
     { type: "system-diagram", data: { ...diagram, id: "system" } },
     { type: "spec-table", data: { ...spec, pending: live ? undefined : spec.pending, id: "spec" } },
     {
