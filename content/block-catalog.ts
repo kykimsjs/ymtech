@@ -107,7 +107,7 @@ export type CatalogEntry = {
 //   회사소개: 인사말 · 비전·미션 · 연혁 · 팀·파트너 / 기술·인증: 기술 차별성 · AI 화재 예지 · 특허·인증
 //   실증 사례: 현장 · 도입 효과 / 문의: 문의 폼 · 오시는 길. 자료가 쌓이면 다시 나눈다.
 export const nav: NavItem[] = [
-  { label: "회사소개", href: "#" },
+  { label: "회사소개", href: "/ko/company" },
   { label: "솔루션", href: "#", children: ["에코-비탈 모듈", "통합 웹 플랫폼"].map((label) => ({ label, href: "#" })) },
   { label: "기술·인증", href: "#" },
   { label: "실증 사례", href: "#" },

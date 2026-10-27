@@ -152,7 +152,7 @@ export function PageTitle({ title, description, breadcrumb, media }: PageTitlePr
               {i === breadcrumb.length - 1 ? (
                 <span className="text-white">{crumb}</span>
               ) : (
-                <Link href="#" className="hover:text-white">
+                <Link href={i === 0 ? "/ko" : "#"} className="hover:text-white">
                   {crumb}
                 </Link>
               )}

@@ -88,7 +88,13 @@ export const companyDrafts = [
 
 export type CompanyDraftId = (typeof companyDrafts)[number]["id"];
 
-export function companyBlocks(draft: CompanyDraftId): Block[] {
+// 운영 페이지(/ko/company)는 D안 (2026-10-27 확정). live면 자료가 없는 연혁은 숨기고(탭에서도 뺌),
+// 팀·파트너의 "자료 필요" 상자는 시안에서만 보인다.
+export function companyPageBlocks(): Block[] {
+  return companyBlocks("d", { live: true });
+}
+
+export function companyBlocks(draft: CompanyDraftId, { live = false }: { live?: boolean } = {}): Block[] {
   // 사진 머리 바로 다음에 어두운 비전이 오면 답답해서 인사말을 먼저 둔다 (2026-10-27)
   if (draft === "d") {
     return [
@@ -102,12 +108,12 @@ export function companyBlocks(draft: CompanyDraftId): Block[] {
           media: { src: "/images/hero/ai-panel.webp", alt: "안전모를 쓴 기술자가 온실 분전반의 차단기를 점검하고 있다", focus: "72% 45%" },
         },
       },
-      { type: "anchor-tabs", data: { items: tabs, belowHeader: true } },
+      { type: "anchor-tabs", data: { items: live ? tabs.filter((t) => t.target !== "history") : tabs, belowHeader: true } },
       { type: "ceo-message", data: { variant: "letter", ...greeting, id: "greeting" } },
       { type: "vision-mission", data: { variant: "words", ...vision, id: "vision" } },
       // 연혁은 옅은 회색 바탕: 어두운 비전과 흰 팀·파트너 사이를 나눈다
-      { type: "history-pending", data: { ...history, tone: "surface", id: "history" } },
-      { type: "team-network", data: { variant: "columns", ...team, id: "team" } },
+      { type: "history-pending", hidden: live ? "연혁 자료 대기" : undefined, data: { ...history, tone: "surface", id: "history" } },
+      { type: "team-network", data: { variant: "columns", ...team, pending: live ? undefined : team.pending, id: "team" } },
       ...pageBottom(),
     ];
   }

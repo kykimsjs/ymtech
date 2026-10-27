@@ -33,7 +33,7 @@ export function SiteHeader({ nav, cta, locales = [], tone = "light", sticky = fa
       )}
     >
       <div className="container-page flex h-16 items-center gap-10">
-        <Link href="#" aria-label="와이엠이노테크 홈">
+        <Link href="/ko" aria-label="와이엠이노테크 홈">
           <Logo tone={dark ? "white" : "color"} className="w-36" />
         </Link>
 

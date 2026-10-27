@@ -35,7 +35,7 @@ function Breadcrumb({ items, tone = "light" }: { items: string[]; tone?: "light"
           {i === items.length - 1 ? (
             <span className={tone === "dark" ? "text-white" : "text-ink"}>{crumb}</span>
           ) : (
-            <Link href="#" className="hover:underline hover:underline-offset-4">
+            <Link href={i === 0 ? "/ko" : "#"} className="hover:underline hover:underline-offset-4">
               {crumb}
             </Link>
           )}
