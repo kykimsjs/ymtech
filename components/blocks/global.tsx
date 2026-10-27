@@ -1,31 +1,9 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import { Logo } from "@/components/ui/logo";
 import { ScrollTopButton } from "@/components/ui/scroll-top-button";
 
-/** status: 자료가 아직 없을 때 링크 대신 보이는 표시 (예: "준비 중") */
-export type AnnouncementBarProps = { text: string; linkLabel: string; href: string; status?: string };
-
-// 참고: 아이오크롭스 상단 공지 바 (자료 무료 다운로드 유도)
-export function AnnouncementBar({ text, linkLabel, href, status }: AnnouncementBarProps) {
-  return (
-    <div className="bg-eco-50 text-eco-800">
-      <p className="container-page py-2.5 text-center text-sm">
-        {text} <span className="mx-1 text-eco-300">|</span>
-        {status ? (
-          <span className="inline-flex items-center gap-2 font-semibold">
-            {linkLabel}
-            <span className="rounded-full border border-eco-800/30 px-2 py-0.5 text-xs">{status}</span>
-          </span>
-        ) : (
-          <Link href={href} className="inline-flex items-center gap-1 font-semibold underline underline-offset-4">
-            {linkLabel} <ArrowRight className="size-3.5" />
-          </Link>
-        )}
-      </p>
-    </div>
-  );
-}
+// 상단 공지 바는 닫기 버튼 때문에 클라이언트 컴포넌트로 분리
+export { AnnouncementBar, type AnnouncementBarProps } from "./announcement-bar";
 
 export type SiteFooterProps = {
   /** 하위 메뉴가 없는 열은 제목이 바로 링크 */
