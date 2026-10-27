@@ -74,8 +74,8 @@ function content(locale: Locale) {
   return { pageTitle, tour, features, stack };
 }
 
-// 소프트웨어 구성도 (2026-10-27): 현장 모듈 → Wi-Fi·LAN → 웹 플랫폼(기능 4 + 서버 ⇄ 저장소) → 권한별 접근 → 사용자
-// 근거: 제품소개 3장 SOFTWARE(NestJS·React·Cloudflare R2·JWT RBAC), docs/시스템구성도.png
+// 소프트웨어 구성도 (2026-10-27): docs/시스템구성도.png 위 그림의 배치·순서 그대로
+//   하드웨어·모듈형 센서 ×2 → SBC → RS-232 → 웹 플랫폼 | 센서 → 센서 5종 (제품소개: 온도·습도·불꽃·침수·진동)
 export function softwareArchitecture(locale: Locale): Block {
   const t = translator(locale);
   return {
@@ -83,32 +83,26 @@ export function softwareArchitecture(locale: Locale): Block {
     data: {
       title: t("시스템 구성", "System architecture"),
       description: t(
-        "현장 모듈이 보낸 데이터를 웹 플랫폼이 받아 저장하고, 권한에 맞는 화면으로 보여줍니다.",
-        "The web platform receives and stores data from the field module, and shows each user the screens their role allows.",
+        "하드웨어와 센서 모듈의 데이터를 SBC가 모아 RS-232로 웹 플랫폼에 보내고, 플랫폼은 센서별로 보여줍니다.",
+        "The SBC gathers data from the hardware and sensor modules, sends it to the web platform over RS-232, and the platform shows it sensor by sensor.",
       ),
-      source: {
-        label: t("현장", "On site"),
-        title: t("에코-비탈 모듈", "Eeco-Vital module"),
-        text: t("분전반의 전력·환경 데이터와 이상 감지 신호", "Power and environmental data from the panel, plus anomaly signals"),
-      },
-      uplink: "Wi-Fi · LAN",
-      platform: {
-        label: t("통합 웹 플랫폼", "Web platform"),
-        status: t("준비 중", "Coming soon"),
-        functions: [
-          { title: t("실시간 대시보드", "Live dashboard"), icon: "dashboard" },
-          { title: t("경보·자동 대응", "Alarms & response"), icon: "alarm" },
-          { title: t("이력·엑셀", "History & Excel"), icon: "history" },
-          { title: t("권한 관리", "Access control"), icon: "access" },
+      inputs: [
+        { title: t("하드웨어", "Hardware"), icon: "box" },
+        { title: t("모듈형 센서", "Modular sensor"), icon: "cpu" },
+        { title: t("모듈형 센서", "Modular sensor"), icon: "cpu" },
+      ],
+      sbc: { title: "SBC", text: t("모듈형 제어 보드", "Modular control board") },
+      link: "RS-232",
+      platform: { title: t("웹 플랫폼", "Web platform"), sub: t("센서", "Sensors"), status: t("준비 중", "Coming soon") },
+      sensors: {
+        label: t("센서", "Sensors"),
+        items: [
+          { title: t("습도", "Humidity"), icon: "droplets" },
+          { title: t("온도", "Temperature"), icon: "thermometer" },
+          { title: t("침수", "Flooding"), icon: "rain" },
+          { title: t("불꽃", "Flame"), icon: "flame" },
+          { title: t("진동", "Vibration"), icon: "vibrate" },
         ],
-        server: { title: t("서버", "Server"), text: "NestJS" },
-        storage: { title: t("클라우드 저장소", "Cloud storage"), text: "Cloudflare R2" },
-      },
-      access: t("권한별 접근", "Role-based access"),
-      users: {
-        label: t("사용자", "Users"),
-        title: t("웹 화면", "Web screens"),
-        text: t("권한(JWT 기반 RBAC)에 따라 볼 수 있는 화면과 데이터가 나뉩니다", "What each user can see depends on their role (JWT-based RBAC)"),
       },
       id: "system",
     },

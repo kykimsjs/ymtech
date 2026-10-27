@@ -1,235 +1,217 @@
-import { ArrowDown, ArrowLeftRight, ArrowRight, BellRing, CornerUpLeft, Database, Droplets, Flame, History, KeyRound, LayoutDashboard, Server, Thermometer, Users, Vibrate } from "lucide-react";
+import {
+  ArrowDown,
+  ArrowLeft,
+  ArrowLeftRight,
+  ArrowRight,
+  ArrowUpDown,
+  Box,
+  Cloud,
+  CloudRain,
+  Cpu,
+  Droplets,
+  Flame,
+  LayoutDashboard,
+  Thermometer,
+  Vibrate,
+  Wifi,
+} from "lucide-react";
 import { cn } from "@/lib/cn";
 
-// 시스템 구성도 (2026-10-27). 근거: docs/시스템구성도.png(제품소개 2장 와이어프레임의 System Architecture 두 그림 중 아래 자세한 판)
-//   분전반 안 Main/Sub MCCB → 에코-비탈 모듈(센서 보드 ⇄ RS-232 ⇄ SBC 보드) → Wi-Fi·LAN → 웹 플랫폼, 센서 4종(온습도·불꽃·침수·진동)
-// 원본 그림은 AI 생성이라 글자가 깨져 있어 그대로 쓰지 않고, 사이트 토큰으로 다시 그린다.
+// 시스템 구성도 (2026-10-27). 근거: docs/시스템구성도.png (제품소개 2장 와이어프레임의 System Architecture 두 그림)
+// 원본은 AI 생성 그림이라 글자가 깨져 있어 이미지는 쓰지 않고, 그림의 배치·순서를 그대로 따라 사이트 토큰으로 다시 그린다.
+//   하드웨어(에코-비탈 페이지) = 아래 자세한 그림, 소프트웨어(웹 플랫폼 페이지) = 위 간단한 그림
 
-const sensorIcons = { thermometer: Thermometer, flame: Flame, droplets: Droplets, vibrate: Vibrate };
-const functionIcons = { dashboard: LayoutDashboard, alarm: BellRing, history: History, access: KeyRound };
+const icons = {
+  thermometer: Thermometer,
+  droplets: Droplets,
+  rain: CloudRain,
+  flame: Flame,
+  vibrate: Vibrate,
+  box: Box,
+  cpu: Cpu,
+};
+type IconKey = keyof typeof icons;
 
-function Chip({ children, className }: { children: React.ReactNode; className?: string }) {
-  return <span className={cn("inline-flex items-center gap-2 rounded-control border border-line-strong bg-canvas px-3 py-2 text-sm font-semibold", className)}>{children}</span>;
-}
-
-/** 단계 사이 화살표. 좁은 화면은 아래로, 넓은 화면은 오른쪽으로 */
-function Flow({ label }: { label?: string }) {
+function Node({ title, text, icon, className }: { title: string; text?: string; icon?: IconKey; className?: string }) {
+  const Icon = icon ? icons[icon] : null;
   return (
-    <div aria-hidden className="flex flex-col items-center justify-center gap-1 py-2 text-ink-subtle lg:px-2 lg:py-0">
-      {label && <span className="text-xs font-semibold whitespace-nowrap text-brand-600">{label}</span>}
-      <ArrowDown className="size-5 lg:hidden" />
-      <ArrowRight className="hidden size-5 lg:block" />
+    <div className={cn("rounded-control border border-line-strong bg-canvas px-3.5 py-3", className)}>
+      <p className="flex items-center gap-2 text-[0.9375rem] font-bold">
+        {Icon && <Icon aria-hidden className="size-4 shrink-0 text-brand-600" strokeWidth={1.75} />}
+        {title}
+      </p>
+      {text && <p className="mt-0.5 text-sm leading-snug text-ink-muted">{text}</p>}
     </div>
   );
 }
 
-function ZoneLabel({ children }: { children: React.ReactNode }) {
-  return <p className="mb-3 text-sm font-semibold text-ink-subtle">{children}</p>;
+function SensorList({ label, items }: { label: string; items: { title: string; icon: IconKey }[] }) {
+  return (
+    <div>
+      <p className="mb-2.5 text-sm font-semibold text-ink-subtle">{label}</p>
+      <ul className="grid grid-cols-2 gap-2 lg:grid-cols-1">
+        {items.map((item) => (
+          <li key={item.title}>
+            <Node title={item.title} icon={item.icon} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 }
 
-// ── 하드웨어: 분전반 안 구조 ────────────────────────────────
+/** 단계 사이 연결. 좁은 화면은 위아래, 넓은 화면은 좌우 */
+function Link({ label, dir = "right" }: { label?: string; dir?: "right" | "left" | "both" }) {
+  const Wide = dir === "left" ? ArrowLeft : dir === "both" ? ArrowLeftRight : ArrowRight;
+  return (
+    <div aria-hidden className="flex flex-col items-center justify-center gap-1 py-2 text-ink-subtle lg:px-1 lg:py-0">
+      {label && <span className="text-center text-xs font-semibold text-brand-600">{label}</span>}
+      {dir === "both" ? <ArrowUpDown className="size-5 lg:hidden" /> : <ArrowDown className={cn("size-5 lg:hidden", dir === "left" && "rotate-180")} />}
+      <Wide className="hidden size-5 lg:block" />
+    </div>
+  );
+}
 
-export type HardwareArchitectureProps = {
-  title: string;
-  description?: string;
-  sensors: { label: string; items: { title: string; icon: keyof typeof sensorIcons }[] };
-  panel: { label: string; breakers: string[]; metering: string };
-  module: {
-    label: string;
-    sensorBoard: { title: string; text: string };
-    sbc: { title: string; text: string };
-    link: string;
-    parts: string[];
-  };
-  cutoff: string;
-  uplink: string;
-  platform: { label: string; title: string; text: string; status?: string };
-  id?: string;
-};
-
-export function HardwareArchitecture({ title, description, sensors, panel, module, cutoff, uplink, platform, id }: HardwareArchitectureProps) {
+function Section({ id, title, description, children }: { id?: string; title: string; description?: string; children: React.ReactNode }) {
   return (
     <section id={id} className="block-y scroll-mt-32 bg-canvas">
       <div className="container-page">
         <h2 className="text-display font-bold">{title}</h2>
         {description && <p className="mt-5 max-w-[42em] text-lg leading-[1.75] text-ink-muted">{description}</p>}
-
-        <figure className="mt-12 flex flex-col lg:grid lg:grid-cols-[11rem_auto_1fr_auto_13rem] lg:items-center">
-          {/* 현장 센서 */}
-          <div>
-            <ZoneLabel>{sensors.label}</ZoneLabel>
-            <ul className="grid grid-cols-2 gap-2 lg:grid-cols-1">
-              {sensors.items.map((sensor) => {
-                const Icon = sensorIcons[sensor.icon];
-                return (
-                  <li key={sensor.title}>
-                    <Chip className="w-full">
-                      <Icon aria-hidden className="size-4 shrink-0 text-brand-600" strokeWidth={1.75} />
-                      {sensor.title}
-                    </Chip>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-
-          <Flow />
-
-          {/* 분전반 */}
-          <div className="rounded-card border-2 border-dashed border-line-strong bg-surface p-5 sm:p-6">
-            <ZoneLabel>{panel.label}</ZoneLabel>
-            <div className="flex flex-wrap gap-2">
-              {panel.breakers.map((breaker) => (
-                <Chip key={breaker}>{breaker}</Chip>
-              ))}
-            </div>
-            <p aria-hidden className="flex items-center gap-2 py-3 pl-4 text-xs font-semibold text-brand-600">
-              <ArrowDown className="size-4 text-ink-subtle" />
-              {panel.metering}
-            </p>
-
-            {/* 에코-비탈 모듈 */}
-            <div className="rounded-card border-2 border-brand-500 bg-canvas p-4 sm:p-5">
-              <p className="text-sm font-bold text-brand-600">{module.label}</p>
-              <div className="mt-3 flex flex-col items-stretch gap-2 sm:flex-row sm:items-center">
-                <div className="flex-1 rounded-control bg-brand-50 px-4 py-3">
-                  <p className="font-bold">{module.sensorBoard.title}</p>
-                  <p className="mt-0.5 text-sm leading-relaxed text-ink-muted">{module.sensorBoard.text}</p>
-                </div>
-                <div aria-hidden className="flex items-center justify-center gap-1.5 text-xs font-semibold text-brand-600 sm:flex-col sm:gap-0.5">
-                  <ArrowLeftRight className="size-4 rotate-90 text-ink-subtle sm:rotate-0" />
-                  {module.link}
-                </div>
-                <div className="flex-1 rounded-control bg-brand-50 px-4 py-3">
-                  <p className="font-bold">{module.sbc.title}</p>
-                  <p className="mt-0.5 text-sm leading-relaxed text-ink-muted">{module.sbc.text}</p>
-                </div>
-              </div>
-              <div className="mt-2 flex flex-wrap gap-2">
-                {module.parts.map((part) => (
-                  <Chip key={part} className="py-1.5 text-xs">
-                    {part}
-                  </Chip>
-                ))}
-              </div>
-            </div>
-
-            <p className="mt-4 flex items-center gap-2 text-sm font-semibold">
-              <CornerUpLeft className="size-4 shrink-0 text-brand-600" />
-              {cutoff}
-            </p>
-          </div>
-
-          <Flow label={uplink} />
-
-          {/* 관제 */}
-          <div>
-            <ZoneLabel>{platform.label}</ZoneLabel>
-            <div className="rounded-card border border-line-strong bg-canvas p-5">
-              <p className="flex flex-wrap items-center gap-2 font-bold">
-                {platform.title}
-                {platform.status && <span className="rounded-full border border-line-strong px-2 py-0.5 text-xs font-semibold text-ink-muted">{platform.status}</span>}
-              </p>
-              <p className="mt-1.5 text-sm leading-relaxed text-ink-muted">{platform.text}</p>
-            </div>
-          </div>
-        </figure>
+        {children}
       </div>
     </section>
   );
 }
 
-// ── 소프트웨어: 데이터 흐름 ─────────────────────────────────
+// ── 하드웨어 (아래 그림) ────────────────────────────────────
+//   웹 플랫폼 ⇄ [ Main MCCB ↓ SSR 차단·Sub MCCB ⇄RS-232⇄ 센서 보드 ⇅ SBC 보드(Wi-Fi → 클라우드) ] ← LAN·Wi-Fi ← 센서 4종
+
+export type HardwareArchitectureProps = {
+  title: string;
+  description?: string;
+  platform: { title: string; text: string; status?: string };
+  module: {
+    label: string;
+    main: { title: string; text?: string };
+    sub: { title: string; text?: string };
+    sensorBoard: { title: string; text?: string };
+    sbc: { title: string; text?: string };
+    link: string;
+    cloud: string;
+  };
+  sensorLink: string;
+  sensors: { label: string; items: { title: string; icon: IconKey }[] };
+  id?: string;
+};
+
+export function HardwareArchitecture({ title, description, platform, module, sensorLink, sensors, id }: HardwareArchitectureProps) {
+  return (
+    <Section id={id} title={title} description={description}>
+      <figure className="mt-12 flex flex-col lg:grid lg:grid-cols-[12rem_3rem_1fr_7rem_11rem] lg:items-center">
+        {/* 웹 플랫폼 */}
+        <div className="rounded-card border border-line-strong bg-surface p-4">
+          <LayoutDashboard aria-hidden className="size-6 text-brand-600" strokeWidth={1.5} />
+          <p className="mt-3 flex flex-wrap items-center gap-2 font-bold">
+            {platform.title}
+            {platform.status && <span className="rounded-full border border-line-strong px-2 py-0.5 text-xs font-semibold text-ink-muted">{platform.status}</span>}
+          </p>
+          <p className="mt-1 text-sm leading-snug text-ink-muted">{platform.text}</p>
+        </div>
+
+        {/* 그림처럼 위는 플랫폼 → 모듈, 아래는 모듈 → 플랫폼 */}
+        <div aria-hidden className="flex items-center justify-center gap-6 py-2 text-ink-subtle lg:flex-col lg:gap-16 lg:py-0">
+          <ArrowRight className="size-5 rotate-90 lg:rotate-0" />
+          <ArrowLeft className="size-5 rotate-90 lg:rotate-0" />
+        </div>
+
+        {/* 모듈 (가운데 큰 상자) */}
+        <div className="relative rounded-[1.25rem] border-2 border-brand-500 p-4 pt-10 sm:p-6 sm:pt-10">
+          <p className="absolute top-3.5 left-4 text-sm font-bold text-brand-600 sm:left-6">{module.label}</p>
+          {/* 클라우드: 그림처럼 상자 오른쪽 위 바깥 */}
+          <p className="absolute -top-4 right-4 inline-flex items-center gap-1.5 rounded-full border border-line-strong bg-canvas px-3 py-1 text-xs font-semibold sm:right-6">
+            <Cloud aria-hidden className="size-4 text-brand-600" />
+            {module.cloud}
+          </p>
+
+          <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-x-2 gap-y-1 sm:gap-x-3">
+            <Node title={module.main.title} text={module.main.text} className="bg-surface" />
+            <span />
+            <div className="relative">
+              <Node title={module.sbc.title} text={module.sbc.text} className="bg-brand-50" />
+              <Wifi aria-hidden className="absolute -top-2 -right-2 size-5 rounded-full bg-canvas p-0.5 text-brand-600" />
+            </div>
+
+            <ArrowDown aria-hidden className="mx-auto size-5 text-ink-subtle" />
+            <span />
+            <ArrowUpDown aria-hidden className="mx-auto size-5 text-ink-subtle" />
+
+            <Node title={module.sub.title} text={module.sub.text} className="bg-surface" />
+            <div aria-hidden className="flex flex-col items-center text-[0.6875rem] font-semibold text-brand-600 sm:text-xs">
+              {module.link}
+              <ArrowLeftRight className="size-4 text-ink-subtle" />
+            </div>
+            <Node title={module.sensorBoard.title} text={module.sensorBoard.text} className="bg-brand-50" />
+          </div>
+        </div>
+
+        <Link label={sensorLink} dir="left" />
+
+        <SensorList label={sensors.label} items={sensors.items} />
+      </figure>
+    </Section>
+  );
+}
+
+// ── 소프트웨어 (위 그림) ────────────────────────────────────
+//   하드웨어·모듈형 센서 ×2 → SBC → RS-232 → 웹 플랫폼 | 센서 → 센서 5종
 
 export type SoftwareArchitectureProps = {
   title: string;
   description?: string;
-  source: { label: string; title: string; text: string };
-  uplink: string;
-  platform: {
-    label: string;
-    status?: string;
-    functions: { title: string; icon: keyof typeof functionIcons }[];
-    server: { title: string; text: string };
-    storage: { title: string; text: string };
-  };
-  access: string;
-  users: { label: string; title: string; text: string };
+  inputs: { title: string; icon: IconKey }[];
+  sbc: { title: string; text: string };
+  link: string;
+  platform: { title: string; sub: string; status?: string };
+  sensors: { label: string; items: { title: string; icon: IconKey }[] };
   id?: string;
 };
 
-export function SoftwareArchitecture({ title, description, source, uplink, platform, access, users, id }: SoftwareArchitectureProps) {
+export function SoftwareArchitecture({ title, description, inputs, sbc, link, platform, sensors, id }: SoftwareArchitectureProps) {
   return (
-    <section id={id} className="block-y scroll-mt-32 bg-canvas">
-      <div className="container-page">
-        <h2 className="text-display font-bold">{title}</h2>
-        {description && <p className="mt-5 max-w-[42em] text-lg leading-[1.75] text-ink-muted">{description}</p>}
+    <Section id={id} title={title} description={description}>
+      <figure className="mt-12 flex flex-col lg:grid lg:grid-cols-[11rem_2.5rem_1fr_6rem_12rem_2.5rem_11rem] lg:items-center">
+        <ul className="grid grid-cols-3 gap-2 lg:grid-cols-1 lg:gap-4">
+          {inputs.map((input, i) => (
+            <li key={`${input.title}-${i}`}>
+              <Node title={input.title} icon={input.icon} className="h-full" />
+            </li>
+          ))}
+        </ul>
 
-        <figure className="mt-12 flex flex-col lg:grid lg:grid-cols-[13rem_auto_1fr_auto_13rem] lg:items-center">
-          {/* 현장 모듈 */}
-          <div>
-            <ZoneLabel>{source.label}</ZoneLabel>
-            <div className="rounded-card border border-line-strong bg-canvas p-5">
-              <p className="font-bold">{source.title}</p>
-              <p className="mt-1.5 text-sm leading-relaxed text-ink-muted">{source.text}</p>
-            </div>
-          </div>
+        <Link />
 
-          <Flow label={uplink} />
+        {/* SBC: 그림처럼 가운데 큰 상자 */}
+        <div className="flex min-h-40 flex-col items-center justify-center rounded-[1.25rem] border-2 border-brand-500 bg-brand-50 p-6 text-center lg:min-h-72">
+          <p className="text-[2rem] leading-none font-bold">{sbc.title}</p>
+          <p className="mt-2 text-sm text-ink-muted">{sbc.text}</p>
+        </div>
 
-          {/* 웹 플랫폼 */}
-          <div className="rounded-card border-2 border-brand-500 bg-brand-50/50 p-5 sm:p-6">
-            <p className="flex flex-wrap items-center gap-2 text-sm font-bold text-brand-600">
-              {platform.label}
-              {platform.status && <span className="rounded-full border border-brand-300 px-2 py-0.5 text-xs font-semibold">{platform.status}</span>}
-            </p>
-            <ul className="mt-3 grid grid-cols-2 gap-2">
-              {platform.functions.map((fn) => {
-                const Icon = functionIcons[fn.icon];
-                return (
-                  <li key={fn.title}>
-                    <Chip className="w-full">
-                      <Icon aria-hidden className="size-4 shrink-0 text-brand-600" strokeWidth={1.75} />
-                      {fn.title}
-                    </Chip>
-                  </li>
-                );
-              })}
-            </ul>
-            <div className="mt-3 flex flex-col items-stretch gap-2 sm:flex-row sm:items-center">
-              <div className="flex flex-1 items-start gap-3 rounded-control bg-canvas px-4 py-3">
-                <Server aria-hidden className="mt-0.5 size-4 shrink-0 text-ink-subtle" />
-                <div>
-                  <p className="font-bold">{platform.server.title}</p>
-                  <p className="mt-0.5 text-sm text-ink-muted">{platform.server.text}</p>
-                </div>
-              </div>
-              <ArrowLeftRight aria-hidden className="size-4 shrink-0 self-center rotate-90 text-ink-subtle sm:rotate-0" />
-              <div className="flex flex-1 items-start gap-3 rounded-control bg-canvas px-4 py-3">
-                <Database aria-hidden className="mt-0.5 size-4 shrink-0 text-ink-subtle" />
-                <div>
-                  <p className="font-bold">{platform.storage.title}</p>
-                  <p className="mt-0.5 text-sm text-ink-muted">{platform.storage.text}</p>
-                </div>
-              </div>
-            </div>
-          </div>
+        <Link label={link} />
 
-          <Flow label={access} />
+        {/* 웹 플랫폼 | 센서 (그림의 두 칸짜리 상자) */}
+        <div className="overflow-hidden rounded-card border border-line-strong bg-canvas text-center">
+          <p className="flex flex-wrap items-center justify-center gap-2 px-4 py-4 font-bold">
+            {platform.title}
+            {platform.status && <span className="rounded-full border border-line-strong px-2 py-0.5 text-xs font-semibold text-ink-muted">{platform.status}</span>}
+          </p>
+          <p className="border-t border-line-strong bg-surface px-4 py-2.5 text-sm font-semibold text-ink-muted">{platform.sub}</p>
+        </div>
 
-          {/* 사용자 */}
-          <div>
-            <ZoneLabel>{users.label}</ZoneLabel>
-            <div className="rounded-card border border-line-strong bg-canvas p-5">
-              <p className="flex items-center gap-2 font-bold">
-                <Users aria-hidden className="size-4 text-brand-600" />
-                {users.title}
-              </p>
-              <p className="mt-1.5 text-sm leading-relaxed text-ink-muted">{users.text}</p>
-            </div>
-          </div>
-        </figure>
-      </div>
-    </section>
+        <Link />
+
+        <SensorList label={sensors.label} items={sensors.items} />
+      </figure>
+    </Section>
   );
 }

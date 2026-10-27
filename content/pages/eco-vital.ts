@@ -161,7 +161,8 @@ function content(locale: Locale) {
   return { name, pageTitle, intro, features, diagram: systemDiagram("module", locale), spec, applications, tabs };
 }
 
-// 하드웨어 구성도 (2026-10-27, docs/시스템구성도.png 아래 그림 바탕): 분전반 안 MCCB → 모듈(센서 보드 ⇄ RS-232 ⇄ SBC 보드) → Wi-Fi·LAN → 웹 플랫폼
+// 하드웨어 구성도 (2026-10-27): docs/시스템구성도.png 아래 그림의 배치·순서 그대로
+//   웹 플랫폼 ⇄ [Main MCCB ↓ SSR 차단·Sub MCCB ⇄ RS-232 ⇄ 센서 보드 ⇅ SBC 보드(Wi-Fi → 클라우드)] ← LAN·Wi-Fi ← 센서 4종
 export function hardwareArchitecture(locale: Locale): Block {
   const t = translator(locale);
   return {
@@ -169,33 +170,32 @@ export function hardwareArchitecture(locale: Locale): Block {
     data: {
       title: t("시스템 구성", "System architecture"),
       description: t(
-        "현장 센서 신호와 분전반의 전력을 모듈이 함께 받아 판단하고, 유·무선 통신으로 웹 플랫폼에 보냅니다.",
-        "The module takes in field sensor signals and the panel's power together, makes the call, and reports to the web platform over wired or wireless links.",
+        "분전반 안의 모듈이 MCCB와 현장 센서를 함께 읽고, 웹 플랫폼과 데이터를 주고받습니다.",
+        "The module inside the panel reads the MCCBs and field sensors together and exchanges data with the web platform.",
       ),
+      platform: {
+        title: t("웹 플랫폼", "Web platform"),
+        text: t("실시간 대시보드 · 경보 · 이력", "Live dashboard · alarms · history"),
+        status: t("준비 중", "Coming soon"),
+      },
+      module: {
+        label: t("에코-비탈 모듈 (분전반 내부)", "Eeco-Vital module (inside the panel)"),
+        main: { title: "Main MCCB", text: t("3상 전압·전류", "3-phase voltage·current") },
+        sub: { title: "Sub MCCB", text: t("SSR 자동 차단", "SSR automatic cut-off") },
+        sensorBoard: { title: t("센서 보드", "Sensor board"), text: t("센서 신호 수집", "Collects sensor signals") },
+        sbc: { title: t("SBC 보드", "SBC board"), text: t("판단·제어", "Decision & control") },
+        link: "RS-232",
+        cloud: t("클라우드 저장", "Cloud storage"),
+      },
+      sensorLink: "LAN · Wi-Fi",
       sensors: {
         label: t("현장 센서", "Field sensors"),
         items: [
           { title: t("온·습도", "Temp·humidity"), icon: "thermometer" },
+          { title: t("침수", "Flooding"), icon: "rain" },
           { title: t("불꽃", "Flame"), icon: "flame" },
-          { title: t("침수", "Flooding"), icon: "droplets" },
           { title: t("진동", "Vibration"), icon: "vibrate" },
         ],
-      },
-      panel: { label: t("분전반", "Distribution panel"), breakers: ["Main MCCB", "Sub MCCB"], metering: t("3상(RST/UVW) 전압·전류", "3-phase (RST/UVW) voltage·current") },
-      module: {
-        label: t("에코-비탈 모듈", "Eeco-Vital module"),
-        sensorBoard: { title: t("센서 보드", "Sensor board"), text: t("전력·환경 신호 수집", "Collects power and environmental signals") },
-        sbc: { title: t("SBC 보드", "SBC board"), text: t("판단·제어, 유·무선 통신", "Decision and control, wired and wireless communication") },
-        link: "RS-232",
-        parts: [t("AC-DC 5V 전원", "AC-DC 5V power"), t("SSR 차단", "SSR cut-off")],
-      },
-      cutoff: t("이상이 감지되면 SSR이 전원을 차단합니다 (10초 이내)", "When an anomaly is detected, the SSR cuts power (within 10 seconds)"),
-      uplink: "Wi-Fi · LAN",
-      platform: {
-        label: t("관제", "Monitoring"),
-        title: t("통합 웹 플랫폼", "Web platform"),
-        text: t("실시간 대시보드 · 경보 · 이력", "Live dashboard · alarms · history"),
-        status: t("준비 중", "Coming soon"),
       },
       id: "system",
     },
@@ -238,8 +238,8 @@ export type EcoVitalDraftId = (typeof ecoVitalDrafts)[number]["id"];
 
 // 새 구성도 시안 비교 (2026-10-27): 운영 페이지에 구성도만 바꿔 끼운다
 export const architectureDrafts = [
-  { id: "hardware", key: "HW", name: "하드웨어 (에코-비탈)", summary: "분전반 안 구조: 현장 센서 → 분전반(MCCB · 모듈 안 센서 보드 ⇄ RS-232 ⇄ SBC 보드) → Wi-Fi·LAN → 웹 플랫폼" },
-  { id: "software", key: "SW", name: "소프트웨어 (웹 플랫폼)", summary: "데이터 흐름: 현장 모듈 → Wi-Fi·LAN → 웹 플랫폼(기능 4개 · 서버 ⇄ 클라우드 저장소) → 권한별 접근 → 사용자" },
+  { id: "hardware", key: "HW", name: "하드웨어 (에코-비탈)", summary: "그림 아래쪽 구성도 그대로: 웹 플랫폼 ⇄ 모듈(Main MCCB ↓ Sub MCCB ⇄ RS-232 ⇄ 센서 보드 ⇅ SBC 보드 · 클라우드) ← LAN·Wi-Fi ← 센서 4종" },
+  { id: "software", key: "SW", name: "소프트웨어 (웹 플랫폼)", summary: "그림 위쪽 구성도 그대로: 하드웨어·모듈형 센서 ×2 → SBC → RS-232 → 웹 플랫폼 | 센서 → 센서 5종" },
 ] as const;
 
 // 운영 페이지(/ko/solutions/eco-vital)는 A안 (2026-10-27 확정). live면 "자료 필요" 상자를 빼고,
