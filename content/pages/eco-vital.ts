@@ -4,7 +4,7 @@ import { pageBottom, pageTop } from "./common";
 
 // 솔루션 > 에코-비탈 모듈
 // 문구 근거: 제품소개 1장(HARDWARE 특징 5개, 제품소개 문구 그대로), 2장(시스템 구성, 적용 분야),
-//           기획안 5장(HARDWARE)·6장(±2% KETI, 10초 차단), 클라이언트 제품 소개글(2026-10-26)
+//           기획안 5장(HARDWARE)·6장(10초 차단), KETI 시험성적서(2025.12), 클라이언트 제품 소개글(2026-10-26)
 // 시안 3개는 같은 내용을 다른 방향으로 배치한다
 
 const name = "지능형 에코-비탈(Eeco-Vital) 모듈";
@@ -78,7 +78,7 @@ const spec = {
     { label: "설치 위치", value: "분전반 내부 직접 장착 (일체형)" },
     { label: "연동", value: "Main/Sub MCCB" },
     { label: "전력 감지", value: "3상(RST/UVW) 전압·전류" },
-    { label: "측정 정확도", value: "전압·전류 ±2%", note: "KETI 검증" },
+    { label: "측정 정확도", value: "전압·전력 모니터링 정확도 시험", note: "KETI 광주지역본부 · 2025.12" },
     { label: "환경 감지", value: "온·습도, 불꽃, 침수, 진동" },
     { label: "자동 차단", value: "SSR(전자식 릴레이), 이상 감지 후 10초 이내" },
     { label: "전원", value: "AC-DC 변환기 (5V)" },
@@ -117,7 +117,7 @@ export const ecoVitalDrafts = [
     id: "b",
     key: "B",
     name: "제품형",
-    summary: "케빈랩 4ST ZIP처럼 어두운 바탕에 제품과 MODIQ BI를 크게. 특징 5개는 큰 번호 2단, 핵심 수치(±2%, 10초)와 어두운 구성도를 이어 붙입니다.",
+    summary: "케빈랩 4ST ZIP처럼 어두운 바탕에 제품과 MODIQ BI를 크게. 특징 5개는 큰 번호 2단, 핵심 수치(10초)와 어두운 구성도를 이어 붙입니다.",
   },
   {
     id: "c",
@@ -161,7 +161,7 @@ export function ecoVitalBlocks(draft: EcoVitalDraftId, { live = false }: { live?
         },
       },
       { type: "feature-list", data: { variant: "grid", title: "주요 기능", items: features, id: "features" } },
-      { type: "trust-figures", data: { title: "기술 신뢰성", description: "측정 정확도는 KETI의 검증을 거쳤고,\n전기설비는 KESCO 규격을 따릅니다.", items: trustItems, layout: "numbers" } },
+      { type: "trust-figures", data: { title: "기술 신뢰성", description: "측정 정확도는 KETI에서 시험했고,\n전기설비는 KESCO 규격을 따릅니다.", items: trustItems, layout: "numbers" } },
       { type: "system-diagram", data: { ...diagram, tone: "dark", id: "system" } },
       { type: "applications", data: { ...applications, id: "applications" } },
       ...pageBottom(),

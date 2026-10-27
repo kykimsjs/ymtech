@@ -68,12 +68,11 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
     // 소구점 3개: 데스크톱은 마우스를 올리면 펼쳐지는 세로 3분할, 모바일은 아코디언
     { type: "feature-panels", data: { title: "분전반 안에서 감지부터 차단까지", items: featureRows } },
     {
-      // 기획안 1장 핵심 메시지 "기술 신뢰성"(KETI 검증, KESCO 규격 준수) + 6장 핵심 수치 3개
-      // 숫자인 두 개만 크게, 나머지는 근거 줄로 보낸다
+      // 기획안 1장 핵심 메시지 "기술 신뢰성"(KETI 시험, KESCO 규격 준수). KETI · 10초 · KESCO를 같은 크기로 나란히
       type: "trust-figures",
       data: {
         title: "기술 신뢰성",
-        description: "측정 정확도는 KETI의 검증을 거쳤고,\n전기설비는 KESCO 규격을 따릅니다.",
+        description: "측정 정확도는 KETI에서 시험했고,\n전기설비는 KESCO 규격을 따릅니다.",
         items: trustItems,
         // 기관 마크는 R&D > 특허·인증 페이지로 (2026-10-26)
         layout: "numbers",

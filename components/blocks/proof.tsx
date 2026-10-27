@@ -348,10 +348,11 @@ function Figure({ value, unit, className }: { value: string; unit?: string; clas
   );
 }
 
-// 기획안 HOME "기술 신뢰성"(KETI 검증 · KESCO 규격 준수) + 핵심 수치.
+// 기획안 HOME "기술 신뢰성"(KETI 시험 · KESCO 규격 준수) + 핵심 수치.
 // 참고: 케빈랩 4ST ZIP 인증 현황(제목·기준일 왼쪽, 라벨 + 큰 숫자 오른쪽), 아이오크롭스 연혁(가로선으로 나뉜 행 목록)
 export function TrustFigures({ title, description, items, layout = "rows", basis, id }: TrustFiguresProps) {
-  const numbers = items.filter((item) => item.unit);
+  // numbers: 모든 항목을 큰 글자로 나란히 (기관 이름도 숫자와 같은 줄), strip: 숫자 항목만
+  const numbers = layout === "numbers" ? items : items.filter((item) => item.unit);
   const marks = items.filter((item) => item.mark);
   const head = (
     <>
@@ -411,13 +412,21 @@ export function TrustFigures({ title, description, items, layout = "rows", basis
     <section id={id} className="block-y scroll-mt-32 bg-surface">
       <div className="container-page">
         <div className="grid gap-10 lg:grid-cols-12 lg:items-end">
-          <div className="lg:col-span-6">{head}</div>
-          <dl className="grid grid-cols-2 gap-8 lg:col-span-6">
+          {/* 3칸이면 KESCO 같은 글자 값이 한 줄에 들어가도록 오른쪽을 넓힌다 */}
+          <div className={numbers.length === 3 ? "lg:col-span-5" : "lg:col-span-6"}>{head}</div>
+          <dl className={cn("grid gap-8", numbers.length === 3 ? "sm:grid-cols-3 lg:col-span-7" : "grid-cols-2 lg:col-span-6")}>
             {numbers.map((item) => (
               <div key={item.label}>
                 <dt className="text-[0.9375rem] font-semibold text-ink-muted">{item.label}</dt>
                 <dd className="mt-3">
-                  <Figure value={item.value} unit={item.unit} className="text-[clamp(3.25rem,2.4rem+3vw,5rem)] leading-[0.95]" />
+                  <Figure
+                    value={item.value}
+                    unit={item.unit}
+                    className={cn(
+                      "leading-[0.95] whitespace-nowrap",
+                      numbers.length === 3 ? "text-[clamp(2.25rem,1.8rem+1.4vw,3.25rem)]" : "text-[clamp(3.25rem,2.4rem+3vw,5rem)]",
+                    )}
+                  />
                   {layout === "numbers" && <span className="mt-3 block text-sm text-ink-subtle">{item.source}</span>}
                 </dd>
               </div>

@@ -40,7 +40,7 @@ const en: Dictionary = {
     },
   ],
   stats: [
-    { value: "±2%", label: "Voltage & current accuracy, verified by KETI" },
+    { value: "KETI", label: "Voltage & power monitoring accuracy, tested by KETI" },
     { value: "10 s", label: "Automatic cut-off after detection" },
     { value: "3-phase", label: "Real-time RST·UVW power sensing" },
   ],

@@ -69,13 +69,14 @@ export const featureRows: FeatureRowsProps["items"] = [
   },
 ];
 
-// 기획안 HOME "기술 신뢰성" 근거 항목 (±2% KETI 검증, 10초 KESCO 규격 준수). HOME은 숫자 항목만 쓴다
+// 기획안 HOME "기술 신뢰성" 근거 항목 (KETI 시험, 10초 KESCO 규격 준수)
+// 2026-10-27 KETI 시험성적서(2025-11-126 G) 확인: 시험 항목은 전압·전력 모니터링 정확도이고 ±2%는 성적서에 없음.
+// 성적서 비고 3항(홍보·광고 사용 불가)에 따라 결과 수치는 KETI 허락 전까지 쓰지 않고 "시험"만 적는다
 export const trustItems = [
   {
-    value: "±2",
-    unit: "%",
-    label: "전압·전류 측정 정확도",
-    source: "한국전자기술연구원(KETI) 검증",
+    value: "KETI",
+    label: "전압·전력 모니터링 정확도 시험",
+    source: "한국전자기술연구원 광주지역본부 (2025.12)",
     mark: { src: "/images/marks/keti.png", alt: "한국전자기술연구원(KETI)", width: 900, height: 209 },
   },
   { value: "10", unit: "초", label: "이상 감지 후 자동 차단", source: "한국전기안전공사(KESCO) 규격 준수" },
@@ -372,7 +373,7 @@ export const catalog: CatalogEntry[] = [
           "정상 상태에서 모은 전력·환경 데이터와, 화재 상황을 연출해 모은 데이터를 비교해 이상 징후를 판별합니다.",
           "판별 결과는 웹 플랫폼의 경보와 모듈의 자동 차단으로 이어집니다.",
         ],
-        emphasis: "전압·전류 측정 정확도는 KETI 시험에서 ±2%로 확인했습니다.",
+        emphasis: "전압·전력 모니터링 정확도는 KETI 광주지역본부에서 시험했습니다.",
         media: [photo("화재 연출 시험 장면"), photo("데이터 분석 화면")],
       },
     },
@@ -389,7 +390,7 @@ export const catalog: CatalogEntry[] = [
         id: "applications",
         title: "무엇을 감지하나요",
         tabs: [
-          { label: "전력 감지", text: "Main·Sub MCCB에 연결해 3상 전압과 전류를 실시간으로 측정합니다. KETI 시험에서 측정 정확도 ±2%를 확인했습니다.", media: photo("MCCB 연결부 클로즈업"), action: { label: "사양 더 보기", href: "#" } },
+          { label: "전력 감지", text: "Main·Sub MCCB에 연결해 3상 전압과 전류를 실시간으로 측정합니다. 측정 정확도는 KETI에서 시험했습니다.", media: photo("MCCB 연결부 클로즈업"), action: { label: "사양 더 보기", href: "#" } },
           { label: "환경 감지", text: "온도, 습도, 불꽃, 침수, 진동 센서를 함께 연결해 분전반 주변 상태를 봅니다.", media: photo("연동 센서 설치 모습"), action: { label: "사양 더 보기", href: "#" } },
           { label: "자동 차단", text: "이상이 확인되면 SSR로 전원을 끊고, 현장 경보와 웹 플랫폼 알림을 함께 보냅니다.", media: photo("경광등이 켜진 모듈"), action: { label: "사양 더 보기", href: "#" } },
         ],
@@ -417,7 +418,7 @@ export const catalog: CatalogEntry[] = [
             label: "지자체·공공기관",
             summary: "실증·보급 사업을 검토하는 분께",
             columns: [
-              { icon: "shield", title: "검증", points: ["KETI 측정 정확도 ±2%", "KESCO 규격 준수", "특허 [확인 필요]"] },
+              { icon: "shield", title: "검증", points: ["KETI 측정 정확도 시험", "KESCO 규격 준수", "특허 [확인 필요]"] },
               { icon: "leaf", title: "실증", points: ["전남 중소 스마트팜 적용", "㈜그린에이트 협력 현장", "도입 효과 [자료 필요]"] },
               { icon: "users", title: "보급", points: ["중소 농가 맞춤 구성", "저비용 공급", "[보급 조건 확인 필요]"] },
             ],
@@ -463,7 +464,6 @@ export const catalog: CatalogEntry[] = [
         title: "숫자로 보는 에코-비탈 모듈",
         basis: "2026년 10월 기획안 기준",
         stats: [
-          { label: "전압·전류 측정 오차 (KETI)", value: "±2", unit: "%" },
           { label: "이상 감지 후 차단", value: "10", unit: "초" },
           { label: "실시간 전력 감지", value: "3", unit: "상" },
         ],
@@ -486,7 +486,7 @@ export const catalog: CatalogEntry[] = [
         id: "products",
         media: product,
         name: "에코-비탈 모듈",
-        points: ["KETI 전압·전류 측정 정확도 ±2% 검증", "KESCO 규격 준수", "특허 [확인 필요]"],
+        points: ["KETI 전압·전력 모니터링 정확도 시험", "KESCO 규격 준수", "특허 [확인 필요]"],
         marks: [
           { label: "KETI", sub: "성능 검증" },
           { label: "KESCO", sub: "규격 준수" },
@@ -553,7 +553,7 @@ export const catalog: CatalogEntry[] = [
         eyebrow: "History",
         title: "연혁",
         years: [
-          { year: "[연도]", events: [{ month: "[월]", text: "KETI 전압·전류 측정 정확도 시험 (±2%)" }, { month: "[월]", text: "㈜그린에이트 협력 현장 실증" }] },
+          { year: "[연도]", events: [{ month: "[월]", text: "KETI 전압·전력 모니터링 정확도 시험" }, { month: "[월]", text: "㈜그린에이트 협력 현장 실증" }] },
           { year: "[연도]", events: [{ month: "[월]", text: "[연혁 항목]" }, { month: "[월]", text: "[연혁 항목]" }] },
         ],
       },

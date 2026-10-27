@@ -3,7 +3,7 @@ import { trustItems } from "@/content/block-catalog";
 import { pageBottom, pageTop } from "./common";
 
 // 기술·인증 (1페이지: 기술 차별성 · AI 화재 예지 · 특허·인증, 2026-10-27 사이트맵)
-// 문구 근거: 기획안 1장(핵심 메시지 기술 신뢰성), 3장(복합 센싱 & AI 예지), 6장(기존 제품 비교, ±2%·10초·AI 예지 알고리즘),
+// 문구 근거: 기획안 1장(핵심 메시지 기술 신뢰성), 3장(복합 센싱 & AI 예지), 6장(기존 제품 비교, 10초·AI 예지 알고리즘), KETI 시험성적서(2025.12),
 //           제품소개 1장(감지 항목). 기존 제품은 기획안에 적힌 한계("단일 센서 위주")만 쓴다.
 
 const pageTitle: Block = {
@@ -68,7 +68,7 @@ function trustBlock(layout: "rows" | "strip"): Block {
     type: "trust-figures",
     data: {
       title: "검증과 인증",
-      description: "측정 정확도는 KETI의 검증을 거쳤고,\n전기설비는 KESCO 규격을 따릅니다.",
+      description: "측정 정확도는 KETI에서 시험했고,\n전기설비는 KESCO 규격을 따릅니다.",
       items: trustItems,
       layout,
       id: "certification",
@@ -76,13 +76,14 @@ function trustBlock(layout: "rows" | "strip"): Block {
   };
 }
 
-// 2026-10-27: 기술 시험성적서는 보유, 인증은 아직 없음(준비 중). 성적서 파일은 올리지 않고 보유 사실만 적는다
+// 2026-10-27: 기술 시험성적서는 보유, 인증은 아직 없음(준비 중).
+// 성적서 파일·이미지는 올리지 않는다 (성적서 비고 2·3항: 사본 무효, 홍보·광고 사용 불가). 필요한 곳에는 원본을 따로 보낸다
 const documents: Block = {
   type: "spec-table",
   data: {
     title: "시험·인증 현황",
     rows: [
-      { label: "시험성적서", value: "보유", note: "KETI 검증 · 전압·전류 측정 정확도" },
+      { label: "시험성적서", value: "보유", note: "한국전자기술연구원 광주지역본부 · 2025.12 · 필요하시면 문의해 주세요" },
       { label: "인증", value: "준비 중" },
     ],
     id: "documents",
@@ -107,7 +108,7 @@ export const technologyDrafts = [
     id: "b",
     key: "B",
     name: "증거 먼저",
-    summary: "±2%·10초 큰 숫자와 기관 마크 띠로 시작해 신뢰부터 보여주고(B2G 타깃), 비교와 어두운 AI 흐름도로 이어갑니다.",
+    summary: "10초 큰 숫자와 기관 마크 띠로 시작해 신뢰부터 보여주고(B2G 타깃), 비교와 어두운 AI 흐름도로 이어갑니다.",
   },
 ] as const;
 

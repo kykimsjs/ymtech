@@ -37,7 +37,7 @@ const ko = {
     },
   ],
   stats: [
-    { value: "±2%", label: "KETI 검증 전압·전류 측정 정확도" },
+    { value: "KETI", label: "전압·전력 모니터링 정확도 시험" },
     { value: "10초", label: "이상 감지 후 자동 차단" },
     { value: "3상", label: "RST·UVW 실시간 전력 감지" },
   ],

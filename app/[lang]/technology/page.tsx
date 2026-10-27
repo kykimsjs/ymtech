@@ -5,7 +5,7 @@ import { getLocale } from "@/content/dictionaries";
 import { technologyPageBlocks } from "@/content/pages/technology";
 
 const title = "기술·인증";
-const description = "전력·환경 감지, AI 화재 예지, 자동 차단을 한 모듈에 담은 에코-비탈의 기술 차별성과 KETI 검증(측정 정확도 ±2%), KESCO 규격 준수.";
+const description = "전력·환경 감지, AI 화재 예지, 자동 차단을 한 모듈에 담은 에코-비탈의 기술 차별성과 KETI 시험, KESCO 규격 준수.";
 
 export async function generateMetadata(_: unknown, parent: ResolvingMetadata): Promise<Metadata> {
   const [locale, inherited] = await Promise.all([getLocale(), parent]);
