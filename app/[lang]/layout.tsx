@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { getDictionary, getLocale } from "@/content/dictionaries";
 import { locales } from "@/lib/i18n";
+import { LocaleProvider } from "@/lib/locale-context";
 import { indexedLocales, siteUrl } from "@/lib/site";
 import "../globals.css";
 
@@ -41,9 +42,12 @@ export const viewport: Viewport = {
 };
 
 export default async function RootLayout({ children }: LayoutProps<"/[lang]">) {
+  const locale = await getLocale();
   return (
-    <html lang={await getLocale()} className="h-full antialiased">
-      <body className="flex min-h-full flex-col">{children}</body>
+    <html lang={locale} className="h-full antialiased">
+      <body className="flex min-h-full flex-col">
+        <LocaleProvider locale={locale}>{children}</LocaleProvider>
+      </body>
     </html>
   );
 }

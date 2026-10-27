@@ -2,6 +2,7 @@ import Image from "next/image";
 import { ChevronRight } from "lucide-react";
 import { BreakText } from "@/components/ui/break-text";
 import { ButtonLink } from "@/components/ui/button";
+import { getUi } from "@/content/dictionaries";
 import { cn } from "@/lib/cn";
 import { Media, type MediaData } from "./media";
 import { breakdown, devices, donut, linePath, prev, usage } from "./platform-screens";
@@ -350,7 +351,8 @@ function Figure({ value, unit, className }: { value: string; unit?: string; clas
 
 // 기획안 HOME "기술 신뢰성"(KETI 시험 · KESCO 규격 준수) + 핵심 수치.
 // 참고: 케빈랩 4ST ZIP 인증 현황(제목·기준일 왼쪽, 라벨 + 큰 숫자 오른쪽), 아이오크롭스 연혁(가로선으로 나뉜 행 목록)
-export function TrustFigures({ title, description, items, layout = "rows", basis, id }: TrustFiguresProps) {
+export async function TrustFigures({ title, description, items, layout = "rows", basis, id }: TrustFiguresProps) {
+  const t = await getUi();
   // numbers: 모든 항목을 큰 글자로 나란히 (기관 이름도 숫자와 같은 줄), strip: 숫자 항목만
   const numbers = layout === "numbers" ? items : items.filter((item) => item.unit);
   const marks = items.filter((item) => item.mark);
@@ -435,7 +437,7 @@ export function TrustFigures({ title, description, items, layout = "rows", basis
         </div>
         {layout === "strip" && marks.length > 0 && (
           <ul className="mt-12 flex flex-col gap-6 rounded-card bg-canvas px-6 py-6 sm:flex-row sm:items-center sm:gap-12 lg:mt-16 lg:px-10">
-            <li className="shrink-0 text-sm font-bold text-ink-muted">검증 · 규격</li>
+            <li className="shrink-0 text-sm font-bold text-ink-muted">{t.trustStrip}</li>
             {marks.map((item) => (
               <li key={item.label} className="flex items-center gap-4">
                 {item.mark && (

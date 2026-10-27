@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useState, useSyncExternalStore } from "react";
 import { ArrowRight, X } from "lucide-react";
+import { ui } from "@/content/ui";
+import { useLocale } from "@/lib/locale-context";
 
 /** status: 자료가 아직 없을 때 링크 대신 보이는 표시 (예: "준비 중") */
 export type AnnouncementBarProps = { text: string; linkLabel: string; href: string; status?: string };
@@ -31,6 +33,7 @@ export function AnnouncementBar(props: AnnouncementBarProps) {
   const key = storageKey(props);
   const stored = useSyncExternalStore(subscribe, () => readClosed(key), () => false);
   const [closedNow, setClosedNow] = useState(false);
+  const t = ui[useLocale()];
 
   if (stored || closedNow) return null;
 
@@ -60,7 +63,7 @@ export function AnnouncementBar(props: AnnouncementBarProps) {
         <button
           type="button"
           onClick={close}
-          aria-label="공지 닫기"
+          aria-label={t.closeNotice}
           className="absolute right-3 inline-flex size-8 items-center justify-center rounded-full text-eco-800/70 hover:bg-eco-100 hover:text-eco-800 md:right-6"
         >
           <X className="size-4" />

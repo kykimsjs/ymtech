@@ -19,9 +19,32 @@ function text(formData: FormData, key: keyof typeof limits) {
     .slice(0, limits[key]);
 }
 
+// 방문자에게 돌려주는 안내 (폼의 hidden locale 값으로 언어를 고른다)
+const messages = {
+  ko: {
+    ok: "문의가 접수되었습니다. 확인 후 연락드리겠습니다.",
+    received: "문의가 접수되었습니다.",
+    required: "이름, 연락처, 이메일, 문의 내용을 모두 적어 주세요.",
+    email: "이메일 주소를 다시 확인해 주세요.",
+    agree: "개인정보 수집·이용에 동의해 주세요.",
+    offline: `지금은 온라인 문의를 받을 수 없습니다. 전화(${organization.phone})나 이메일(${organization.email})로 연락해 주세요.`,
+    failed: `보내지 못했습니다. 잠시 뒤 다시 시도하시거나 전화(${organization.phone})로 연락해 주세요.`,
+  },
+  en: {
+    ok: "Thank you. We have received your inquiry and will get back to you soon.",
+    received: "Thank you. We have received your inquiry.",
+    required: "Please fill in your name, phone, email and message.",
+    email: "Please check your email address.",
+    agree: "Please agree to the collection and use of personal information.",
+    offline: `Online inquiries are not available right now. Please call (+82-10-8681-9434) or email (${organization.email}).`,
+    failed: `We could not send your inquiry. Please try again later or call +82-10-8681-9434.`,
+  },
+};
+
 const escape = (value: string) => value.replace(/[&<>"']/g, (ch) => `&#${ch.charCodeAt(0)};`);
 
 export async function sendInquiry(_: InquiryState, formData: FormData): Promise<InquiryState> {
+  const m = formData.get("locale") === "en" ? messages.en : messages.ko;
   const fields = {
     topic: String(formData.get("topic") ?? "").slice(0, 30),
     name: text(formData, "name"),
@@ -33,26 +56,22 @@ export async function sendInquiry(_: InquiryState, formData: FormData): Promise<
   };
 
   // 사람이 볼 수 없는 칸에 값이 있으면 스팸 봇으로 보고 조용히 끝낸다
-  if (formData.get("website")) return { status: "ok", message: "문의가 접수되었습니다." };
+  if (formData.get("website")) return { status: "ok", message: m.received };
 
   if (!fields.name || !fields.phone || !fields.email || !fields.message) {
-    return { status: "error", message: "이름, 연락처, 이메일, 문의 내용을 모두 적어 주세요.", fields };
+    return { status: "error", message: m.required, fields };
   }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.email)) {
-    return { status: "error", message: "이메일 주소를 다시 확인해 주세요.", fields };
+    return { status: "error", message: m.email, fields };
   }
   if (formData.get("agree") !== "on") {
-    return { status: "error", message: "개인정보 수집·이용에 동의해 주세요.", fields };
+    return { status: "error", message: m.agree, fields };
   }
 
   const apiKey = process.env.RESEND_API_KEY;
   const from = process.env.CONTACT_FROM;
   if (!apiKey || !from) {
-    return {
-      status: "error",
-      message: `지금은 온라인 문의를 받을 수 없습니다. 전화(${organization.phone})나 이메일(${organization.email})로 연락해 주세요.`,
-      fields,
-    };
+    return { status: "error", message: m.offline, fields };
   }
 
   const rows = [
@@ -72,13 +91,13 @@ export async function sendInquiry(_: InquiryState, formData: FormData): Promise<
       from,
       to: [process.env.CONTACT_TO ?? organization.email],
       reply_to: fields.email,
-      subject: `[홈페이지 문의] ${fields.topic || "문의"} · ${fields.name}${fields.org ? ` (${fields.org})` : ""}`,
+      subject: `[홈페이지 문의${formData.get("locale") === "en" ? " · 영문" : ""}] ${fields.topic || "문의"} · ${fields.name}${fields.org ? ` (${fields.org})` : ""}`,
       html,
     }),
   });
 
   if (!res.ok) {
-    return { status: "error", message: `보내지 못했습니다. 잠시 뒤 다시 시도하시거나 전화(${organization.phone})로 연락해 주세요.`, fields };
+    return { status: "error", message: m.failed, fields };
   }
-  return { status: "ok", message: "문의가 접수되었습니다. 확인 후 연락드리겠습니다." };
+  return { status: "ok", message: m.ok };
 }

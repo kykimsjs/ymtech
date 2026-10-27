@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { ButtonLink } from "@/components/ui/button";
+import { getUi } from "@/content/dictionaries";
 import { cn } from "@/lib/cn";
 import { icons, type IconName } from "./icons";
 import { Media, type MediaData } from "./media";
@@ -23,7 +24,8 @@ export type TileGridProps = {
 };
 
 // 참고: 아이오크롭스 대표 솔루션 — 2열 사진 타일. 글이 사진(제품)을 가리지 않도록 사진 아래 칸에 로고·제품명·제목·자세히 보기
-export function TileGrid({ title, tiles, tone = "dark", id }: TileGridProps) {
+export async function TileGrid({ title, tiles, tone = "dark", id }: TileGridProps) {
+  const t = await getUi();
   const dark = tone === "dark";
   return (
     <section id={id} className={cn("pb-20 lg:pb-28", title && "pt-20 lg:pt-28", dark ? "bg-graphite-900" : "bg-canvas")}>
@@ -59,7 +61,7 @@ export function TileGrid({ title, tiles, tone = "dark", id }: TileGridProps) {
               <p className={cn("mt-4 text-[0.9375rem]", dark ? "text-white/70" : "text-ink-muted")}>{tile.label}</p>
               <p className="mt-1 text-title font-semibold">{tile.title.join(" ")}</p>
               <span className="mt-6 inline-flex items-center gap-1 text-[0.9375rem] font-semibold">
-                자세히 보기 <ArrowRight className="size-4 transition-transform group-hover:translate-x-1 motion-reduce:transition-none" />
+                {t.more} <ArrowRight className="size-4 transition-transform group-hover:translate-x-1 motion-reduce:transition-none" />
               </span>
             </div>
           </Link>

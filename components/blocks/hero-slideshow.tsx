@@ -2,7 +2,9 @@
 
 import { Children, useState, useSyncExternalStore } from "react";
 import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
+import { ui } from "@/content/ui";
 import { cn } from "@/lib/cn";
+import { useLocale } from "@/lib/locale-context";
 
 function subscribeReducedMotion(callback: () => void) {
   const query = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -36,6 +38,7 @@ export function HeroSlideshow({
   // 본 적 있는 사진과 바로 다음 사진만 그린다: 처음에 사진 네 장을 한꺼번에 받지 않도록
   const [seen, setSeen] = useState<number[]>([0]);
   const [paused, setPaused] = useState(false);
+  const t = ui[useLocale()].slideshow;
   const reducedMotion = usePrefersReducedMotion();
   const autoplay = !reducedMotion && count > 1;
   const go = (next: number) => {
@@ -67,20 +70,20 @@ export function HeroSlideshow({
           <div className="container-page flex">
             <div
               role="group"
-              aria-label="배경 사진 넘김"
+              aria-label={t.region}
               className="flex items-center gap-1 rounded-full bg-black/50 py-1.5 pr-1.5 pl-2 text-white backdrop-blur-sm"
             >
               <button
                 type="button"
                 onClick={() => go(index - 1)}
-                aria-label="이전 사진"
+                aria-label={t.prev}
                 className="flex size-8 items-center justify-center rounded-full transition-colors hover:bg-white/15"
               >
                 <ChevronLeft className="size-4" />
               </button>
 
               <p className="flex items-center gap-1.5 px-1 text-sm tabular-nums" aria-live={autoplay && !paused ? "off" : "polite"}>
-                <span className="sr-only">{`${count}장 중 ${index + 1}번째: ${labels[index]}`}</span>
+                <span className="sr-only">{t.position(count, index + 1, labels[index])}</span>
                 <span aria-hidden className="font-semibold">{pad(index + 1)}</span>
                 <span aria-hidden className="text-white/60">/ {pad(count)}</span>
               </p>
@@ -102,7 +105,7 @@ export function HeroSlideshow({
               <button
                 type="button"
                 onClick={() => go(index + 1)}
-                aria-label="다음 사진"
+                aria-label={t.next}
                 className="flex size-8 items-center justify-center rounded-full transition-colors hover:bg-white/15"
               >
                 <ChevronRight className="size-4" />
@@ -112,7 +115,7 @@ export function HeroSlideshow({
                 <button
                   type="button"
                   onClick={() => setPaused(!paused)}
-                  aria-label={paused ? "사진 넘김 다시 시작" : "사진 넘김 멈춤"}
+                  aria-label={paused ? t.play : t.pause}
                   className="ml-1 flex size-8 items-center justify-center rounded-full bg-white/15 transition-colors hover:bg-white/25"
                 >
                   {paused ? <Play className="size-3.5" fill="currentColor" /> : <Pause className="size-3.5" fill="currentColor" />}

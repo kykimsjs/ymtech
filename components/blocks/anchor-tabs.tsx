@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { ui } from "@/content/ui";
 import { cn } from "@/lib/cn";
+import { useLocale } from "@/lib/locale-context";
 
 export type AnchorTabsProps = {
   items: { label: string; target: string }[];
@@ -14,6 +16,7 @@ export type AnchorTabsProps = {
 // 스크롤 위치에 맞춰 현재 탭에 밑줄을 그린다.
 export function AnchorTabs({ items, sticky = true, belowHeader = false }: AnchorTabsProps) {
   const [current, setCurrent] = useState(items[0]?.target);
+  const t = ui[useLocale()];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -31,7 +34,7 @@ export function AnchorTabs({ items, sticky = true, belowHeader = false }: Anchor
   }, [items]);
 
   return (
-    <nav className={cn("z-30 border-b border-line bg-surface", sticky && (belowHeader ? "sticky top-16" : "sticky top-0"))} aria-label="페이지 내 이동">
+    <nav className={cn("z-30 border-b border-line bg-surface", sticky && (belowHeader ? "sticky top-16" : "sticky top-0"))} aria-label={t.inPageNav}>
       <ul className="container-page flex overflow-x-auto">
         {items.map((item, i) => (
           <li key={item.target} className="shrink-0">

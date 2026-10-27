@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { ui } from "@/content/ui";
 import { cn } from "@/lib/cn";
+import { useLocale } from "@/lib/locale-context";
 import { MonitorMockup, platformScreens, type PlatformScreen } from "./platform-screens";
 
 export type PlatformFeature = { title: string; text: string; screen: PlatformScreen };
@@ -10,6 +12,7 @@ export type PlatformFeature = { title: string; text: string; screen: PlatformScr
 // 키보드로 기능에 포커스해도 바뀐다. 섹션 제목·설명(head)은 서버에서 그려 넘긴다.
 export function PlatformTour({ head, features, title, note }: { head: React.ReactNode; features: PlatformFeature[]; title: string; note?: string }) {
   const [active, setActive] = useState(0);
+  const t = ui[useLocale()].platform;
   const current = features[active];
 
   return (
@@ -41,7 +44,7 @@ export function PlatformTour({ head, features, title, note }: { head: React.Reac
         </ul>
       </div>
       <div className="lg:col-span-7 lg:col-start-6">
-        <MonitorMockup label={`통합 안전관리 웹 플랫폼 ${title} 예시 화면: ${current.title}`}>
+        <MonitorMockup label={t.mockupLabel(title, current.title)}>
           {/* 네 화면을 겹쳐 두고 고른 화면만 보이게 (전환할 때 깜빡이지 않도록) */}
           <div className="relative h-full">
             {features.map((feature, i) => {

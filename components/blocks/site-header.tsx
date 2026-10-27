@@ -5,7 +5,9 @@ import { useState } from "react";
 import { ArrowRight, ChevronDown, Menu, X } from "lucide-react";
 import { buttonStyles } from "@/components/ui/button";
 import { Logo } from "@/components/ui/logo";
+import { ui } from "@/content/ui";
 import { cn } from "@/lib/cn";
+import { useLocale } from "@/lib/locale-context";
 
 export type NavItem = { label: string; href: string; children?: { label: string; href: string }[] };
 
@@ -22,6 +24,8 @@ export type SiteHeaderProps = {
 export function SiteHeader({ nav, cta, locales = [], tone = "light", sticky = false }: SiteHeaderProps) {
   const [open, setOpen] = useState(false);
   const [expanded, setExpanded] = useState<string | null>(null);
+  const locale = useLocale();
+  const t = ui[locale];
   const dark = tone === "dark";
 
   return (
@@ -33,7 +37,7 @@ export function SiteHeader({ nav, cta, locales = [], tone = "light", sticky = fa
       )}
     >
       <div className="container-page flex h-16 items-center gap-10">
-        <Link href="/ko" aria-label="와이엠이노테크 홈">
+        <Link href={`/${locale}`} aria-label={t.homeLink}>
           <Logo tone={dark ? "white" : "color"} className="w-36" />
         </Link>
 
@@ -94,7 +98,7 @@ export function SiteHeader({ nav, cta, locales = [], tone = "light", sticky = fa
           <button
             type="button"
             className="-mr-2 p-2 lg:hidden"
-            aria-label={open ? "메뉴 닫기" : "메뉴 열기"}
+            aria-label={open ? t.menuClose : t.menuOpen}
             aria-expanded={open}
             onClick={() => setOpen(!open)}
           >

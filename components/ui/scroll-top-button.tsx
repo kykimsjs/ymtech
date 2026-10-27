@@ -2,11 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { ArrowUp } from "lucide-react";
+import { ui } from "@/content/ui";
 import { cn } from "@/lib/cn";
+import { useLocale } from "@/lib/locale-context";
 
 // 한 화면 정도 내려가면 오른쪽 아래에 나타나는 "맨 위로" 버튼. 푸터 블록이 함께 그린다.
 export function ScrollTopButton() {
   const [visible, setVisible] = useState(false);
+  const t = ui[useLocale()];
 
   useEffect(() => {
     const update = () => setVisible(window.scrollY > window.innerHeight * 0.8);
@@ -24,7 +27,7 @@ export function ScrollTopButton() {
     <button
       type="button"
       onClick={toTop}
-      aria-label="맨 위로"
+      aria-label={t.toTop}
       tabIndex={visible ? 0 : -1}
       aria-hidden={!visible}
       className={cn(

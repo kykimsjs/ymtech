@@ -1,4 +1,5 @@
 import { BreakText } from "@/components/ui/break-text";
+import { getUi } from "@/content/dictionaries";
 import { cn } from "@/lib/cn";
 import { Media, type MediaData } from "./media";
 
@@ -66,22 +67,24 @@ export function FeatureRows({ title, items, id }: FeatureRowsProps) {
 }
 
 // 이상 감지에서 자동 차단까지 10초 이내 — 제품소개·기획안의 사양을 그대로 그린 도식 (수치를 더 지어내지 않는다)
-function CutoffDiagram() {
+async function CutoffDiagram() {
+  const t = (await getUi()).cutoff;
   const ticks = [0, 2, 4, 6, 8, 10];
   return (
     <figure className="flex aspect-[4/3] flex-col md:aspect-[16/9] lg:aspect-[4/3] justify-between rounded-card bg-graphite-900 p-6 text-white sm:p-10">
-      <figcaption className="text-sm font-semibold text-white/70">이상 감지 → 자동 차단</figcaption>
+      <figcaption className="text-sm font-semibold text-white/70">{t.caption}</figcaption>
 
       <div>
         <div className="flex items-end justify-between gap-4">
           <div>
-            <p className="text-sm text-white/70">이상 감지</p>
-            <p className="mt-1 text-lg font-bold sm:text-xl">전력 · 환경 센서</p>
+            <p className="text-sm text-white/70">{t.detect}</p>
+            <p className="mt-1 text-lg font-bold sm:text-xl">{t.detectWhat}</p>
           </div>
           <div className="text-right">
-            <p className="text-sm text-white/70">전원 차단</p>
+            <p className="text-sm text-white/70">{t.cut}</p>
             <p className="mt-1 text-lg font-bold sm:text-xl">
-              <span className="text-[2.5rem] leading-none tabular-nums sm:text-[3.5rem]">10</span>초 이내
+              <span className="text-[2.5rem] leading-none tabular-nums sm:text-[3.5rem]">10</span>
+              {t.within}
             </p>
           </div>
         </div>
@@ -94,13 +97,16 @@ function CutoffDiagram() {
         </div>
         <ol className="mt-3 flex justify-between text-xs text-white/60 tabular-nums">
           {ticks.map((tick) => (
-            <li key={tick}>{tick}초</li>
+            <li key={tick}>
+              {tick}
+              {t.second}
+            </li>
           ))}
         </ol>
       </div>
 
       <ul className="grid grid-cols-3 gap-2 text-center text-[0.8125rem] sm:gap-3 sm:text-sm">
-        {["SSR 자동 차단", "시각·청각 경보", "웹 플랫폼 알림·이력"].map((label) => (
+        {t.after.map((label) => (
           <li key={label} className="rounded-control border border-white/20 px-1.5 py-3 font-medium sm:px-2">
             {label}
           </li>

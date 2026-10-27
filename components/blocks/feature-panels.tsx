@@ -3,7 +3,9 @@
 import { useState } from "react";
 import { Plus } from "lucide-react";
 import { BreakText } from "@/components/ui/break-text";
+import { ui } from "@/content/ui";
 import { cn } from "@/lib/cn";
+import { useLocale } from "@/lib/locale-context";
 import type { FeatureRowsProps } from "./feature-rows";
 import { Media } from "./media";
 
@@ -112,6 +114,7 @@ export function FeaturePanels({ title, items, id }: FeaturePanelsProps) {
 
 // 3번 칸 위쪽 도식: 이상 감지(0초)에서 자동 차단(10초 이내)까지. 사양 외 수치는 넣지 않는다.
 function CutoffTimeline({ open }: { open: boolean }) {
+  const t = ui[useLocale()].cutoff;
   return (
     <div
       aria-hidden
@@ -123,12 +126,13 @@ function CutoffTimeline({ open }: { open: boolean }) {
       <div className="w-full max-w-[30rem] lg:w-[30rem]">
         <div className="flex items-end justify-between gap-4">
           <div>
-            <p className="text-sm text-white/70">이상 감지</p>
-            <p className="mt-1 font-bold">전력 · 환경 센서</p>
+            <p className="text-sm text-white/70">{t.detect}</p>
+            <p className="mt-1 font-bold">{t.detectWhat}</p>
           </div>
           <p className="text-right font-bold">
-            <span className="text-[3rem] leading-none tabular-nums lg:text-[4rem]">10</span>초 이내
-            <span className="block text-sm font-normal text-white/70">전원 차단</span>
+            <span className="text-[3rem] leading-none tabular-nums lg:text-[4rem]">10</span>
+            {t.within}
+            <span className="block text-sm font-normal text-white/70">{t.cut}</span>
           </p>
         </div>
         <div className="relative mt-5">
@@ -138,7 +142,10 @@ function CutoffTimeline({ open }: { open: boolean }) {
         </div>
         <ol className="mt-3 flex justify-between text-xs text-white/60 tabular-nums">
           {[0, 2, 4, 6, 8, 10].map((tick) => (
-            <li key={tick}>{tick}초</li>
+            <li key={tick}>
+              {tick}
+              {t.second}
+            </li>
           ))}
         </ol>
       </div>
