@@ -3,11 +3,16 @@
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/cn";
 
-export type AnchorTabsProps = { items: { label: string; target: string }[]; sticky?: boolean };
+export type AnchorTabsProps = {
+  items: { label: string; target: string }[];
+  sticky?: boolean;
+  /** 고정 헤더(h-16)가 있는 페이지에서는 헤더 바로 아래에 붙는다 */
+  belowHeader?: boolean;
+};
 
 // 참고: 여의시스템 솔루션 페이지의 고정 탭(개요/장점/사례연구/제품 특징/Contact Us)
 // 스크롤 위치에 맞춰 현재 탭에 밑줄을 그린다.
-export function AnchorTabs({ items, sticky = true }: AnchorTabsProps) {
+export function AnchorTabs({ items, sticky = true, belowHeader = false }: AnchorTabsProps) {
   const [current, setCurrent] = useState(items[0]?.target);
 
   useEffect(() => {
@@ -26,7 +31,7 @@ export function AnchorTabs({ items, sticky = true }: AnchorTabsProps) {
   }, [items]);
 
   return (
-    <nav className={cn("z-30 border-b border-line bg-surface", sticky && "sticky top-0")} aria-label="페이지 내 이동">
+    <nav className={cn("z-30 border-b border-line bg-surface", sticky && (belowHeader ? "sticky top-16" : "sticky top-0"))} aria-label="페이지 내 이동">
       <ul className="container-page flex overflow-x-auto">
         {items.map((item, i) => (
           <li key={item.target} className="shrink-0">
