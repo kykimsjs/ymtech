@@ -7,7 +7,7 @@ export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://ymforge.site
 export const indexedLocales = ["ko"] as const;
 
 // sitemap lastmod 기준일. 페이지 내용을 크게 바꾸면 갱신한다.
-export const contentUpdatedAt = "2026-10-26";
+export const contentUpdatedAt = "2026-10-27";
 
 // 회사 정보 — 푸터와 구조화 데이터(JSON-LD)에서 함께 쓴다
 export const organization = {
