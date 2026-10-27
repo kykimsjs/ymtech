@@ -1,101 +1,30 @@
 import type { Block } from "@/components/blocks/registry";
-import type { NavItem } from "@/components/blocks/site-header";
-import type { FeatureRowsProps } from "@/components/blocks/feature-rows";
 import type { MediaData } from "@/components/blocks/media";
 import { fullAddress, organization } from "@/lib/site";
+import {
+  featureRowsFor,
+  footerColumnsFor,
+  keyPointsFor,
+  navFor,
+  platformScreenMedia,
+  productLightMedia,
+  productMedia,
+  quickActionsFor,
+  trustItemsFor,
+} from "./shared";
 
 // 블록 카탈로그 예시 데이터. 사실은 docs/ 기획안·제품소개에서만 가져온다.
 // 자료가 없는 값(연도, 고객사, 주소, 사진)은 [ ]로 비워 둔다.
 
-// 제품 사진 2장 (클라이언트 제공, 원본 docs/YM_INNOTECH_clean_1·2). 어두운 바탕 섹션엔 dark, 밝은 바탕엔 light
-export const product: MediaData = {
-  src: "/images/product/eco-vital-dark.webp",
-  alt: "어두운 책상 위의 에코-비탈 모듈. 검정 함체 앞면에 YM INNOTECH 각인과 정상 상태를 띄운 LCD 창이 있다.",
-  focus: "50% 50%",
-};
-export const productLight: MediaData = {
-  src: "/images/product/eco-vital-light.webp",
-  alt: "은색 바탕 위의 에코-비탈 모듈과 녹색 센서. LCD 창에 AI 화재 경보가 떠 있다.",
-  focus: "50% 50%",
-};
+// 여러 페이지가 같이 쓰는 내용은 content/shared.ts에서 언어별로 만든다. 카탈로그는 국문 버전을 쓴다
+export const product = productMedia("ko");
+export const productLight = productLightMedia("ko");
 export const photo = (hint: string): MediaData => ({ alt: hint, hint });
-// 웹 플랫폼 타일용 임시 사진 (실제 플랫폼 화면을 받으면 교체). Pexels 8636589, Pexels 라이선스
-export const platformScreen: MediaData = {
-  src: "/images/home/platform-screen.webp",
-  alt: "차트와 표가 띄워진 관제 모니터",
-  focus: "50% 40%",
-};
-
-// 기획안 3장 HOME — 핵심 소구점 3가지
-export const keyPoints = [
-  { label: "소형 컴팩트 구조", title: "분전반 안에 바로 답니다", text: "분전반 내부에 직접 장착하는 일체형 모듈이라 현장에 쉽게 설치합니다." },
-  // 기획안 1장 핵심 메시지 2 "통합 효율성 — 전력·환경 센싱, AI, 차단 제어를 한 모듈로"를 함께 담는다
-  { label: "복합 센싱 & AI 예지", title: "전력과 환경을 함께 봅니다", text: "전압·전류와 온·습도를 함께 감지하고, AI가 이상 징후를 미리 찾습니다. 감지부터 차단까지 모듈 하나가 맡습니다." },
-  { label: "원격 관제 & 자동 대응", title: "10초 안에 전원을 끊습니다", text: "이상이 감지되면 자동으로 차단하고, 웹 플랫폼으로 실시간 알림과 이력을 남깁니다." },
-];
-
-// 핵심 소구점을 사진·도식과 함께 좌우로 펼친 판 (HOME). 사양은 제품소개·기획안 그대로.
-// 사진: Pexels 28950842(분전반) · 10269715(수경재배 시설), Pexels 라이선스
-export const featureRows: FeatureRowsProps["items"] = [
-  {
-    ...keyPoints[0],
-    facts: [
-      { label: "설치 위치", value: "분전반 내부 · Main/Sub MCCB 연동" },
-      { label: "계측", value: "3상(RST/UVW) 전압·전류" },
-      { label: "통신", value: "RS-232 · Wi-Fi · LAN" },
-    ],
-    visual: { media: { src: "/images/home/panel.webp", alt: "차단기가 줄지어 있는 분전반 내부", focus: "50% 50%" } },
-  },
-  {
-    ...keyPoints[1],
-    // \n: 데스크톱에서만 의미 단위로 줄바꿈 (BreakText)
-    text: "전압·전류와 온·습도를 함께 감지하고,\nAI가 화재로 이어질 이상 징후를 미리 찾습니다.",
-    facts: [
-      { label: "전력", value: "전압 · 전류" },
-      { label: "환경", value: "온·습도 · 불꽃 · 침수 · 진동" },
-      { label: "분석", value: "AI 화재 이상 징후 예지" },
-    ],
-    visual: { media: { src: "/images/home/sensing-farm.webp", alt: "센서와 배선이 설치된 실내 수경재배 시설", focus: "50% 50%" } },
-  },
-  {
-    ...keyPoints[2],
-    text: "이상이 감지되면 자동으로 차단하고,\n웹 플랫폼으로 실시간 알림과 이력을 남깁니다.",
-    facts: [
-      { label: "차단", value: "SSR(전자식 릴레이) 자동 차단" },
-      { label: "경보", value: "시각·청각 경보" },
-      { label: "기록", value: "웹 플랫폼 실시간 알림·이력" },
-    ],
-    visual: { diagram: "cutoff" },
-  },
-];
-
-// 기획안 HOME "기술 신뢰성" 근거 항목 (KETI 시험, 10초 KESCO 규격 준수)
-// 2026-10-27 KETI 시험성적서(2025-11-126 G) 확인: 시험 항목은 전압·전력 모니터링 정확도이고 ±2%는 성적서에 없음.
-// 성적서 비고 3항(홍보·광고 사용 불가)에 따라 결과 수치는 KETI 허락 전까지 쓰지 않고 "시험"만 적는다
-export const trustItems = [
-  {
-    value: "KETI",
-    label: "전압·전력 모니터링 정확도 시험",
-    source: "한국전자기술연구원 광주지역본부 (2025.12)",
-    mark: { src: "/images/marks/keti.png", alt: "한국전자기술연구원(KETI)", width: 900, height: 209 },
-  },
-  { value: "10", unit: "초", label: "이상 감지 후 자동 차단", source: "한국전기안전공사(KESCO) 규격 준수" },
-  {
-    value: "KESCO",
-    label: "전기설비 규격 준수",
-    source: "한국전기안전공사 전기설비 규격",
-    mark: { src: "/images/marks/kesco.png", alt: "한국전기안전공사(KESCO)", width: 900, height: 194 },
-  },
-];
-
-// 기획안 3장 HOME — Quick Actions
-export const quickActions = [
-  // 소개서 PDF 준비 중 (2026-10-27). 받으면 status를 지우고 text를 "에코-비탈 모듈 소개서(PDF)를 내려받습니다."로 되돌린다
-  { icon: "download" as const, label: "제품 소개서", text: "에코-비탈 모듈 소개서(PDF)는 준비 중입니다.", href: "#", status: "준비 중" },
-  { icon: "message" as const, label: "도입·실증 문의", text: "농가, 시공사, 지자체 담당자 모두 문의하실 수 있습니다.", href: "/ko/contact" },
-  // 웹 플랫폼 준비 중 (2026-10-26). 열리면 status를 지우고 text를 "데모 계정으로 로그인해 실제 관제 화면을 봅니다."로 되돌린다
-  { icon: "demo" as const, label: "웹 플랫폼 데모 로그인", text: "웹 플랫폼은 준비 중입니다.", href: "#", status: "오픈 예정" },
-];
+export const platformScreen = platformScreenMedia("ko");
+export const keyPoints = keyPointsFor("ko");
+export const featureRows = featureRowsFor("ko");
+export const trustItems = trustItemsFor("ko");
+export const quickActions = quickActionsFor("ko");
 
 export type CatalogEntry = {
   group: string;
@@ -104,24 +33,8 @@ export type CatalogEntry = {
   block: Block;
 };
 
-// 사이트맵 (2026-10-27 확정): 기획안 14페이지를 HOME + 6페이지로 합쳤다. 하위 메뉴는 솔루션만.
-//   회사소개: 인사말 · 비전·미션 · 연혁 · 팀·파트너 / 기술·인증: 기술 차별성 · AI 화재 예지 · 특허·인증
-//   실증 사례: 현장 · 도입 효과 / 문의: 문의 폼 · 오시는 길. 자료가 쌓이면 다시 나눈다.
-export const nav: NavItem[] = [
-  { label: "회사소개", href: "/ko/company" },
-  {
-    label: "솔루션",
-    href: "/ko/solutions/eco-vital",
-    children: [
-      { label: "에코-비탈 모듈", href: "/ko/solutions/eco-vital" },
-      { label: "통합 웹 플랫폼", href: "/ko/solutions/platform" },
-    ],
-  },
-  { label: "기술·인증", href: "/ko/technology" },
-  { label: "실증 사례", href: "/ko/references" },
-  { label: "문의", href: "/ko/contact" },
-];
-export const footerColumns = nav.map((item) => ({ title: item.label, href: item.href, links: (item.children ?? []).map((c) => c.label) }));
+export const nav = navFor("ko");
+export const footerColumns = footerColumnsFor("ko");
 
 export const catalog: CatalogEntry[] = [
   // ── 공통 ─────────────────────────────────────────

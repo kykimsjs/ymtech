@@ -7,7 +7,7 @@ export { AnnouncementBar, type AnnouncementBarProps } from "./announcement-bar";
 
 export type SiteFooterProps = {
   /** 하위 메뉴가 없는 열은 제목이 바로 링크 */
-  columns: { title: string; href?: string; links: string[] }[];
+  columns: { title: string; href?: string; links: { label: string; href: string }[] }[];
   /** 회사 정보 줄. 성격별로 묶는다 (예: 1줄 회사·대표·주소, 2줄 사업자번호·연락처). href가 있으면 링크 */
   info: { label?: string; value: string; href?: string }[][];
   copyright: string;
@@ -34,8 +34,8 @@ export function SiteFooter({ columns, info, copyright }: SiteFooterProps) {
                 <p className="font-semibold text-white">{column.title}</p>
               )}
               {column.links.map((link) => (
-                <Link key={link} href="#" className="hover:text-white">
-                  {link}
+                <Link key={link.label} href={link.href} className="hover:text-white">
+                  {link.label}
                 </Link>
               ))}
             </div>

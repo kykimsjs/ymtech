@@ -31,3 +31,11 @@ export const fullAddress = `(${organization.address.postalCode}) ${organization.
 
 // 국제 표기 전화번호 (010-8681-9434 → +82-10-8681-9434)
 export const phoneE164 = `+82-${organization.phone.replace(/^0/, "")}`;
+
+// 영문 표기 (2026-10-27 번역 초안). 대표 이름 로마자는 클라이언트 확인 필요.
+// 새 광역 이름(전남광주통합특별시)은 공식 영문 명칭이 아직 없어 도로명·시·우편번호로만 적는다
+export const organizationEn = {
+  name: "YM INNOTECH",
+  ceo: "Yoo Young-min",
+  address: "411-412, 370 Green-ro, Naju-si, 58324, Republic of Korea",
+};
