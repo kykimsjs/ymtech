@@ -19,6 +19,8 @@ export function pageTop({ headerTone = "light", locale = "ko", path = "" }: Page
         linkLabel: t("PDF 받기", "Download PDF"),
         href: "#",
         status: t("준비 중", "Coming soon"),
+        // 지금은 닫아도 새로고침하면 다시 보인다 (2026-10-27). 다음 방문까지 기억하려면 true
+        remember: false,
       },
     },
     {
