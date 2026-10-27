@@ -52,7 +52,7 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
       type: "statement",
       data: {
         eyebrow: "산업 및 농업시설 전력 안전",
-        title: "분전반 화재,\nAI가 미리 예지하고 차단합니다",
+        title: "분전반 화재,\nAI가 예지하고 차단합니다",
         paragraphs: [
           "기존 제품들은 단일 센서 계측에 국한되어 사고 예방에 한계가 있었습니다.\n와이엠이노테크는 20년 R&D 경험을 바탕으로 공장 및 농업 시설의 전력 안전 사각지대를 해소합니다.",
           "에코-비탈 모듈은 전력·환경 감지부터 AI 분석, 자동 차단까지 단 하나의 모듈로 통합했습니다.",
