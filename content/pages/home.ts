@@ -92,7 +92,7 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
             brand: { src: "/brand/modiq-signature-white.png", alt: "MODIQ Advanced Smart Module", width: 1139, height: 322 },
           },
           // 웹 플랫폼 준비 중 (2026-10-26)
-          { label: "통합 안전관리 웹 플랫폼", title: ["실시간 관제와", "이력 관리"], href: "#", media: platformScreen, status: "준비 중" },
+          { label: "통합 안전관리 웹 플랫폼", title: ["실시간 관제와", "이력 관리"], href: "/ko/solutions/platform", media: platformScreen, status: "준비 중" },
         ],
       },
     },

@@ -6,6 +6,7 @@ const pages: { path: string; changeFrequency: "monthly" | "yearly"; priority: nu
   { path: "", changeFrequency: "monthly", priority: 1 },
   { path: "/company", changeFrequency: "yearly", priority: 0.7 },
   { path: "/solutions/eco-vital", changeFrequency: "monthly", priority: 0.9 },
+  { path: "/solutions/platform", changeFrequency: "monthly", priority: 0.6 },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

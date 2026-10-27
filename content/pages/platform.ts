@@ -73,6 +73,11 @@ export const platformDrafts = [
 
 export type PlatformDraftId = (typeof platformDrafts)[number]["id"];
 
+// 운영 페이지(/ko/solutions/platform)는 B안 (2026-10-27 확정)
+export function platformPageBlocks(): Block[] {
+  return platformBlocks("b");
+}
+
 export function platformBlocks(draft: PlatformDraftId): Block[] {
   if (draft === "b") {
     return [

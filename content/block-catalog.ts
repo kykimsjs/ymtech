@@ -113,7 +113,7 @@ export const nav: NavItem[] = [
     href: "/ko/solutions/eco-vital",
     children: [
       { label: "에코-비탈 모듈", href: "/ko/solutions/eco-vital" },
-      { label: "통합 웹 플랫폼", href: "#" },
+      { label: "통합 웹 플랫폼", href: "/ko/solutions/platform" },
     ],
   },
   { label: "기술·인증", href: "#" },
