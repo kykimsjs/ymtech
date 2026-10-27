@@ -140,7 +140,8 @@ export function CeoMessage({ variant, title, quote, points, signature, pending, 
             <div className="mt-10 flex flex-col gap-6 text-lg leading-[1.8]">
               {points.map((point) => (
                 <p key={point.title} className="text-ink-muted">
-                  <strong className="font-semibold text-ink">{point.title}.</strong> {point.text}
+                  <strong className="block font-semibold text-ink">{point.title}</strong>
+                  {point.text}
                 </p>
               ))}
             </div>

@@ -3,29 +3,28 @@ import { organization } from "@/lib/site";
 import { pageBottom, pageTop } from "./common";
 
 // 회사소개 (1페이지: 인사말 · 비전·미션 · 연혁 · 팀·파트너, 2026-10-27 사이트맵)
-// 문구 근거: 기획안 4장(CEO 인사말 제목·요점, 기업 비전, MISSION, Team & Network),
-//           슬로건은 클라이언트 제공 문안(2026-10-26), 파트너 ㈜그린에이트는 기획안 7장 실증 협력
+// 문구: 인사말·비전·미션·Team & Network는 클라이언트 제공 원고(2026-10-27) 그대로 (기획안 4장과 같음)
+//       슬로건은 클라이언트 제공 문안(2026-10-26)
 // 시안 3개는 같은 내용을 다른 방향으로 배치한다 (design-taste 1장)
 
 const greeting = {
   title: "인사말",
   quote: "현장의 경험과 기술로, 농업의 전력 안전을 책임집니다.",
   points: [
-    { title: "20년 현장 노하우", text: "R&D와 제조 역량을 바탕으로 전력 안전 사각지대를 해소합니다." },
-    { title: "AIoT 원스톱 솔루션", text: "전력·환경 감지, AI 화재 예방, 자동 차단까지 한 번에 제공합니다." },
-    { title: "스마트팜 맞춤 표준", text: "중소 농가와 지자체 공공 사업에 맞춘 저비용·고효율 솔루션을 제공합니다." },
+    { title: "20년 현장 노하우", text: "R&D와 제조 역량을 바탕으로 전력 안전 사각지대 해소" },
+    { title: "AIoT 원스톱 솔루션", text: "전력·환경 감지, AI 화재 예방, 자동 차단까지 한 번에" },
+    { title: "스마트팜 맞춤 표준", text: "중소 농가와 지자체 공공 사업에 최적화된 저비용·고효율 제공" },
   ],
   signature: { role: "와이엠이노테크 대표이사", name: organization.ceo },
-  pending: "인사말 전문 필요: 지금은 기획안의 제목과 요점 3개만 있습니다",
 };
 
 const vision = {
   title: "비전·미션",
   vision: "스마트팜의 안전과 효율을 선도하는 AIoT 에너지·안전 관리 표준",
   missions: [
-    { key: "SAFETY", title: "안전성 확보", text: "AI 이상 감지와 실시간 자동 차단으로 화재 피해를 막습니다." },
-    { key: "EFFICIENCY", title: "에너지 효율 최적화", text: "전력과 환경 데이터를 함께 분석해 에너지 사용을 줄입니다." },
-    { key: "ACCESSIBILITY", title: "보급형 대중화", text: "중소 스마트팜에 맞춘 저비용·고효율 솔루션을 보급합니다." },
+    { key: "SAFETY", title: "안전성 확보", text: "AI 이상감지와 실시간 자동 차단으로 화재 피해 방지" },
+    { key: "EFFICIENCY", title: "에너지 효율 최적화", text: "전력·환경 복합 분석을 통한 에너지 사용 절감" },
+    { key: "ACCESSIBILITY", title: "보급형 대중화", text: "중소 스마트팜 맞춤형 저비용·고효율 솔루션 보급" },
   ],
 };
 
@@ -36,13 +35,12 @@ const history = {
 
 const team = {
   title: "팀·파트너",
-  description: "에너지·제조 전문 경영진과 AI 소프트웨어 자문 교수진, 협력 기관이 함께합니다.",
   groups: [
-    { title: "경영진", text: "에너지·제조 분야 전문 경영진" },
+    { title: "경영진", text: "에너지·제조 전문 경영진" },
     { title: "자문", text: "AI 소프트웨어 자문 교수진" },
-    { title: "협력 파트너", text: "농업회사법인과 KETI 등 협력 기관", names: ["KETI 한국전자기술연구원", "㈜그린에이트"] },
+    { title: "협력 파트너", text: "농업회사법인·KETI 등 협력 파트너" },
   ],
-  pending: "자료 필요: 팀원 공개 범위(이름·직함), 협력 기관 로고와 협력 내용",
+  pending: "자료 필요: 팀원 공개 범위(이름·직함), 협력 기관 이름·로고와 협력 내용",
 };
 
 const slogan = "스마트한 기술로 더 나은 미래를 만듭니다.";
