@@ -104,6 +104,11 @@ export const technologyDrafts = [
 
 export type TechnologyDraftId = (typeof technologyDrafts)[number]["id"];
 
+// 운영 페이지(/ko/technology)는 A안 (2026-10-27 확정). live면 "자료 필요" 안내와 문서 자리 표시를 뺀다
+export function technologyPageBlocks(): Block[] {
+  return technologyBlocks("a", { live: true });
+}
+
 export function technologyBlocks(draft: TechnologyDraftId, { live = false }: { live?: boolean } = {}): Block[] {
   if (draft === "b") {
     return [

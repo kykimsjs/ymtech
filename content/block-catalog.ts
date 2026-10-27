@@ -116,7 +116,7 @@ export const nav: NavItem[] = [
       { label: "통합 웹 플랫폼", href: "/ko/solutions/platform" },
     ],
   },
-  { label: "기술·인증", href: "#" },
+  { label: "기술·인증", href: "/ko/technology" },
   { label: "실증 사례", href: "#" },
   { label: "문의", href: "#" },
 ];
