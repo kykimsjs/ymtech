@@ -89,7 +89,7 @@ export const companyDrafts = [
 export type CompanyDraftId = (typeof companyDrafts)[number]["id"];
 
 export function companyBlocks(draft: CompanyDraftId): Block[] {
-  // 어두운 사진 머리 → 어두운 비전 → 흰 인사말 → 어두운 문의 순으로 명암이 번갈아 오도록 C안 순서(비전 먼저)를 따른다
+  // 사진 머리 바로 다음에 어두운 비전이 오면 답답해서 인사말을 먼저 둔다 (2026-10-27)
   if (draft === "d") {
     return [
       ...pageTop(),
@@ -102,8 +102,8 @@ export function companyBlocks(draft: CompanyDraftId): Block[] {
           media: { src: "/images/hero/ai-panel.webp", alt: "안전모를 쓴 기술자가 온실 분전반의 차단기를 점검하고 있다", focus: "72% 45%" },
         },
       },
-      { type: "vision-mission", data: { variant: "words", ...vision, id: "vision" } },
       { type: "ceo-message", data: { variant: "letter", ...greeting, id: "greeting" } },
+      { type: "vision-mission", data: { variant: "words", ...vision, id: "vision" } },
       ...pageBottom(),
     ];
   }
