@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { ActionButton, ButtonLink } from "@/components/ui/button";
+import { getLocale } from "@/content/dictionaries";
 import { HeroSlideshow } from "./hero-slideshow";
 import { Media, type MediaData } from "./media";
 
@@ -141,7 +142,8 @@ export type PageTitleProps = {
 };
 
 // 참고: 케빈랩 4ST ZIP·여의시스템 서브 상단 — 배경 사진 위 큰 제목과 한 줄 설명
-export function PageTitle({ title, status, description, breadcrumb, media }: PageTitleProps) {
+export async function PageTitle({ title, status, description, breadcrumb, media }: PageTitleProps) {
+  const locale = await getLocale();
   return (
     <section className="relative isolate overflow-hidden bg-graphite-900 text-white">
       <Media media={media} tone="dark" fill className="-z-20" />
@@ -151,12 +153,13 @@ export function PageTitle({ title, status, description, breadcrumb, media }: Pag
           {breadcrumb.map((crumb, i) => (
             <li key={crumb} className="flex items-center gap-1.5">
               {i > 0 && <ChevronRight className="size-3.5" />}
-              {i === breadcrumb.length - 1 ? (
-                <span className="text-white">{crumb}</span>
-              ) : (
-                <Link href={i === 0 ? "/ko" : "#"} className="hover:text-white">
+              {/* 첫 칸(홈)만 링크. 가운데 칸(예: 솔루션)은 따로 페이지가 없어 글자만 */}
+              {i === 0 ? (
+                <Link href={`/${locale}`} className="hover:text-white">
                   {crumb}
                 </Link>
+              ) : (
+                <span className={i === breadcrumb.length - 1 ? "text-white" : undefined}>{crumb}</span>
               )}
             </li>
           ))}
