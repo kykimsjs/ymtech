@@ -59,15 +59,17 @@ export type FeatureListProps = {
   variant: "rows" | "grid";
   title: string;
   items: { title: string; text: string }[];
-  tone?: "light" | "dark";
+  /** light: 옅은 회색 바탕, white: 흰 바탕(앞 블록이 회색일 때), dark: 어두운 바탕 */
+  tone?: "light" | "white" | "dark";
   id?: string;
 };
 
 export function FeatureList({ variant, title, items, tone = "light", id }: FeatureListProps) {
   const dark = tone === "dark";
+  const bg = dark ? "bg-graphite-900 text-white" : tone === "white" ? "bg-canvas" : "bg-surface";
   if (variant === "grid") {
     return (
-      <section id={id} className={cn("block-y scroll-mt-32", dark ? "bg-graphite-900 text-white" : "bg-surface")}>
+      <section id={id} className={cn("block-y scroll-mt-32", bg)}>
         <div className="container-page grid gap-12 lg:grid-cols-12">
           <h2 className="text-display font-bold lg:col-span-4">{title}</h2>
           <ol className="grid gap-x-10 sm:grid-cols-2 lg:col-span-8">
@@ -87,7 +89,7 @@ export function FeatureList({ variant, title, items, tone = "light", id }: Featu
   }
 
   return (
-    <section id={id} className={cn("block-y scroll-mt-32", dark ? "bg-graphite-900 text-white" : "bg-surface")}>
+    <section id={id} className={cn("block-y scroll-mt-32", bg)}>
       <div className="container-page grid gap-10 lg:grid-cols-12 lg:gap-16">
         <h2 className="text-display font-bold lg:col-span-4">{title}</h2>
         <ol className={cn("border-t-2 lg:col-span-8", dark ? "border-white" : "border-ink")}>

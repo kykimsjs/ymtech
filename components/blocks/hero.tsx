@@ -133,13 +133,15 @@ export function HeroSplit({ label, eyebrow, title, description, actions, media, 
 
 export type PageTitleProps = {
   title: string;
+  /** 아직 열지 않은 서비스 표시 (예: "준비 중") */
+  status?: string;
   description?: string;
   breadcrumb: string[];
   media: MediaData;
 };
 
 // 참고: 케빈랩 4ST ZIP·여의시스템 서브 상단 — 배경 사진 위 큰 제목과 한 줄 설명
-export function PageTitle({ title, description, breadcrumb, media }: PageTitleProps) {
+export function PageTitle({ title, status, description, breadcrumb, media }: PageTitleProps) {
   return (
     <section className="relative isolate overflow-hidden bg-graphite-900 text-white">
       <Media media={media} tone="dark" fill className="-z-20" />
@@ -159,7 +161,10 @@ export function PageTitle({ title, description, breadcrumb, media }: PageTitlePr
             </li>
           ))}
         </ol>
-        <h1 className="text-[clamp(2.25rem,1.6rem+2.8vw,4rem)] leading-tight font-bold tracking-[-0.02em]">{title}</h1>
+        <h1 className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[clamp(2.25rem,1.6rem+2.8vw,4rem)] leading-tight font-bold tracking-[-0.02em]">
+          {title}
+          {status && <span className="rounded-full border border-white/60 px-3 py-1 text-sm font-semibold tracking-normal">{status}</span>}
+        </h1>
         {description && <p className="mt-4 text-lg text-white/75">{description}</p>}
       </div>
     </section>

@@ -41,6 +41,17 @@ const features = [
   { title: "유·무선 통합 통신", text: "RS-232, Wi-Fi, LAN 등 다양한 현장 환경에 맞는 유·무선 통신 지원" },
 ];
 
+// 시스템 구성도. focus: 강조할 상자 (에코-비탈 페이지는 모듈, 웹 플랫폼 페이지는 플랫폼)
+export function systemDiagram(focus: "module" | "platform" = "module") {
+  return {
+    ...diagram,
+    stages: diagram.stages.map((stage) => ({
+      ...stage,
+      boxes: stage.boxes.map((box) => ({ ...box, highlight: focus === "module" ? box.title === "에코-비탈 모듈" : box.title === "통합 웹 플랫폼" })),
+    })),
+  };
+}
+
 const diagram = {
   title: "시스템 구성",
   description: "분전반의 전력과 주변 환경을 감지해 모듈이 판단하고, 유·무선 통신으로 웹 플랫폼에 보냅니다.",
