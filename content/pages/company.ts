@@ -78,11 +78,36 @@ export const companyDrafts = [
     name: "브랜드형",
     summary: "CI 심볼과 슬로건으로 시작해 미션 세 단어(SAFETY·EFFICIENCY·ACCESSIBILITY)를 크게 보여줍니다. 인사말은 편지처럼 좁은 한 단.",
   },
+  {
+    id: "d",
+    key: "D",
+    name: "조합",
+    summary: "B의 사진 머리 + C의 비전·미션과 인사말 (2026-10-27 선택). 연혁·팀·파트너는 자료가 올 때까지 뺐습니다.",
+  },
 ] as const;
 
 export type CompanyDraftId = (typeof companyDrafts)[number]["id"];
 
 export function companyBlocks(draft: CompanyDraftId): Block[] {
+  // 어두운 사진 머리 → 어두운 비전 → 흰 인사말 → 어두운 문의 순으로 명암이 번갈아 오도록 C안 순서(비전 먼저)를 따른다
+  if (draft === "d") {
+    return [
+      ...pageTop(),
+      {
+        type: "page-title",
+        data: {
+          title: "회사소개",
+          description: slogan,
+          breadcrumb,
+          media: { src: "/images/hero/ai-panel.webp", alt: "안전모를 쓴 기술자가 온실 분전반의 차단기를 점검하고 있다", focus: "72% 45%" },
+        },
+      },
+      { type: "vision-mission", data: { variant: "words", ...vision, id: "vision" } },
+      { type: "ceo-message", data: { variant: "letter", ...greeting, id: "greeting" } },
+      ...pageBottom(),
+    ];
+  }
+
   if (draft === "b") {
     return [
       ...pageTop(),
