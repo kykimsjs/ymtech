@@ -6,7 +6,7 @@ import { fullAddress, organization } from "@/lib/site";
 // 블록 카탈로그 예시 데이터. 사실은 docs/ 기획안·제품소개에서만 가져온다.
 // 자료가 없는 값(연도, 고객사, 주소, 사진)은 [ ]로 비워 둔다.
 
-// 제품 사진 2장 (클라이언트 제공, 원본 docs/product_no_caption_1·2). 어두운 바탕 섹션엔 dark, 밝은 바탕엔 light
+// 제품 사진 2장 (클라이언트 제공, 원본 docs/YM_INNOTECH_clean_1·2). 어두운 바탕 섹션엔 dark, 밝은 바탕엔 light
 export const product: MediaData = {
   src: "/images/product/eco-vital-dark.webp",
   alt: "어두운 책상 위의 에코-비탈 모듈. 검정 함체 앞면에 YM INNOTECH 각인과 정상 상태를 띄운 LCD 창이 있다.",
