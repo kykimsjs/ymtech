@@ -1,9 +1,10 @@
 import Image from "next/image";
 import { BreakText } from "@/components/ui/break-text";
-import { ButtonLink } from "@/components/ui/button";
+import { ActionButton } from "@/components/ui/button";
 import { Media, type MediaData } from "./media";
 
-type Action = { label: string; href: string };
+/** status: 아직 열지 않은 항목 (예: "준비 중"). 비활성 버튼으로 보인다 */
+type Action = { label: string; href: string; status?: string };
 
 export type ProductShowcaseProps = {
   /** 제품 브랜드(BI) 시그니처. 어두운 바탕이므로 흰색 판을 쓴다 */
@@ -52,9 +53,9 @@ export function ProductShowcase({ brand, label, title, name, description, media,
             {actions.length > 0 && (
               <div className="mt-8 flex flex-wrap gap-3">
                 {actions.map((action, i) => (
-                  <ButtonLink key={action.label} href={action.href} variant={i === 0 ? "inverse" : "inverse-outline"}>
+                  <ActionButton key={action.label} href={action.href} status={action.status} variant={i === 0 ? "inverse" : "inverse-outline"}>
                     {action.label}
-                  </ButtonLink>
+                  </ActionButton>
                 ))}
               </div>
             )}

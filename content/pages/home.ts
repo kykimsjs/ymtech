@@ -42,7 +42,7 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
         ],
         actions: [
           { label: "도입·실증 문의", href: "#" },
-          { label: "제품 소개서 다운로드", href: "#" },
+          { label: "제품 소개서 다운로드", href: "#", status: "준비 중" },
         ],
       },
     },
@@ -72,7 +72,7 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
         media: product,
         actions: [
           { label: "제품 자세히 보기", href: "#" },
-          { label: "제품 소개서 다운로드", href: "#" },
+          { label: "제품 소개서 다운로드", href: "#", status: "준비 중" },
         ],
         features: [
           { title: "에너지 절감", text: "효율적인 에너지 관리로\n운영비 절감" },

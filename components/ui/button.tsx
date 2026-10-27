@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { ComponentProps } from "react";
+import type { ComponentProps, ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
 const variants = {
@@ -56,6 +56,29 @@ export function Button({
   ...props
 }: ComponentProps<"button"> & StyleProps) {
   return <button type={type} className={cn(buttonStyles({ variant, size, shape }), className)} {...props} />;
+}
+
+/** 블록의 행동 버튼. status가 있으면 아직 열지 않은 항목이라 링크 대신 비활성 버튼에 상태를 붙인다 (예: "준비 중") */
+export function ActionButton({
+  href,
+  status,
+  children,
+  className,
+  ...style
+}: { href: string; status?: string; children: ReactNode; className?: string } & StyleProps) {
+  if (!status) {
+    return (
+      <ButtonLink href={href} className={className} {...style}>
+        {children}
+      </ButtonLink>
+    );
+  }
+  return (
+    <Button disabled className={className} {...style}>
+      {children}
+      <span className="rounded-full border border-current px-2 py-0.5 text-xs leading-none">{status}</span>
+    </Button>
+  );
 }
 
 export function ButtonLink({

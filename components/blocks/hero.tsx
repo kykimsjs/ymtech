@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
-import { ButtonLink } from "@/components/ui/button";
+import { ActionButton, ButtonLink } from "@/components/ui/button";
 import { HeroSlideshow } from "./hero-slideshow";
 import { Media, type MediaData } from "./media";
 
-type Action = { label: string; href: string };
+/** status: 아직 열지 않은 항목 (예: "준비 중"). 비활성 버튼으로 보인다 */
+type Action = { label: string; href: string; status?: string };
 
 export type HeroMediaProps = {
   title: string[];
@@ -52,9 +53,9 @@ export function HeroMedia({ title, description, caption, media, actions = [], ov
         {actions.length > 0 && (
           <div className="mt-10 flex flex-wrap gap-3">
             {actions.map((action, i) => (
-              <ButtonLink key={action.label} href={action.href} variant={i === 0 ? "inverse" : "inverse-outline"} size="lg">
+              <ActionButton key={action.label} href={action.href} status={action.status} variant={i === 0 ? "inverse" : "inverse-outline"} size="lg">
                 {action.label}
-              </ButtonLink>
+              </ActionButton>
             ))}
           </div>
         )}
