@@ -12,7 +12,7 @@ import { DashboardPreview, LogoGrid, ProductCert, ProductGrid, StatsGallery, Tim
 import { ProductShowcase } from "./product-showcase";
 import { SiteHeader } from "./site-header";
 import { AudienceTabs, GalleryTabs, TabsMedia } from "./tab-blocks";
-import { CeoMessage, CompanyHeader, HistoryPending, TeamNetwork, VisionMission } from "./company";
+import { CeoMessage, CompanyHeader, HistoryPending, PartnerGroups, TeamNetwork, VisionMission } from "./company";
 import { Applications, FeatureList, ProductIntro, SpecTable, SystemDiagram } from "./solution";
 import { TechCompare } from "./tech";
 import { ContactLocation, ContactSection } from "./contact";
@@ -58,6 +58,7 @@ export const blockComponents = {
   "vision-mission": VisionMission,
   "history-pending": HistoryPending,
   "team-network": TeamNetwork,
+  "partner-groups": PartnerGroups,
   // 솔루션
   "product-intro": ProductIntro,
   "feature-list": FeatureList,

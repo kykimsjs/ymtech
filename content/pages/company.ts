@@ -43,6 +43,69 @@ const team = {
   pending: "자료 필요: 팀원 공개 범위(이름·직함), 협력 기관 이름·로고와 협력 내용",
 };
 
+// 협력 파트너 (docs/협력파트너_정리.md, 2026-10-27). 사용자 결정: 문서의 기관 모두 로고와 함께 싣는다
+// 로고는 각 기관 공식 홈페이지에서 받음. 전남은 홈페이지에 글자 이미지뿐이라, ㈜그린에이트·혁신밸리는 로고를 찾지 못해 이름만
+// 전남창조경제혁신센터 로고는 흰 글자판이라 글자만 어둡게 바꿔 씀
+const partners = {
+  title: "협력 파트너",
+  description: "연구기관과 함께 기술을 검증하고, 현장과 공공 사업으로 넓혀 갑니다.",
+  groups: [
+    {
+      title: "기술 고도화·시험",
+      partners: [
+        {
+          name: "한국전자기술연구원(KETI)",
+          role: "광주지역본부 에너지 ICT 연구센터 · 3상 전력 측정 정확도 고도화, AI 화재 예지 알고리즘 검증",
+          logo: { src: "/images/marks/keti.png", width: 900, height: 209 },
+        },
+        {
+          name: "한국전기안전공사(KESCO)",
+          role: "전기안전연구원 · 분전반 화재 예방·전기 화재 감지 기준 기술 자문, 실증 필드 테스트",
+          logo: { src: "/images/marks/kesco.png", width: 900, height: 194 },
+        },
+        {
+          name: "광주테크노파크",
+          role: "시제품 제작 지원, 정부 과제 매칭, 지역 제조·시공 기업 연계 자문",
+          logo: { src: "/images/partners/gjtp.png", width: 235, height: 48 },
+        },
+        {
+          name: "전남테크노파크",
+          role: "시제품 제작 지원, 정부 과제 매칭, 지역 제조·시공 기업 연계 자문",
+          logo: { src: "/images/partners/jntp.png", width: 208, height: 53 },
+        },
+      ],
+    },
+    {
+      title: "현장 실증·시공",
+      partners: [
+        { name: "스마트팜 혁신밸리 입주 법인·선도 농가", role: "온실·축사 분전반에 모듈을 설치해 화재 예방·전력 데이터 수집 실증" },
+        { name: "㈜그린에이트", role: "신재생에너지·스마트팜 시공 · 스마트팜 시공 시 분전반 옵션으로 모듈 패키지 납품" },
+      ],
+    },
+    {
+      title: "공공 보급·판로",
+      partners: [
+        { name: "전남광주통합특별시(구 전라남도)", role: "스마트농업·재난안전 부서 · 화재 취약 시설 지능형 분전반 보급 사업 기획 자문" },
+        {
+          name: "나주시",
+          role: "스마트농업·재난안전 부서 · 화재 취약 시설 지능형 분전반 보급 사업 기획 자문",
+          logo: { src: "/images/partners/naju.png", width: 180, height: 58 },
+        },
+        {
+          name: "중소벤처기업진흥공단",
+          role: "스케일업 프로그램, 판로 개척 멘토링, 투자 유치(IR) 컨설팅",
+          logo: { src: "/images/partners/kosmes.svg", width: 202, height: 23 },
+        },
+        {
+          name: "전남창조경제혁신센터",
+          role: "스케일업 프로그램, 판로 개척 멘토링, 투자 유치(IR) 컨설팅",
+          logo: { src: "/images/partners/ccei-jeonnam.png", width: 249, height: 53 },
+        },
+      ],
+    },
+  ],
+};
+
 const slogan = "스마트한 기술로 더 나은 미래를 만듭니다.";
 const breadcrumb = ["홈", "회사소개"];
 const tabs = [
@@ -50,6 +113,7 @@ const tabs = [
   { label: "비전·미션", target: "vision" },
   { label: "연혁", target: "history" },
   { label: "팀·파트너", target: "team" },
+  { label: "협력 파트너", target: "partners" },
 ];
 const facts = [
   { label: "회사명", value: `${organization.name} (${organization.alternateName})` },
@@ -114,6 +178,7 @@ export function companyBlocks(draft: CompanyDraftId, { live = false }: { live?: 
       // 연혁은 옅은 회색 바탕: 어두운 비전과 흰 팀·파트너 사이를 나눈다
       { type: "history-pending", hidden: live ? "연혁 자료 대기" : undefined, data: { ...history, tone: "surface", id: "history" } },
       { type: "team-network", data: { variant: "columns", ...team, pending: live ? undefined : team.pending, id: "team" } },
+      { type: "partner-groups", data: { ...partners, id: "partners" } },
       ...pageBottom(),
     ];
   }

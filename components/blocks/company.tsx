@@ -357,3 +357,59 @@ export function TeamNetwork({ variant, title, description, groups, pending, id }
     </section>
   );
 }
+
+// ── 협력 파트너 ─────────────────────────────────────────
+
+type PartnerLogo = { src: string; width: number; height: number };
+
+export type PartnerGroupsProps = {
+  title: string;
+  description?: string;
+  /** 분야별 파트너. 로고가 없으면 이름만 크게 쓴다 */
+  groups: { title: string; partners: { name: string; role: string; logo?: PartnerLogo }[] }[];
+  id?: string;
+};
+
+// 참고: 케빈랩 인증 마크 영역(흰 칸에 로고), 지노시스 PORTFOLIO 타일. 분야 제목 왼쪽 + 로고 칸 그리드
+// 로고 출처: 각 기관 공식 홈페이지 (2026-10-27)
+export function PartnerGroups({ title, description, groups, id }: PartnerGroupsProps) {
+  return (
+    <section id={id} className="block-y scroll-mt-32 bg-surface">
+      <div className="container-page">
+        <h2 className="text-display font-bold">{title}</h2>
+        {description && <p className="mt-5 max-w-[42em] text-lg leading-[1.75] text-ink-muted">{description}</p>}
+        <div className="mt-12 flex flex-col">
+          {groups.map((group) => (
+            <div key={group.title} className="grid gap-6 border-t border-line-strong py-10 lg:grid-cols-12 lg:gap-10">
+              <h3 className="text-subtitle font-bold lg:col-span-3">{group.title}</h3>
+              <ul className="grid gap-4 sm:grid-cols-2 lg:col-span-9">
+                {group.partners.map((partner) => (
+                  <li key={partner.name} className="flex flex-col rounded-card bg-canvas p-6">
+                    <div className="flex h-14 items-center">
+                      {partner.logo ? (
+                        <Image
+                          src={partner.logo.src}
+                          alt={partner.name}
+                          width={partner.logo.width}
+                          height={partner.logo.height}
+                          sizes="200px"
+                          // next/image는 SVG를 최적화하지 않으므로 원본 그대로 쓴다
+                          unoptimized={partner.logo.src.endsWith(".svg")}
+                          className="max-h-11 w-auto max-w-[12rem] object-contain object-left"
+                        />
+                      ) : (
+                        <p className="text-lg leading-snug font-bold">{partner.name}</p>
+                      )}
+                    </div>
+                    {partner.logo && <p className="mt-4 font-semibold">{partner.name}</p>}
+                    <p className={cn("text-[0.9375rem] leading-relaxed text-ink-muted", partner.logo ? "mt-1" : "mt-4")}>{partner.role}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
