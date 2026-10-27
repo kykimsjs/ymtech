@@ -1,4 +1,5 @@
 import type { Block } from "@/components/blocks/registry";
+import type { NavItem } from "@/components/blocks/site-header";
 import type { FeatureRowsProps } from "@/components/blocks/feature-rows";
 import type { MediaData } from "@/components/blocks/media";
 import { fullAddress, organization } from "@/lib/site";
@@ -101,13 +102,17 @@ export type CatalogEntry = {
   block: Block;
 };
 
-export const nav = [
-  { label: "회사소개", href: "#", children: ["회사소개", "CEO 인사말", "연혁", "비전·팀 역량"].map((label) => ({ label, href: "#" })) },
+// 사이트맵 (2026-10-27 확정): 기획안 14페이지를 HOME + 6페이지로 합쳤다. 하위 메뉴는 솔루션만.
+//   회사소개: 인사말 · 비전·미션 · 연혁 · 팀·파트너 / 기술·인증: 기술 차별성 · AI 화재 예지 · 특허·인증
+//   실증 사례: 현장 · 도입 효과 / 문의: 문의 폼 · 오시는 길. 자료가 쌓이면 다시 나눈다.
+export const nav: NavItem[] = [
+  { label: "회사소개", href: "#" },
   { label: "솔루션", href: "#", children: ["에코-비탈 모듈", "통합 웹 플랫폼"].map((label) => ({ label, href: "#" })) },
-  { label: "R&D·기술", href: "#", children: ["기술 차별성", "AI 화재 이상감지", "특허·인증"].map((label) => ({ label, href: "#" })) },
-  { label: "레퍼런스", href: "#", children: ["실증 사례", "파트너십", "도입 효과"].map((label) => ({ label, href: "#" })) },
-  { label: "고객지원", href: "#", children: ["문의하기", "오시는 길"].map((label) => ({ label, href: "#" })) },
+  { label: "기술·인증", href: "#" },
+  { label: "실증 사례", href: "#" },
+  { label: "문의", href: "#" },
 ];
+export const footerColumns = nav.map((item) => ({ title: item.label, href: item.href, links: (item.children ?? []).map((c) => c.label) }));
 
 export const catalog: CatalogEntry[] = [
   // ── 공통 ─────────────────────────────────────────
@@ -152,7 +157,7 @@ export const catalog: CatalogEntry[] = [
     block: {
       type: "site-footer",
       data: {
-        columns: nav.map((item) => ({ title: item.label, links: item.children.map((c) => c.label) })),
+        columns: footerColumns,
         info: [
           [{ value: organization.name }, { label: "대표", value: organization.ceo }, { value: fullAddress }],
           [

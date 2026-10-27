@@ -1,5 +1,5 @@
 import type { Block } from "@/components/blocks/registry";
-import { featureRows, nav, photo, platformScreen, product, productLight, quickActions, trustItems } from "@/content/block-catalog";
+import { featureRows, footerColumns, nav, photo, platformScreen, product, productLight, quickActions, trustItems } from "@/content/block-catalog";
 import { fullAddress, organization, phoneE164 } from "@/lib/site";
 
 // HOME 블록 순서 (2026-10-26 확정)
@@ -8,9 +8,9 @@ import { fullAddress, organization, phoneE164 } from "@/lib/site";
 export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "dark" } = {}): Block[] {
   return [
     {
+      // 소개서 PDF를 받으면 status를 빼고 href에 PDF 주소를 넣는다
       type: "announcement-bar",
-      hidden: "제품 소개서 PDF 대기",
-      data: { text: "에코-비탈 모듈 제품 소개서", linkLabel: "PDF 받기", href: "#" },
+      data: { text: "에코-비탈 모듈 제품 소개서", linkLabel: "PDF 받기", href: "#", status: "준비 중" },
     },
     {
       type: "site-header",
@@ -162,7 +162,7 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
     {
       type: "site-footer",
       data: {
-        columns: nav.map((item) => ({ title: item.label, links: item.children.map((c) => c.label) })),
+        columns: footerColumns,
         // 1줄 회사·대표·주소, 2줄 연락처 (사업자등록번호는 받으면 2줄 맨 앞에)
         info: [
           [{ value: organization.name }, { label: "대표", value: organization.ceo }, { value: fullAddress }],

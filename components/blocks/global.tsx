@@ -3,24 +3,33 @@ import { ArrowRight } from "lucide-react";
 import { Logo } from "@/components/ui/logo";
 import { ScrollTopButton } from "@/components/ui/scroll-top-button";
 
-export type AnnouncementBarProps = { text: string; linkLabel: string; href: string };
+/** status: 자료가 아직 없을 때 링크 대신 보이는 표시 (예: "준비 중") */
+export type AnnouncementBarProps = { text: string; linkLabel: string; href: string; status?: string };
 
 // 참고: 아이오크롭스 상단 공지 바 (자료 무료 다운로드 유도)
-export function AnnouncementBar({ text, linkLabel, href }: AnnouncementBarProps) {
+export function AnnouncementBar({ text, linkLabel, href, status }: AnnouncementBarProps) {
   return (
     <div className="bg-eco-50 text-eco-800">
       <p className="container-page py-2.5 text-center text-sm">
         {text} <span className="mx-1 text-eco-300">|</span>
-        <Link href={href} className="inline-flex items-center gap-1 font-semibold underline underline-offset-4">
-          {linkLabel} <ArrowRight className="size-3.5" />
-        </Link>
+        {status ? (
+          <span className="inline-flex items-center gap-2 font-semibold">
+            {linkLabel}
+            <span className="rounded-full border border-eco-800/30 px-2 py-0.5 text-xs">{status}</span>
+          </span>
+        ) : (
+          <Link href={href} className="inline-flex items-center gap-1 font-semibold underline underline-offset-4">
+            {linkLabel} <ArrowRight className="size-3.5" />
+          </Link>
+        )}
       </p>
     </div>
   );
 }
 
 export type SiteFooterProps = {
-  columns: { title: string; links: string[] }[];
+  /** 하위 메뉴가 없는 열은 제목이 바로 링크 */
+  columns: { title: string; href?: string; links: string[] }[];
   /** 회사 정보 줄. 성격별로 묶는다 (예: 1줄 회사·대표·주소, 2줄 사업자번호·연락처). href가 있으면 링크 */
   info: { label?: string; value: string; href?: string }[][];
   copyright: string;
@@ -39,7 +48,13 @@ export function SiteFooter({ columns, info, copyright }: SiteFooterProps) {
         <nav className="grid grid-cols-2 gap-8 sm:grid-cols-5 lg:col-span-8">
           {columns.map((column) => (
             <div key={column.title} className="flex flex-col gap-3 text-sm">
-              <p className="font-semibold text-white">{column.title}</p>
+              {column.href ? (
+                <Link href={column.href} className="font-semibold text-white hover:underline hover:underline-offset-4">
+                  {column.title}
+                </Link>
+              ) : (
+                <p className="font-semibold text-white">{column.title}</p>
+              )}
               {column.links.map((link) => (
                 <Link key={link} href="#" className="hover:text-white">
                   {link}

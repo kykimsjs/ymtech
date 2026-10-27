@@ -110,15 +110,22 @@ export function SiteHeader({ nav, cta, locales = [], tone = "light", sticky = fa
               const isOpen = expanded === item.label;
               return (
                 <li key={item.label} className={cn("border-b last:border-b-0", dark ? "border-white/10" : "border-line")}>
-                  <button
-                    type="button"
-                    className="flex w-full items-center justify-between py-4 text-left font-semibold"
-                    aria-expanded={isOpen}
-                    onClick={() => setExpanded(isOpen ? null : item.label)}
-                  >
-                    {item.label}
-                    {item.children && <ChevronDown className={cn("size-4 transition-transform", isOpen && "rotate-180")} />}
-                  </button>
+                  {/* 하위 메뉴가 없으면 바로 이동하는 링크 */}
+                  {item.children ? (
+                    <button
+                      type="button"
+                      className="flex w-full items-center justify-between py-4 text-left font-semibold"
+                      aria-expanded={isOpen}
+                      onClick={() => setExpanded(isOpen ? null : item.label)}
+                    >
+                      {item.label}
+                      <ChevronDown className={cn("size-4 transition-transform", isOpen && "rotate-180")} />
+                    </button>
+                  ) : (
+                    <Link href={item.href} className="block py-4 font-semibold">
+                      {item.label}
+                    </Link>
+                  )}
                   {isOpen && item.children && (
                     <ul className={cn("flex flex-col gap-3 pb-4 pl-3 text-sm", dark ? "text-white/70" : "text-ink-muted")}>
                       {item.children.map((child) => (
