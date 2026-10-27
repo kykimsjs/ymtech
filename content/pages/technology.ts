@@ -76,15 +76,24 @@ function trustBlock(layout: "rows" | "strip"): Block {
   };
 }
 
+// 2026-10-27: 기술 시험성적서는 보유, 인증은 아직 없음(준비 중). 성적서 파일은 올리지 않고 보유 사실만 적는다
 const documents: Block = {
-  type: "history-pending",
-  data: { title: "특허·인증 문서", pending: "자료 필요: KETI 시험성적서, KESCO 관련 인증서, 특허 번호·등록증 스캔", id: "documents" },
+  type: "spec-table",
+  data: {
+    title: "시험·인증 현황",
+    rows: [
+      { label: "시험성적서", value: "보유", note: "KETI 검증 · 전압·전류 측정 정확도" },
+      { label: "인증", value: "준비 중" },
+    ],
+    id: "documents",
+  },
 };
 
 const tabs = [
   { label: "기술 차별성", target: "difference" },
   { label: "AI 화재 예지", target: "ai" },
   { label: "검증과 인증", target: "certification" },
+  { label: "시험·인증 현황", target: "documents" },
 ];
 
 export const technologyDrafts = [
@@ -117,7 +126,7 @@ export function technologyBlocks(draft: TechnologyDraftId, { live = false }: { l
       trustBlock("strip"),
       compare,
       aiBlock("dark", live),
-      ...(live ? [] : [documents]),
+      documents,
       ...pageBottom(),
     ];
   }
@@ -129,7 +138,7 @@ export function technologyBlocks(draft: TechnologyDraftId, { live = false }: { l
     compare,
     aiBlock("light", live),
     trustBlock("rows"),
-    ...(live ? [] : [documents]),
+    documents,
     ...pageBottom(),
   ];
 }

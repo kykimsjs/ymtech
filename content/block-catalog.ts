@@ -117,7 +117,7 @@ export const nav: NavItem[] = [
     ],
   },
   { label: "기술·인증", href: "/ko/technology" },
-  { label: "실증 사례", href: "#" },
+  { label: "실증 사례", href: "/ko/references" },
   { label: "문의", href: "/ko/contact" },
 ];
 export const footerColumns = nav.map((item) => ({ title: item.label, href: item.href, links: (item.children ?? []).map((c) => c.label) }));
