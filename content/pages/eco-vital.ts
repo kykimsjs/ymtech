@@ -80,7 +80,7 @@ function content(locale: Locale) {
     title: [t("에너지 관리의 효율을 높이는", "YM INNOTECH's innovative solution"), t("YM이노테크의 혁신적인 솔루션", "for more efficient energy management")],
     description: t(
       "분전반 안에 장착해 전력과 환경을 함께 감지하고,\n이상이 생기면 자동으로 전원을 차단합니다.",
-      "Installed inside the distribution panel, it monitors power and environment together\nand cuts power automatically when something goes wrong.",
+      "Installed inside the distribution panel, it monitors power and environment together and cuts power automatically when something goes wrong.",
     ),
     media: [productLightMedia(locale), productMedia(locale)],
   };

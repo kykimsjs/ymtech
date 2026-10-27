@@ -60,7 +60,7 @@ export function homeBlocks({ headerTone = "light", locale = "ko" }: { headerTone
       // 문구는 클라이언트 제공(2026-10-27) 그대로, 제목만 끝 마침표를 뺐다
       type: "statement",
       data: {
-        eyebrow: t("산업 및 농업시설 전력 안전", "Power safety for industrial and agricultural facilities"),
+        eyebrow: t("산업 및 농업시설 전력 안전", "Power safety for factories and farms"),
         title: t("분전반 화재,\nAI가 예지하고 차단합니다", "Distribution panel fires,\npredicted and cut off by AI"),
         paragraphs: [
           t(
@@ -84,7 +84,7 @@ export function homeBlocks({ headerTone = "light", locale = "ko" }: { headerTone
         name: t("지능형 에코-비탈(Eeco-Vital) 모듈", "Intelligent Eeco-Vital Module"),
         description: t(
           "분전반 안에 장착해 전력과 환경을 함께 감지하고,\n이상이 생기면 자동으로 전원을 차단합니다.",
-          "Installed inside the distribution panel, it monitors power and environment together\nand cuts power automatically when something goes wrong.",
+          "Installed inside the distribution panel, it monitors power and environment together and cuts power automatically when something goes wrong.",
         ),
         media: productMedia(locale),
         actions: [
