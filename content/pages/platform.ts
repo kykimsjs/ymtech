@@ -139,7 +139,7 @@ export type PlatformDraftId = (typeof platformDrafts)[number]["id"];
 
 // 운영 페이지(/ko/solutions/platform)는 B안 (2026-10-27 확정)
 export function platformPageBlocks(locale: Locale): Block[] {
-  return platformBlocks("b", locale);
+  return platformBlocks("b", locale, { newArchitecture: true });
 }
 
 export function platformBlocks(draft: PlatformDraftId, locale: Locale = "ko", { newArchitecture = false }: { newArchitecture?: boolean } = {}): Block[] {

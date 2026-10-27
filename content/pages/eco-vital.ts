@@ -245,7 +245,7 @@ export const architectureDrafts = [
 // 운영 페이지(/ko/solutions/eco-vital)는 A안 (2026-10-27 확정). live면 "자료 필요" 상자를 빼고,
 // 사진이 없는 적용 분야는 사진이 올 때까지 뺀다.
 export function ecoVitalPageBlocks(locale: Locale): Block[] {
-  return ecoVitalBlocks("a", { live: true, locale });
+  return ecoVitalBlocks("a", { live: true, locale, newArchitecture: true });
 }
 
 export function ecoVitalBlocks(
