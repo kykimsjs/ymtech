@@ -401,8 +401,8 @@ export function PartnerGroups({ title, description, groups, id }: PartnerGroupsP
                         <p className="text-lg leading-snug font-bold">{partner.name}</p>
                       )}
                     </div>
-                    {partner.logo && <p className="mt-4 font-semibold">{partner.name}</p>}
-                    <p className={cn("text-[0.9375rem] leading-relaxed text-ink-muted", partner.logo ? "mt-1" : "mt-4")}>{partner.role}</p>
+                    {/* 로고에 기관 이름이 들어 있어 이름 줄은 따로 쓰지 않는다 (alt로 읽힘) */}
+                    <p className="mt-4 text-[0.9375rem] leading-relaxed text-ink-muted">{partner.role}</p>
                   </li>
                 ))}
               </ul>
