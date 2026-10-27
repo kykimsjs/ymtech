@@ -64,12 +64,40 @@ function content(locale: Locale) {
     pending: "연혁 자료 필요: 설립 연월, 연구개발·시험 인증·실증 이력 (연·월·내용)",
   };
 
+  // 팀·파트너 (클라이언트 원고 2026-10-27 그대로, 영문은 번역 초안)
   const team = {
-    title: t("팀·파트너", "Team"),
+    title: t("팀·파트너", "Team & Partners"),
     groups: [
-      { title: t("경영진", "Leadership"), text: t("에너지·제조 전문 경영진", "Executives specializing in energy and manufacturing") },
-      { title: t("자문", "Advisors"), text: t("AI 소프트웨어 자문 교수진", "Professors advising on AI software") },
-      { title: t("협력 파트너", "Partners"), text: t("농업회사법인·KETI 등 협력 파트너", "Partners including agricultural corporations and KETI") },
+      {
+        title: t("경영진 & R&D", "Leadership & R&D"),
+        icon: "factory" as const,
+        text: t("에너지·제조 전문 경영진", "Executives specializing in energy and manufacturing"),
+        items: [
+          { label: t("소속 / 특성", "Background"), value: t("20년 현장 실무 노하우", "20 years of hands-on field experience") },
+          { label: t("전력 제어", "Power control"), value: t("3상 전력 및 모듈 직접 제조", "3-phase power and modules built in-house") },
+          { label: t("현장 커스텀", "Field customization"), value: t("분전반 특화 콤팩트 설계를 주도", "Leads compact designs tailored to distribution panels") },
+        ],
+      },
+      {
+        title: t("AI 연구 & 기술 자문", "AI research & technical advisory"),
+        icon: "chartLine" as const,
+        text: t("AI 소프트웨어 자문 교수진", "Professors advising on AI software"),
+        items: [
+          { label: t("소속 / 특성", "Background"), value: t("전남대 AI융합대학 연구팀", "Research team, College of AI Convergence, Chonnam National University") },
+          { label: t("예지 보전", "Predictive maintenance"), value: t("시계열 데이터 기반 화재 예측", "Fire prediction based on time-series data") },
+          { label: t("알고리즘", "Algorithm"), value: t("온·습도와 전력 변화 복합 분석", "Combined analysis of temperature, humidity and power changes") },
+        ],
+      },
+      {
+        title: t("기술 검증 & 실증 파트너", "Validation & field partners"),
+        icon: "shield" as const,
+        text: t("농업회사법인·KETI 등 협력 파트너", "Partners including agricultural corporations and KETI"),
+        items: [
+          { label: t("소속 / 특성", "Background"), value: t("KETI 및 전문 시공 파트너", "KETI and specialist construction partners") },
+          { label: t("오차 검증", "Accuracy validation"), value: t("KETI 연계 3상 전력 계측 검증", "3-phase power measurement validated with KETI") },
+          { label: t("필드 테스트", "Field testing"), value: t("전남도내 농업회사법인 및 파트너사 연동", "With agricultural corporations and partners across Jeollanam-do") },
+        ],
+      },
     ],
     pending: "자료 필요: 팀원 공개 범위(이름·직함), 협력 기관 이름·로고와 협력 내용",
   };

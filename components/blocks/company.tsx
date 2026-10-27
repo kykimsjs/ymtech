@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { Logo } from "@/components/ui/logo";
 import { Pending } from "@/components/ui/pending";
+import { icons, type IconName } from "./icons";
 import { cn } from "@/lib/cn";
 import { Media, type MediaData } from "./media";
 
@@ -293,11 +294,12 @@ export function HistoryPending({ title, pending, tone = "light", id }: HistoryPe
 // ── 팀·파트너 ──────────────────────────────────────────
 
 export type TeamNetworkProps = {
-  /** rows: 그룹별 한 줄, columns: 3단 + 협력 기관 이름 */
+  /** rows: 그룹별 한 줄, columns: 3단 (아이콘 + 항목 행) */
   variant: "rows" | "columns";
   title: string;
   description?: string;
-  groups: { title: string; text: string; names?: string[] }[];
+  /** items: 그룹 안의 세부 항목(라벨·내용). 있으면 text 대신 보인다 */
+  groups: { title: string; text?: string; icon?: IconName; items?: { label: string; value: string }[]; names?: string[] }[];
   pending?: string;
   id?: string;
 };
@@ -310,21 +312,37 @@ export function TeamNetwork({ variant, title, description, groups, pending, id }
           <h2 className="text-display font-bold">{title}</h2>
           {description && <p className="mt-5 max-w-[42em] text-lg leading-[1.75] text-ink-muted">{description}</p>}
           <ul className="mt-12 grid gap-10 md:grid-cols-3 md:gap-8">
-            {groups.map((group) => (
-              <li key={group.title} className="border-t-2 border-ci pt-6">
-                <h3 className="text-subtitle font-bold">{group.title}</h3>
-                <p className="mt-3 leading-[1.75] text-ink-muted">{group.text}</p>
-                {group.names && (
-                  <ul className="mt-5 flex flex-wrap gap-2">
-                    {group.names.map((name) => (
-                      <li key={name} className="rounded-full border border-line-strong px-3 py-1 text-sm font-semibold">
-                        {name}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </li>
-            ))}
+            {groups.map((group) => {
+              const Icon = group.icon ? icons[group.icon] : null;
+              return (
+                <li key={group.title} className="border-t-2 border-ci pt-6">
+                  {/* 아이콘은 상자 없이 선 아이콘만 (흔한 '둥근 상자 + 아이콘' 카드를 피한다) */}
+                  {Icon && <Icon aria-hidden strokeWidth={1.5} className="mb-4 size-8 text-brand-600" />}
+                  <h3 className="text-subtitle font-bold">{group.title}</h3>
+                  {group.items ? (
+                    <dl className="mt-5 divide-y divide-line border-y border-line">
+                      {group.items.map((item) => (
+                        <div key={item.label} className="py-3.5">
+                          <dt className="text-sm font-semibold text-brand-600">{item.label}</dt>
+                          <dd className="mt-1 leading-[1.7] text-ink-muted">{item.value}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  ) : (
+                    group.text && <p className="mt-3 leading-[1.75] text-ink-muted">{group.text}</p>
+                  )}
+                  {group.names && (
+                    <ul className="mt-5 flex flex-wrap gap-2">
+                      {group.names.map((name) => (
+                        <li key={name} className="rounded-full border border-line-strong px-3 py-1 text-sm font-semibold">
+                          {name}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              );
+            })}
           </ul>
           {pending && <Pending text={pending} className="mt-12 min-h-28" />}
         </div>

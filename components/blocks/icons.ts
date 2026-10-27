@@ -1,9 +1,11 @@
 import {
   Activity,
   ChartBar,
+  ChartLine,
   Cloud,
   Cpu,
   Download,
+  Factory,
   FileSpreadsheet,
   MessageSquare,
   MonitorPlay,
@@ -21,9 +23,11 @@ import {
 export const icons = {
   activity: Activity,
   chart: ChartBar,
+  chartLine: ChartLine,
   cloud: Cloud,
   cpu: Cpu,
   download: Download,
+  factory: Factory,
   excel: FileSpreadsheet,
   message: MessageSquare,
   demo: MonitorPlay,
