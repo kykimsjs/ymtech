@@ -47,3 +47,9 @@ export function languageAlternates(path: string) {
   if (indexedLocales.length > 1) languages["x-default"] = `/ko${path}`;
   return languages;
 }
+
+// 검색엔진 소유 확인 값 (공개 값). 구글 서치 콘솔은 DNS TXT로 확인해서 여기 없음
+export const siteVerification = {
+  // 네이버 서치어드바이저 HTML 태그 (2026-10-27)
+  naver: "e7145e5c668cd90aafb10b362c94311a6a8300cc",
+};

@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { getDictionary, getLocale } from "@/content/dictionaries";
 import { locales } from "@/lib/i18n";
 import { LocaleProvider } from "@/lib/locale-context";
-import { indexedLocales, siteUrl } from "@/lib/site";
+import { indexedLocales, siteUrl, siteVerification } from "@/lib/site";
 import "../globals.css";
 
 export async function generateStaticParams() {
@@ -34,6 +34,8 @@ export async function generateMetadata(): Promise<Metadata> {
     // 원고가 없는 언어는 검색에서 제외
     robots: indexed ? { index: true, follow: true } : { index: false, follow: true },
     formatDetection: { telephone: false, email: false, address: false },
+    // 검색엔진 소유 확인 태그. 루트(/)는 /ko로 넘어가므로 모든 페이지 머리말에 넣는다
+    verification: { other: { "naver-site-verification": siteVerification.naver } },
   };
 }
 
