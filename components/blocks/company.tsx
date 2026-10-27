@@ -289,15 +289,16 @@ export function VisionMission({ variant, title, vision, missions, media, id }: V
 
 // ── 연혁 (자료 대기) ──────────────────────────────────────
 
-export type HistoryPendingProps = { title: string; pending: string; tone?: "light" | "dark"; id?: string };
+/** tone: light 흰 바탕, surface 옅은 회색(흰 섹션 사이에 둘 때), dark 어두운 바탕 */
+export type HistoryPendingProps = { title: string; pending: string; tone?: "light" | "surface" | "dark"; id?: string };
 
 export function HistoryPending({ title, pending, tone = "light", id }: HistoryPendingProps) {
   const dark = tone === "dark";
   return (
-    <section id={id} className={cn("block-y scroll-mt-32", dark ? "bg-graphite-800 text-white" : "bg-canvas")}>
+    <section id={id} className={cn("block-y scroll-mt-32", dark ? "bg-graphite-800 text-white" : tone === "surface" ? "bg-surface" : "bg-canvas")}>
       <div className="container-page grid gap-10 lg:grid-cols-12 lg:gap-16">
         <h2 className="text-display font-bold lg:col-span-4">{title}</h2>
-        <Pending text={pending} tone={tone} className="min-h-40 lg:col-span-8" />
+        <Pending text={pending} tone={dark ? "dark" : "light"} className={cn("min-h-40 lg:col-span-8", tone === "surface" && "bg-canvas")} />
       </div>
     </section>
   );

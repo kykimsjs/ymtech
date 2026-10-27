@@ -82,7 +82,7 @@ export const companyDrafts = [
     id: "d",
     key: "D",
     name: "조합",
-    summary: "B의 사진 머리 + C의 비전·미션과 인사말 (2026-10-27 선택). 연혁·팀·파트너는 자료가 올 때까지 뺐습니다.",
+    summary: "B의 사진 머리 + C의 인사말·비전·미션 (2026-10-27 선택), 연혁(자료 대기)과 팀·파트너는 밝은 바탕으로 이어 붙였습니다.",
   },
 ] as const;
 
@@ -102,8 +102,12 @@ export function companyBlocks(draft: CompanyDraftId): Block[] {
           media: { src: "/images/hero/ai-panel.webp", alt: "안전모를 쓴 기술자가 온실 분전반의 차단기를 점검하고 있다", focus: "72% 45%" },
         },
       },
+      { type: "anchor-tabs", data: { items: tabs, belowHeader: true } },
       { type: "ceo-message", data: { variant: "letter", ...greeting, id: "greeting" } },
       { type: "vision-mission", data: { variant: "words", ...vision, id: "vision" } },
+      // 연혁은 옅은 회색 바탕: 어두운 비전과 흰 팀·파트너 사이를 나눈다
+      { type: "history-pending", data: { ...history, tone: "surface", id: "history" } },
+      { type: "team-network", data: { variant: "columns", ...team, id: "team" } },
       ...pageBottom(),
     ];
   }
