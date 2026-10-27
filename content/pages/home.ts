@@ -1,5 +1,5 @@
 import type { Block } from "@/components/blocks/registry";
-import { featureRows, nav, photo, platformScreen, product, quickActions, trustItems } from "@/content/block-catalog";
+import { featureRows, nav, photo, platformScreen, product, productLight, quickActions, trustItems } from "@/content/block-catalog";
 import { fullAddress, organization, phoneE164 } from "@/lib/site";
 
 // HOME 블록 순서 (2026-10-26 확정)
@@ -105,7 +105,7 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
             label: "지능형 에코-비탈(Eeco-Vital) 모듈",
             title: ["분전반 장착형", "감지·차단 모듈"],
             href: "#",
-            media: product,
+            media: productLight,
             brand: { src: "/brand/modiq-signature-white.png", alt: "MODIQ Advanced Smart Module", width: 1139, height: 322 },
           },
           // 웹 플랫폼 준비 중 (2026-10-26)
