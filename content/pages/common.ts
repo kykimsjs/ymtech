@@ -15,7 +15,7 @@ export function pageTop({ headerTone = "light" }: { headerTone?: "light" | "dark
       type: "site-header",
       data: {
         nav,
-        cta: { label: "도입 문의", href: "#" },
+        cta: { label: "도입 문의", href: "/ko/contact" },
         tone: headerTone,
         sticky: true,
         locales: [

@@ -23,7 +23,7 @@ const contacts = [
 
 const form = {
   topics: ["도입 문의", "실증 문의", "제품 소개서 요청", "기타"],
-  // 보유 기간은 클라이언트 확인 필요. 우선 가장 짧은 기준(답변 후 바로 파기)으로 둔다
+  // 보유 기간: 답변 후 바로 파기 (2026-10-27 확정)
   privacy: {
     items: "이름, 소속, 연락처, 이메일, 설치 장소, 문의 내용",
     purpose: "문의 확인과 답변",
@@ -42,7 +42,7 @@ const section = {
 // 지도 앱 검색어는 도로명 주소 (새 광역 이름은 지도 검색에 아직 없을 수 있어 시·도로명만)
 const mapQuery = `${organization.address.locality} ${organization.address.street.split(",")[0]}`;
 
-function location(live: boolean): Block {
+function location(): Block {
   return {
     type: "contact-location",
     data: {
@@ -52,7 +52,11 @@ function location(live: boolean): Block {
         { label: "네이버 지도", href: `https://map.naver.com/p/search/${encodeURIComponent(mapQuery)}` },
         { label: "카카오맵", href: `https://map.kakao.com/?q=${encodeURIComponent(mapQuery)}` },
       ],
-      pending: live ? undefined : "지도 자리: 카카오맵 또는 네이버 지도 퍼가기 방식 결정 필요 (지금은 지도 앱 링크로 연결)",
+      // 구글 지도 퍼가기: API 키 없이 동작 (2026-10-27 "지도 넣어야지"). 카카오맵으로 바꾸려면 JavaScript 키가 필요
+      embed: {
+        src: `https://maps.google.com/maps?q=${encodeURIComponent(`전라남도 ${mapQuery}`)}&z=16&hl=ko&output=embed`,
+        title: `와이엠이노테크 위치 지도: ${fullAddress}`,
+      },
       id: "location",
     },
   };
@@ -75,12 +79,17 @@ export const contactDrafts = [
 
 export type ContactDraftId = (typeof contactDrafts)[number]["id"];
 
-export function contactBlocks(draft: ContactDraftId, { live = false }: { live?: boolean } = {}): Block[] {
+// 운영 페이지(/ko/contact)는 A안 (2026-10-27 확정)
+export function contactPageBlocks(): Block[] {
+  return contactBlocks("a");
+}
+
+export function contactBlocks(draft: ContactDraftId): Block[] {
   return [
     ...pageTop(),
     pageTitle,
     { type: "contact-section", data: { variant: draft === "b" ? "stacked" : "split", ...section } },
-    location(live),
+    location(),
     ...pageBottom({ closing: false }),
   ];
 }

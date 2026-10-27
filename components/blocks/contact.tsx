@@ -83,13 +83,15 @@ export type ContactLocationProps = {
   address: string;
   /** 지도 앱으로 여는 링크 (주소 검색) */
   mapLinks: { label: string; href: string }[];
+  /** 페이지 안에 넣는 지도 (iframe 주소) */
+  embed?: { src: string; title: string };
   /** 지도 퍼가기를 정하기 전 자리 표시 (시안에서만) */
   pending?: string;
   id?: string;
 };
 
-// 지도를 페이지에 넣으려면 카카오맵·네이버 지도 퍼가기(또는 API 키)가 필요해, 우선 지도 앱 링크로 연다
-export function ContactLocation({ title, address, mapLinks, pending, id }: ContactLocationProps) {
+// 지도는 키 없이 넣을 수 있는 구글 지도 퍼가기(iframe), 옆에 네이버 지도·카카오맵 앱 링크
+export function ContactLocation({ title, address, mapLinks, embed, pending, id }: ContactLocationProps) {
   return (
     <section id={id} className="block-y scroll-mt-32 bg-surface">
       <div className="container-page grid gap-10 lg:grid-cols-12 lg:gap-16">
@@ -114,10 +116,23 @@ export function ContactLocation({ title, address, mapLinks, pending, id }: Conta
             ))}
           </ul>
         </div>
-        {pending && (
+        {embed ? (
           <div className="lg:col-span-8">
-            <Pending text={pending} className="aspect-[16/9] bg-canvas" />
+            {/* 스크롤해서 내려왔을 때만 불러온다 */}
+            <iframe
+              src={embed.src}
+              title={embed.title}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="aspect-[4/3] w-full rounded-card border border-line bg-canvas sm:aspect-[16/9]"
+            />
           </div>
+        ) : (
+          pending && (
+            <div className="lg:col-span-8">
+              <Pending text={pending} className="aspect-[16/9] bg-canvas" />
+            </div>
+          )
         )}
       </div>
     </section>

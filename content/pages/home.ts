@@ -24,7 +24,7 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
           { src: "/images/hero/ai-manager.webp", alt: "수경재배 온실에서 태블릿으로 작물 상태를 확인하는 관리자", focus: "74% 45%" },
         ],
         actions: [
-          { label: "도입·실증 문의", href: "#" },
+          { label: "도입·실증 문의", href: "/ko/contact" },
           { label: "제품 소개서 다운로드", href: "#", status: "준비 중" },
         ],
       },
