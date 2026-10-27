@@ -13,6 +13,7 @@ import { ProductShowcase } from "./product-showcase";
 import { SiteHeader } from "./site-header";
 import { AudienceTabs, GalleryTabs, TabsMedia } from "./tab-blocks";
 import { CeoMessage, CompanyHeader, HistoryPending, TeamNetwork, VisionMission } from "./company";
+import { Applications, FeatureList, ProductIntro, SpecTable, SystemDiagram } from "./solution";
 
 // 블록 종류 → 컴포넌트. 페이지는 이 블록들을 순서대로 이어 붙인 목록이다.
 export const blockComponents = {
@@ -55,6 +56,12 @@ export const blockComponents = {
   "vision-mission": VisionMission,
   "history-pending": HistoryPending,
   "team-network": TeamNetwork,
+  // 솔루션
+  "product-intro": ProductIntro,
+  "feature-list": FeatureList,
+  "system-diagram": SystemDiagram,
+  "spec-table": SpecTable,
+  applications: Applications,
 } as const;
 
 export type BlockType = keyof typeof blockComponents;

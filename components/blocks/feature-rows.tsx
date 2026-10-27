@@ -21,7 +21,7 @@ export type FeatureRowsProps = {
 // 참고: 아이오크롭스 솔루션 소개(사진 크게 + 옆에 짧은 설명), 케빈랩 4ST ZIP 기능 소개의 좌우 교차
 export function FeatureRows({ title, items, id }: FeatureRowsProps) {
   return (
-    <section id={id} className="block-y scroll-mt-14 bg-canvas">
+    <section id={id} className="block-y scroll-mt-32 bg-canvas">
       <div className="container-page">
         {title && <h2 className="max-w-[16em] text-display font-bold">{title}</h2>}
         <ol className={cn("flex flex-col gap-16 lg:gap-28", title && "mt-12 lg:mt-20")}>

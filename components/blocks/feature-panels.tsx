@@ -16,7 +16,7 @@ export function FeaturePanels({ title, items, id }: FeaturePanelsProps) {
   const [active, setActive] = useState(0);
 
   return (
-    <section id={id} className="block-y scroll-mt-14 bg-canvas">
+    <section id={id} className="block-y scroll-mt-32 bg-canvas">
       <div className="container-page">
         {title && <h2 className="max-w-[16em] text-display font-bold">{title}</h2>}
         <ol className={cn("flex flex-col gap-2 lg:h-[36rem] lg:flex-row lg:gap-3", title && "mt-10 lg:mt-14")}>

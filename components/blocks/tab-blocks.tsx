@@ -14,7 +14,7 @@ export type TabsMediaProps = {
 // 참고: 여의시스템 "전력 모니터링 애플리케이션 활성화" — 밑줄 탭, 왼쪽 글 + 각진 테두리 버튼, 오른쪽 사진
 export function TabsMedia({ title, tabs, id }: TabsMediaProps) {
   return (
-    <section id={id} className="block-y scroll-mt-14 bg-surface">
+    <section id={id} className="block-y scroll-mt-32 bg-surface">
       <div className="container-page">
         <h2 className="text-center text-display font-bold">{title}</h2>
         <div className="mt-12">

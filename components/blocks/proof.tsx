@@ -68,7 +68,7 @@ export type ProductCertProps = {
 // 참고: 케빈랩 4ST ZIP 제품 소개 — 왼쪽 둥근 사진, 오른쪽 제품명·대시 목록·인증 마크
 export function ProductCert({ media, name, points, marks, id }: ProductCertProps) {
   return (
-    <section id={id} className="block-y scroll-mt-14 bg-canvas">
+    <section id={id} className="block-y scroll-mt-32 bg-canvas">
       <div className="container-page grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
         <Media media={media} sizes="(min-width: 1024px) 600px, 100vw" className="aspect-[3/2] rounded-[10px] bg-eco-50" />
         <div>
@@ -223,7 +223,7 @@ export function DashboardPreview({ title, description, note, action, status, fea
   if (features) {
     // 왼쪽에 짧은 글·기능 목록, 오른쪽은 모니터 목업 속 예시 화면 (준비 중인 서비스를 가볍게 보여준다)
     return (
-      <section id={id} className="block-y scroll-mt-14 bg-surface">
+      <section id={id} className="block-y scroll-mt-32 bg-surface">
         <PlatformTour head={head} features={features} title={title} note={note} />
       </section>
     );
@@ -249,7 +249,7 @@ export type ProductGridProps = {
 // 참고: 여의시스템 "연결 솔루션" — 회색 바탕, 흰 카드에 모델명·한 줄 사양·제품 사진
 export function ProductGrid({ title, products, id }: ProductGridProps) {
   return (
-    <section id={id} className="block-y scroll-mt-14 bg-surface-strong">
+    <section id={id} className="block-y scroll-mt-32 bg-surface-strong">
       <div className="container-page">
         <h2 className="text-center text-display font-bold">{title}</h2>
         <ul className="mt-12 grid gap-6 md:grid-cols-3">
@@ -367,7 +367,7 @@ export function TrustFigures({ title, description, items, layout = "rows", basis
 
   if (layout === "rows") {
     return (
-      <section id={id} className="block-y scroll-mt-14 bg-surface">
+      <section id={id} className="block-y scroll-mt-32 bg-surface">
         <div className="container-page grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-4">{head}</div>
           <ul className="border-t-2 border-ink lg:col-span-8">
@@ -408,7 +408,7 @@ export function TrustFigures({ title, description, items, layout = "rows", basis
   }
 
   return (
-    <section id={id} className="block-y scroll-mt-14 bg-surface">
+    <section id={id} className="block-y scroll-mt-32 bg-surface">
       <div className="container-page">
         <div className="grid gap-10 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-6">{head}</div>

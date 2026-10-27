@@ -113,7 +113,7 @@ export type MediaTextProps = {
 // 참고: 여의시스템 개요 — 회색 바탕, 가운데 섹션 제목, 왼쪽 글 · 오른쪽 사진
 export function MediaText({ title, paragraphs, media, reverse, id }: MediaTextProps) {
   return (
-    <section id={id} className="block-y scroll-mt-14 bg-surface">
+    <section id={id} className="block-y scroll-mt-32 bg-surface">
       <div className="container-page">
         <h2 className="text-center text-display font-bold">{title}</h2>
         <div className="mt-12 grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
@@ -138,7 +138,7 @@ export type BenefitBandProps = {
 // 참고: 여의시스템 장점 — 가로 그라데이션 띠, 흰 원 안 아이콘, 가운데 정렬 흰 글씨
 export function BenefitBand({ title, items, id }: BenefitBandProps) {
   return (
-    <section id={id} className="block-y scroll-mt-14 bg-linear-to-r from-brand-600 to-eco-500 text-white">
+    <section id={id} className="block-y scroll-mt-32 bg-linear-to-r from-brand-600 to-eco-500 text-white">
       <div className="container-page">
         <h2 className="text-center text-display font-bold">{title}</h2>
         <ul className="mx-auto mt-14 grid max-w-5xl gap-12 md:grid-cols-3">

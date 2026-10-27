@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { Logo } from "@/components/ui/logo";
+import { Pending } from "@/components/ui/pending";
 import { cn } from "@/lib/cn";
 import { Media, type MediaData } from "./media";
 
@@ -10,21 +11,6 @@ import { Media, type MediaData } from "./media";
 
 type Point = { title: string; text: string };
 type Fact = { label: string; value: string; missing?: boolean };
-
-/** 받아야 할 자료를 적은 자리 표시. 스톡 사진으로 채우지 않는다 */
-function Pending({ text, tone = "light", className }: { text: string; tone?: "light" | "dark"; className?: string }) {
-  return (
-    <div
-      className={cn(
-        "flex items-center justify-center border border-dashed p-6 text-center text-sm leading-relaxed",
-        tone === "dark" ? "border-white/25 text-white/60" : "border-line-strong bg-surface text-ink-subtle",
-        className,
-      )}
-    >
-      {text}
-    </div>
-  );
-}
 
 function Breadcrumb({ items, tone = "light" }: { items: string[]; tone?: "light" | "dark" }) {
   return (

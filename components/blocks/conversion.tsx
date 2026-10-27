@@ -77,7 +77,7 @@ export type ContactMapProps = {
 // 참고: 지노시스 CONTACT — 컨테이너 폭 지도, 위에 주소 카드, 아래 오른쪽 "지도 보기" 버튼
 export function ContactMap({ title, offices, phone, fax, email, map, id }: ContactMapProps) {
   return (
-    <section id={id} className="block-y scroll-mt-14 bg-surface">
+    <section id={id} className="block-y scroll-mt-32 bg-surface">
       <div className="container-page">
         <h2 className="text-display font-extrabold tracking-[-0.02em] text-brand-700 uppercase">{title}</h2>
         <div className="relative mt-12">
@@ -136,7 +136,7 @@ export type ClosingCtaProps = {
 // 참고: 케빈랩 "서비스 바로가기" 띠(배경 사진 + 행동 유도), 아이오크롭스 상담 카드(어두운 사진 위 왼쪽 문구)
 export function ClosingCta({ title, text, contacts, actions, media, id }: ClosingCtaProps) {
   return (
-    <section id={id} className="relative isolate scroll-mt-14 overflow-hidden bg-graphite-900 text-white">
+    <section id={id} className="relative isolate scroll-mt-32 overflow-hidden bg-graphite-900 text-white">
       <Media media={media} tone="dark" sizes="100vw" fill className="-z-20" />
       <div aria-hidden className="absolute inset-0 -z-10 bg-linear-to-r from-graphite-900/90 via-graphite-900/80 to-graphite-900/60" />
       <div className="container-page grid gap-12 py-20 lg:grid-cols-12 lg:items-center lg:py-28">
