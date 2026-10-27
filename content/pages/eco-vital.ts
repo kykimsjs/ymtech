@@ -118,7 +118,13 @@ export const ecoVitalDrafts = [
 
 export type EcoVitalDraftId = (typeof ecoVitalDrafts)[number]["id"];
 
-export function ecoVitalBlocks(draft: EcoVitalDraftId): Block[] {
+// 운영 페이지(/ko/solutions/eco-vital)는 A안 (2026-10-27 확정). live면 "자료 필요" 상자를 빼고,
+// 사진이 없는 적용 분야는 사진이 올 때까지 뺀다.
+export function ecoVitalPageBlocks(): Block[] {
+  return ecoVitalBlocks("a", { live: true });
+}
+
+export function ecoVitalBlocks(draft: EcoVitalDraftId, { live = false }: { live?: boolean } = {}): Block[] {
   if (draft === "b") {
     return [
       ...pageTop(),
@@ -172,8 +178,11 @@ export function ecoVitalBlocks(draft: EcoVitalDraftId): Block[] {
     { type: "product-intro", data: { ...intro, id: "overview" } },
     { type: "feature-list", data: { variant: "rows", title: "주요 기능", items: features, id: "features" } },
     { type: "system-diagram", data: { ...diagram, id: "system" } },
-    { type: "spec-table", data: { ...spec, id: "spec" } },
-    { type: "applications", data: { ...applications, id: "applications" } },
+    { type: "spec-table", data: { ...spec, pending: live ? undefined : spec.pending, id: "spec" } },
+    {
+      type: "applications",
+      data: { ...applications, items: live ? applications.items.filter((item) => item.media) : applications.items, id: "applications" },
+    },
     ...pageBottom(),
   ];
 }

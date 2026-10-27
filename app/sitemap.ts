@@ -5,6 +5,7 @@ import { contentUpdatedAt, indexedLocales, siteUrl } from "@/lib/site";
 const pages: { path: string; changeFrequency: "monthly" | "yearly"; priority: number }[] = [
   { path: "", changeFrequency: "monthly", priority: 1 },
   { path: "/company", changeFrequency: "yearly", priority: 0.7 },
+  { path: "/solutions/eco-vital", changeFrequency: "monthly", priority: 0.9 },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

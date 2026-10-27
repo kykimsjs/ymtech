@@ -234,7 +234,8 @@ export function Applications({ title, description, items, id }: ApplicationsProp
       <div className="container-page">
         <h2 className="text-display font-bold">{title}</h2>
         {description && <p className="mt-5 max-w-[42em] text-lg leading-[1.75] text-ink-muted">{description}</p>}
-        <ul className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+        {/* 항목 수가 열 수를 정한다 (사진이 있는 분야만 보일 때 2열) */}
+        <ul className={cn("mt-12 grid gap-8 sm:grid-cols-2 lg:gap-6", items.length >= 4 ? "lg:grid-cols-4" : items.length === 3 && "lg:grid-cols-3")}>
           {items.map((item) => (
             <li key={item.title}>
               {item.media ? (

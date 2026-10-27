@@ -54,7 +54,7 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
         description: "분전반 안에 장착해 전력과 환경을 함께 감지하고,\n이상이 생기면 자동으로 전원을 차단합니다.",
         media: product,
         actions: [
-          { label: "제품 자세히 보기", href: "#" },
+          { label: "제품 자세히 보기", href: "/ko/solutions/eco-vital" },
           { label: "제품 소개서 다운로드", href: "#", status: "준비 중" },
         ],
         features: [
@@ -87,7 +87,7 @@ export function homeBlocks({ headerTone = "light" }: { headerTone?: "light" | "d
           {
             label: "지능형 에코-비탈(Eeco-Vital) 모듈",
             title: ["분전반 장착형", "감지·차단 모듈"],
-            href: "#",
+            href: "/ko/solutions/eco-vital",
             media: productLight,
             brand: { src: "/brand/modiq-signature-white.png", alt: "MODIQ Advanced Smart Module", width: 1139, height: 322 },
           },
