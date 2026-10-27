@@ -44,7 +44,8 @@ export const viewport: Viewport = {
 export default async function RootLayout({ children }: LayoutProps<"/[lang]">) {
   const locale = await getLocale();
   return (
-    <html lang={locale} className="h-full antialiased">
+    // data-scroll-behavior: 페이지를 옮길 때는 부드러운 스크롤을 끄고 바로 맨 위로 (globals.css의 smooth는 같은 페이지 안 이동에만)
+    <html lang={locale} className="h-full antialiased" data-scroll-behavior="smooth">
       <body className="flex min-h-full flex-col">
         <LocaleProvider locale={locale}>{children}</LocaleProvider>
       </body>
