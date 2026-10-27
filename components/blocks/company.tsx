@@ -294,8 +294,11 @@ export function HistoryPending({ title, pending, tone = "light", id }: HistoryPe
 // ── 팀·파트너 ──────────────────────────────────────────
 
 export type TeamNetworkProps = {
-  /** rows: 그룹별 한 줄, columns: 3단 (아이콘 + 항목 행) */
-  variant: "rows" | "columns";
+  /**
+   * rows: 그룹별 한 줄, columns: 3단 (아이콘 + 항목 행, 구분선)
+   * 선 없는 시안 (2026-10-27 "라인이 너무 많아"): plain 여백만, panels 옅은 회색 판, lead 첫 항목을 부제로 키운 위계
+   */
+  variant: "rows" | "columns" | "plain" | "panels" | "lead";
   title: string;
   description?: string;
   /** items: 그룹 안의 세부 항목(라벨·내용). 있으면 text 대신 보인다 */
@@ -304,7 +307,58 @@ export type TeamNetworkProps = {
   id?: string;
 };
 
-export function TeamNetwork({ variant, title, description, groups, pending, id }: TeamNetworkProps) {
+// 선 없는 3단 (plain · panels · lead)
+function TeamColumnsClean({ variant, title, description, groups, pending, id }: TeamNetworkProps) {
+  return (
+    <section id={id} className="block-y scroll-mt-32 bg-canvas">
+      <div className="container-page">
+        <h2 className="text-display font-bold">{title}</h2>
+        {description && <p className="mt-5 max-w-[42em] text-lg leading-[1.75] text-ink-muted">{description}</p>}
+        <ul className={cn("mt-14 grid md:grid-cols-3", variant === "panels" ? "gap-4 lg:gap-6" : "gap-12 lg:gap-16")}>
+          {groups.map((group) => {
+            const Icon = group.icon ? icons[group.icon] : null;
+            const [first, ...rest] = group.items ?? [];
+            return (
+              <li key={group.title} className={cn(variant === "panels" && "rounded-card bg-surface p-7 lg:p-8")}>
+                {Icon && <Icon aria-hidden strokeWidth={1.5} className="size-9 text-brand-600" />}
+                <h3 className="mt-5 text-subtitle font-bold">{group.title}</h3>
+
+                {variant === "lead" && first ? (
+                  <>
+                    {/* 소속·특성을 부제처럼 크게, 나머지 둘은 작게 */}
+                    <p className="mt-2 text-lg leading-[1.55] font-semibold text-brand-700">{first.value}</p>
+                    <dl className="mt-6 flex flex-col gap-4 text-[0.9375rem]">
+                      {rest.map((item) => (
+                        <div key={item.label}>
+                          <dt className="font-semibold">{item.label}</dt>
+                          <dd className="mt-0.5 leading-[1.7] text-ink-muted">{item.value}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </>
+                ) : (
+                  <dl className="mt-6 flex flex-col gap-5">
+                    {group.items?.map((item) => (
+                      <div key={item.label}>
+                        <dt className="text-sm font-semibold text-ink-subtle">{item.label}</dt>
+                        <dd className="mt-1 leading-[1.7]">{item.value}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+        {pending && <Pending text={pending} className="mt-12 min-h-28" />}
+      </div>
+    </section>
+  );
+}
+
+export function TeamNetwork(props: TeamNetworkProps) {
+  const { variant, title, description, groups, pending, id } = props;
+  if (variant === "plain" || variant === "panels" || variant === "lead") return <TeamColumnsClean {...props} />;
   if (variant === "columns") {
     return (
       <section id={id} className="block-y scroll-mt-32 bg-canvas">

@@ -256,7 +256,26 @@ export function companyPageBlocks(locale: Locale): Block[] {
   return companyBlocks("d", { live: true, locale });
 }
 
-export function companyBlocks(draft: CompanyDraftId, { live = false, locale = "ko" }: { live?: boolean; locale?: Locale } = {}): Block[] {
+// 팀·파트너 섹션 시안 (2026-10-27 "라인이 너무 많아"): 운영 회사소개 페이지에 팀 섹션만 바꿔 끼워 비교
+export const teamDrafts = [
+  { id: "a", key: "A", name: "여백형", variant: "plain", summary: "선과 상자 없이 여백만으로 나눕니다. 아이콘 · 제목 · 항목(작은 회색 라벨 + 내용)." },
+  { id: "b", key: "B", name: "판형", variant: "panels", summary: "세 묶음을 옅은 회색 판에 담습니다. 선 대신 면으로 구분해 묶음이 또렷합니다." },
+  { id: "c", key: "C", name: "위계형", variant: "lead", summary: "소속·특성을 제목 밑 부제로 크게 올리고, 나머지 두 항목은 작게. 라벨 줄이 하나 줄어듭니다." },
+] as const;
+
+export type TeamDraftId = (typeof teamDrafts)[number]["id"];
+
+export function teamDraftBlocks(id: TeamDraftId): Block[] {
+  const draft = teamDrafts.find((d) => d.id === id) ?? teamDrafts[0];
+  return companyBlocks("d", { live: true, teamVariant: draft.variant });
+}
+
+type TeamVariant = "columns" | "plain" | "panels" | "lead";
+
+export function companyBlocks(
+  draft: CompanyDraftId,
+  { live = false, locale = "ko", teamVariant = "columns" }: { live?: boolean; locale?: Locale; teamVariant?: TeamVariant } = {},
+): Block[] {
   const { greeting, vision, history, team, partners, slogan, breadcrumb, tabs, pageTitle } = content(locale);
   const top = pageTop({ locale, path: "/company" });
   const bottom = pageBottom({ locale });
@@ -270,7 +289,7 @@ export function companyBlocks(draft: CompanyDraftId, { live = false, locale = "k
       { type: "vision-mission", data: { variant: "words", ...vision, id: "vision" } },
       // 연혁은 옅은 회색 바탕: 어두운 비전과 흰 팀·파트너 사이를 나눈다
       { type: "history-pending", hidden: live ? "연혁 자료 대기" : undefined, data: { ...history, tone: "surface", id: "history" } },
-      { type: "team-network", data: { variant: "columns", ...team, pending: live ? undefined : team.pending, id: "team" } },
+      { type: "team-network", data: { variant: teamVariant, ...team, pending: live ? undefined : team.pending, id: "team" } },
       { type: "partner-groups", data: { ...partners, id: "partners" } },
       ...bottom,
     ];
