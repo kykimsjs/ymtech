@@ -39,3 +39,11 @@ export const organizationEn = {
   ceo: "Yoo Young-min",
   address: "411-412, 370 Green-ro, Naju-si, 58324, Republic of Korea",
 };
+
+// hreflang 짝. 검색에 노출하는 언어만 넣는다 (영문은 클라이언트 검토 후 indexedLocales에 en을 넣으면 자동으로 붙는다)
+export function languageAlternates(path: string) {
+  const languages: Record<string, string> = {};
+  for (const locale of indexedLocales) languages[locale] = `/${locale}${path}`;
+  if (indexedLocales.length > 1) languages["x-default"] = `/ko${path}`;
+  return languages;
+}
